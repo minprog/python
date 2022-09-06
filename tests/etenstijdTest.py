@@ -5,12 +5,17 @@ import checkpy.assertlib as asserts
 @t.test(0)
 def checks_convert(test):
     def testMethod():
-        converted = lib.getFunction("convert", test.fileName)
-        time = converted("11:15")
-        if time == 11.25:
-            return True
-        else:
-            return False
+        converted = lib.getFunction("meal", test.fileName)
+        return ((converted("7:15") == "breakfast" or converted("7:15") == "ontbijt") and
+                (converted("8:00") == "breakfast" or converted("8:00") == "ontbijt") and
+                (converted("8:01") == "" or converted("8:01") == "") and
+                converted("11:59") == "" and
+                converted("12:00") == "lunch" and
+                converted("13:00") == "lunch" and
+                (converted("18:53") == "dinner" or converted("18:53") == "avondeten") and
+                (converted("18:00") == "dinner" or converted("18:00") == "avondeten") and
+                (converted("19:00") == "dinner" or converted("19:00") == "avondeten") and
+                converted("22:12") == "")
 
     test.test = testMethod
     test.description = lambda : "De functie 'convert' werkt correct."
