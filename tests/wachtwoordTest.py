@@ -12,7 +12,7 @@ def checks_length(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'check_length' werkt correct."
+    test.description = lambda : "check_length"
 
 
 @t.test(1)
@@ -25,7 +25,7 @@ def checks_letter(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'check_letter' werkt correct."
+    test.description = lambda : "check_letter"
 
 
 @t.test(2)
@@ -38,7 +38,7 @@ def checks_number(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'check_number' werkt correct."
+    test.description = lambda : "check_number"
 
 @t.test(3)
 def checks_password(test):
@@ -50,4 +50,4 @@ def checks_password(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'check_password' werkt correct."
+    test.description = lambda : "check_password"
