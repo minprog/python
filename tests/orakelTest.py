@@ -26,12 +26,12 @@ def checks_answer1(test):
 @t.test(2)
 def checks_answer2(test):
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=["tweeen veertig"],
+        output = lib.outputOf(test.fileName, stdinArgs=["tweeënveertig"],
                     overwriteAttributes = [("__name__", "__main__")])
         return asserts.exact(output.strip(), "Ja")
 
     test.test = testMethod
-    test.description = lambda : "Het antwoord 'tweeen veertig' leidt tot de output Ja."
+    test.description = lambda : "Het antwoord 'tweeënveertig' leidt tot de output Ja."
 
 @t.test(3)
 def checks_answer3(test):

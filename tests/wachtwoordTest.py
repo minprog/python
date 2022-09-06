@@ -6,7 +6,7 @@ import checkpy.assertlib as asserts
 def checks_length(test):
     def testMethod():
         length = lib.getFunction("check_length", test.fileName)
-        if length("12345678") and length("ThisIsAtLeast8") and not length(""):
+        if length("12345678") and length("ThisIsAtLeast8") and not length("") and not length("1234567"):
             return True
         else:
             return False
@@ -32,7 +32,7 @@ def checks_letter(test):
 def checks_number(test):
     def testMethod():
         number = lib.getFunction("check_number", test.fileName)
-        if number("123") and number("Hello123") and not number("Hello"):
+        if number("123") and number("Hello123") and not number("Hello") and number("1") and number("2") and number("3") and number("4") and number("5") and number("6") and number("7") and number("8") and number("9") and number("0"):
             return True
         else:
             return False
@@ -44,7 +44,7 @@ def checks_number(test):
 def checks_password(test):
     def testMethod():
         password = lib.getFunction("check_password", test.fileName)
-        if password(True, True, True) and not password(True, False, False) and not password(False, False, False):
+        if password("AardappelTester123") and not password("hoi") and not password("Practitioner") and not password("Arb1ter") and not password("shopkeeper") and not password("12345678") and not password("1234"):
             return True
         else:
             return False
