@@ -6,9 +6,9 @@ language = "en"
 
 def expectedOutput(target, args):
     if language == "nl":
-        return f"{args} is tijd voor {target[0]}." 
+        return f"Bepaalt correct de tijd voor {target[0]}." 
     else:
-        return f"At {args} it is time for {target[1]}." 
+        return f"Correctly determines the time for {target[1]}." 
 
 @t.test(0)
 def validFile(test):
@@ -30,31 +30,13 @@ def validFile(test):
     )
 
 @t.test(1)
-def checks_convert(test):
-    def testMethod():
-        converted = lib.getFunction("convert", test.fileName)
-        time = converted("11:15")
-        if time == 11.15:
-            return True
-        else:
-            return False, time
-
-    test.test = testMethod
-    test.description = lambda : (
-        "De functie 'convert' werkt correct." 
-        if language == "nl" else
-        "The function 'convert' works correctly."
-    )
-
-
-@t.test(1)
 def checks_breakfast(test):
     target = ["ontbijt", "breakfast"]
-    args = "7:25"
+    args = ["7:25", "8:00"]
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[args],
-                    overwriteAttributes = [("__name__", "__main__")])
-        return any([asserts.contains(output.strip(), target) for target in target])
+        outputs = [lib.outputOf(test.fileName, stdinArgs=[arg],
+                    overwriteAttributes = [("__name__", "__main__")]) for arg in args]
+        return all([any([asserts.contains(output.strip(), target) for target in target]) for output in outputs])
 
     test.test = testMethod
     test.description = lambda : expectedOutput(target, args)
@@ -63,11 +45,11 @@ def checks_breakfast(test):
 @t.test(2)
 def checks_lunch(test):
     target = ["lunch", "lunch"]
-    args = "13:00"
+    args = ["13:00", "12:00"]
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[args],
-                    overwriteAttributes = [("__name__", "__main__")])
-        return any([asserts.contains(output.strip(), target) for target in target])
+        outputs = [lib.outputOf(test.fileName, stdinArgs=[arg],
+                    overwriteAttributes = [("__name__", "__main__")]) for arg in args]
+        return all([any([asserts.contains(output.strip(), target) for target in target]) for output in outputs])
 
     test.test = testMethod
     test.description = lambda : expectedOutput(target, args)
@@ -76,11 +58,11 @@ def checks_lunch(test):
 @t.test(3)
 def checks_dinner(test):
     target = ["avondeten", "dinner"]
-    args = "18:01"
+    args = ["18:53", "18:00", "19:00"]
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[args],
-                    overwriteAttributes = [("__name__", "__main__")])
-        return any([asserts.contains(output.strip(), target) for target in target])
+        outputs = [lib.outputOf(test.fileName, stdinArgs=[arg],
+                    overwriteAttributes = [("__name__", "__main__")]) for arg in args]
+        return all([any([asserts.contains(output.strip(), target) for target in target]) for output in outputs])
 
     test.test = testMethod
     test.description = lambda : expectedOutput(target, args)
@@ -88,14 +70,16 @@ def checks_dinner(test):
 
 @t.test(4)
 def checks_nomeal(test):
+    target = [""]
+    args = ["8:01", "11:59", "22:12"]
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=["19:01"],
-                    overwriteAttributes = [("__name__", "__main__")])
-        return asserts.exact(output.strip(), "")
+        outputs = [lib.outputOf(test.fileName, stdinArgs=[arg],
+                    overwriteAttributes = [("__name__", "__main__")]) for arg in args]
+        return all([any([asserts.contains(output.strip(), target) for target in target]) for output in outputs])
 
     test.test = testMethod
     test.description = lambda : (
-        "19:01 is niet een tijdstip voor een maaltijd."
+        "Herkent wanneer het niet een tijdstip voor een maaltijd is."
         if language == "nl" else
-        "19:01 is not a proper moment for a meal."
+        "Knows when it is not a proper moment for a meal."
     )
