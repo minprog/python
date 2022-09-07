@@ -54,3 +54,39 @@ def checks_overlap(test):
 
     test.test = testMethod
     test.description = lambda : "De functie 'check_overlap' werkt correct."
+
+@t.test(3)
+def checks_program(test):
+    args = ["0,0", "5,5", "3,3", "9,9"]
+    target = ['bestaat een overlap', 'is overlap']
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=args,
+                    overwriteAttributes = [("__name__", "__main__")])
+        return any([asserts.contains(output.strip(), target) for target in target])
+
+    test.test = testMethod
+    test.description = lambda : ("Het programma vindt correct overlap.")
+
+@t.test(4)
+def checks_program_no_overlap(test):
+    args = ["0,0", "5,5", "6,6", "9,9"]
+    target = ['bestaat geen overlap', 'is no overlap']
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=args,
+                    overwriteAttributes = [("__name__", "__main__")])
+        return any([asserts.contains(output.strip(), target) for target in target])
+
+    test.test = testMethod
+    test.description = lambda : ("Het programma herkent dat er geen overlap is.")
+
+@t.test(5)
+def checks_program_contained_rect(test):
+    args = ["0,0", "9,9", "6,6", "7,7"]
+    target = ['bestaat een overlap', 'is overlap']
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=args,
+                    overwriteAttributes = [("__name__", "__main__")])
+        return any([asserts.contains(output.strip(), target) for target in target])
+
+    test.test = testMethod
+    test.description = lambda : ("Het programma herkent overlap als de rechthoek wordt omvat.")
