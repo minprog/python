@@ -29,7 +29,7 @@ def validFile(test):
         "The file is valid."
     )
 
-@t.test(0)
+@t.test(1)
 def checks_answer0(test):
     target = ["Ja", "Yes"]
     args = "42"
@@ -41,7 +41,7 @@ def checks_answer0(test):
     test.test = testMethod
     test.description = lambda : expectedOutput(target, args)
 
-@t.test(1)
+@t.test(2)
 def checks_answer1(test):
     target = ["Ja", "Yes"]
     args = "tweeenveertig" if language == "nl" else "fortytwo"
@@ -53,7 +53,7 @@ def checks_answer1(test):
     test.test = testMethod
     test.description = lambda : expectedOutput(target, args)
 
-@t.test(2)
+@t.test(3)
 def checks_answer2(test):
     target = ["Ja", "Yes"]
     args = "tweeen veertig" if language == "nl" else "forty two"
@@ -65,7 +65,7 @@ def checks_answer2(test):
     test.test = testMethod
     test.description = lambda : expectedOutput(target, args)
 
-@t.test(3)
+@t.test(4)
 def checks_answer3(test):
     target = ["Nee", "No"]
     args = "TWEEENVEERTIG" if language == "nl" else "FORTYTWO"
@@ -77,7 +77,7 @@ def checks_answer3(test):
     test.test = testMethod
     test.description = lambda : expectedOutput(target, args)
 
-@t.test(4)
+@t.test(5)
 def checks_answer4(test):
     target = ["Nee", "No"]
     args = "53"

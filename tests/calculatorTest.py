@@ -54,8 +54,8 @@ def checks_answer4(test):
     test.description = lambda : "6 / 4 = 1.5"
 
 
-@t.test(4)
-def checks_answer4(test):
+@t.test(5)
+def checks_answer5(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["-8 * 12"],
                     overwriteAttributes = [("__name__", "__main__")])
