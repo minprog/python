@@ -10,15 +10,22 @@ def expectedOutput(target, args):
     else:
         return f"The answer '{args}' produces the output {target[1]}." 
 
+def get_language(source):
+    source_no_comments = lib.removeComments(source)
+    if "breakfast" in source_no_comments:
+        return "en"
+    else:
+        return "nl"
+
 @t.test(0)
 def validFile(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=[""],
                     overwriteAttributes = [("__name__", "__main__")])
-        if "Nee" in output:
+        if "Nee" in output or "Ja" in output:
             global language
             language = "nl"
-        elif not "No" in output:
+        elif not "No" in output or "Yes" in output:
             return False, f"Output not recognized; please double check examples on the assignment page."
         return asserts.fileExists(test.fileName)
 
@@ -44,6 +51,7 @@ def checks_answer0(test):
 @t.test(2)
 def checks_answer1(test):
     target = ["Ja", "Yes"]
+    language = get_language(lib.source(_fileName))
     args = "tweeenveertig" if language == "nl" else "fortytwo"
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=[args],
@@ -56,6 +64,7 @@ def checks_answer1(test):
 @t.test(3)
 def checks_answer2(test):
     target = ["Ja", "Yes"]
+    language = get_language(lib.source(_fileName))
     args = "tweeen veertig" if language == "nl" else "forty two"
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=[args],
@@ -68,6 +77,7 @@ def checks_answer2(test):
 @t.test(4)
 def checks_answer3(test):
     target = ["Nee", "No"]
+    language = get_language(lib.source(_fileName))
     args = "TWEEENVEERTIG" if language == "nl" else "FORTYTWO"
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=[args],
