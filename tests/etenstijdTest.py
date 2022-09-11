@@ -31,55 +31,69 @@ def validFile(test):
 
 @t.test(1)
 def checks_breakfast(test):
-    target = ["ontbijt", "breakfast"]
-    args = ["7:25", "8:00"]
+    correct_meal_descriptions = ["ontbijt", "breakfast"]
     def testMethod():
-        outputs = [lib.outputOf(test.fileName, stdinArgs=[arg],
-                    overwriteAttributes = [("__name__", "__main__")]) for arg in args]
-        return all([any([asserts.contains(output.strip(), target) for target in target]) for output in outputs])
+        output = lib.outputOf(test.fileName, stdinArgs=["7:25"], overwriteAttributes = [("__name__", "__main__")])
+        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
+            return False
+
+        output = lib.outputOf(test.fileName, stdinArgs=["8:00"], overwriteAttributes = [("__name__", "__main__")])
+        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
+            return False
+
+        output = lib.outputOf(test.fileName, stdinArgs=["8:01"], overwriteAttributes = [("__name__", "__main__")])
+        if any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
+            return False
+
+        return True
 
     test.test = testMethod
-    test.description = lambda : expectedOutput(target, args)
+    test.description = lambda : expectedOutput(correct_meal_descriptions, None)
 
 
 @t.test(2)
 def checks_lunch(test):
-    target = ["lunch", "lunch"]
-    args = ["13:00", "12:00"]
+    correct_meal_descriptions = ["lunch", "lunch"]
     def testMethod():
-        outputs = [lib.outputOf(test.fileName, stdinArgs=[arg],
-                    overwriteAttributes = [("__name__", "__main__")]) for arg in args]
-        return all([any([asserts.contains(output.strip(), target) for target in target]) for output in outputs])
+        output = lib.outputOf(test.fileName, stdinArgs=["13:00"], overwriteAttributes = [("__name__", "__main__")])
+        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
+            return False
+
+        output = lib.outputOf(test.fileName, stdinArgs=["12:00"], overwriteAttributes = [("__name__", "__main__")])
+        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
+            return False
+
+        output = lib.outputOf(test.fileName, stdinArgs=["13:40"], overwriteAttributes = [("__name__", "__main__")])
+        if any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
+            return False
+
+        return True
 
     test.test = testMethod
-    test.description = lambda : expectedOutput(target, args)
+    test.description = lambda : expectedOutput(correct_meal_descriptions, None)
 
 
 @t.test(3)
 def checks_dinner(test):
-    target = ["avondeten", "dinner"]
-    args = ["18:53", "18:00", "19:00"]
+    correct_meal_descriptions = ["avondeten", "dinner"]
     def testMethod():
-        outputs = [lib.outputOf(test.fileName, stdinArgs=[arg],
-                    overwriteAttributes = [("__name__", "__main__")]) for arg in args]
-        return all([any([asserts.contains(output.strip(), target) for target in target]) for output in outputs])
+        output = lib.outputOf(test.fileName, stdinArgs=["18:53"], overwriteAttributes = [("__name__", "__main__")])
+        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
+            return False
+
+        output = lib.outputOf(test.fileName, stdinArgs=["18:00"], overwriteAttributes = [("__name__", "__main__")])
+        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
+            return False
+
+        output = lib.outputOf(test.fileName, stdinArgs=["19:00"], overwriteAttributes = [("__name__", "__main__")])
+        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
+            return False
+
+        output = lib.outputOf(test.fileName, stdinArgs=["19:59"], overwriteAttributes = [("__name__", "__main__")])
+        if any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
+            return False
+
+        return True
 
     test.test = testMethod
-    test.description = lambda : expectedOutput(target, args)
-
-
-@t.test(4)
-def checks_nomeal(test):
-    target = [""]
-    args = ["8:01", "11:59", "22:12"]
-    def testMethod():
-        outputs = [lib.outputOf(test.fileName, stdinArgs=[arg],
-                    overwriteAttributes = [("__name__", "__main__")]) for arg in args]
-        return all([any([asserts.contains(output.strip(), target) for target in target]) for output in outputs])
-
-    test.test = testMethod
-    test.description = lambda : (
-        "Herkent wanneer het niet een tijdstip voor een maaltijd is."
-        if language == "nl" else
-        "Knows when it is not a proper moment for a meal."
-    )
+    test.description = lambda : expectedOutput(correct_meal_descriptions, None)
