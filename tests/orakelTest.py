@@ -65,7 +65,7 @@ def checks_answer1(test):
 def checks_answer2(test):
     target = ["Ja", "Yes"]
     language = get_language(lib.source(_fileName))
-    args = "tweeen veertig" if language == "nl" else "forty two"
+    args = "tweeënveertig" if language == "nl" else "forty two"
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=[args],
                     overwriteAttributes = [("__name__", "__main__")])
