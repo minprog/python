@@ -20,7 +20,7 @@ def checks_input(test):
 @t.test(1)
 def checks_convert_dna(test):
     def testMethod():
-        convert = lib.getFunction("convert_dna", test.fileName)
+        convert = lib.getFunction("transcribe_dna_to_rna", test.fileName)
         if (convert(["A", "T", "G", "C"]) == ["U", "A", "C", "G"]
             and convert(["a", "A", "t", "g", "c"]) == ["U", "U", "A", "C", "G"]):
             return True
@@ -28,7 +28,7 @@ def checks_convert_dna(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'convert_dna' werkt correct."
+    test.description = lambda : "De functie 'transcribe_dna_to_rna' werkt correct."
 
 
 @t.test(2)
