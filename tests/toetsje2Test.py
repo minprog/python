@@ -2,6 +2,10 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
+import sys
+import subprocess
+import re
+
 @t.test(1000)
 def mypy_ok(test):
     def testMethod():
