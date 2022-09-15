@@ -18,22 +18,22 @@ def checks_convert0(test):
 def checks_convert1(test):
     def testMethod():
         convert = lib.getFunction("convert", test.fileName)
-        if convert("checkInput") == "check_input":
+        if convert("convertInput") == "convert_input":
             return True
         else:
             return False
 
     test.test = testMethod
-    test.description = lambda : "'checkInput' wordt succesvol geconverteerd naar 'check_input'."
+    test.description = lambda : "'convertInput' wordt succesvol geconverteerd naar 'convert_input'."
 
 @t.test(2)
 def checks_convert2(test):
     def testMethod():
         convert = lib.getFunction("convert", test.fileName)
-        if convert("checkInputFromUser") == "check_input_from_user":
+        if convert("readFromFile") == "read_from_file":
             return True
         else:
             return False
 
     test.test = testMethod
-    test.description = lambda : "'checkInputFromUser' wordt succesvol geconverteerd naar 'check_input_from_user'."
+    test.description = lambda : "'readFromFile' wordt succesvol geconverteerd naar 'read_from_file'."
