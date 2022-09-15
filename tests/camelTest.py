@@ -14,7 +14,7 @@ def checks_convert0(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "'check' -> 'check'"
+    test.description = lambda : "'check' correctly remains 'check'"
 
 @t.test(1)
 def checks_convert1(test):
