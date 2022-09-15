@@ -2,6 +2,8 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
+from _extensions import *
+
 @t.test(0)
 def checks_coin(test):
     def testMethod():
@@ -12,7 +14,7 @@ def checks_coin(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'check_coin' werkt correct."
+    test.description = lambda : "'check_coin' works correctly."
 
 @t.test(1)
 def checks_due(test):
@@ -24,7 +26,7 @@ def checks_due(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'determine_due' werkt correct."
+    test.description = lambda : "'determine_due' works correctly."
 
 @t.test(2)
 def checks_main(test):
@@ -35,4 +37,4 @@ def checks_main(test):
         return asserts.exact(output.strip()[-2:], answer)
 
     test.test = testMethod
-    test.description = lambda : "Het wisselgeld (10) wordt correct berekend bij het inwerpen van 25, 10, en 25 cent."
+    test.description = lambda : "The change (10) is correctly calculated after inserting 25, 10, en 25 cents."

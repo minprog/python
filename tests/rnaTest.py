@@ -2,6 +2,7 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
+from _extensions import *
 
 @t.test(0)
 def checks_input(test):
@@ -14,7 +15,7 @@ def checks_input(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'check_input' werkt correct."
+    test.description = lambda : "'check_input' works correctly."
 
 
 @t.test(1)
@@ -28,7 +29,7 @@ def checks_convert_dna(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'transcribe_dna_to_rna' werkt correct."
+    test.description = lambda : "'transcribe_dna_to_rna' works correctly."
 
 
 @t.test(2)
@@ -41,7 +42,7 @@ def checks_convert_list(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'convert_to_list' werkt correct."
+    test.description = lambda : "'convert_to_list' works correctly."
 
 
 @t.test(3)
@@ -54,4 +55,4 @@ def checks_convert_string(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'convert_to_string' werkt correct."
+    test.description = lambda : "'convert_to_string' works correctly."

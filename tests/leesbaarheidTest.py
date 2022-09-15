@@ -2,6 +2,8 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
+from _extensions import *
+
 @t.test(0)
 def checks_count(test):
     def testMethod():
@@ -15,7 +17,7 @@ def checks_count(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'count_values' werkt correct."
+    test.description = lambda : "'count_values' works correctly."
 
 @t.test(1)
 def checks_coleman_liau(test):
@@ -27,7 +29,7 @@ def checks_coleman_liau(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'coleman_liau' werkt correct."
+    test.description = lambda : "'coleman_liau' works correctly."
 
 @t.test(2)
 def checks_calculate_grade(test):
@@ -39,7 +41,7 @@ def checks_calculate_grade(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'calculate_grade' werkt correct."
+    test.description = lambda : "'calculate_grade' works correctly."
 
 @t.test(3)
 def checks_tekst1(test):
@@ -49,7 +51,7 @@ def checks_tekst1(test):
         return asserts.exact(output.strip(), "Grade 7")
 
     test.test = testMethod
-    test.description = lambda : "Geeft de correcte grade bij een test tekst."
+    test.description = lambda : "Determines the correct Grade 7 for a short sentence."
 
 
 @t.test(4)
@@ -60,4 +62,4 @@ def checks_tekst2(test):
         return asserts.exact(output.strip(), "Grade 10")
 
     test.test = testMethod
-    test.description = lambda : "Geeft de correcte grade bij een test tekst."
+    test.description = lambda : "Determines the correct Grade 10 for a long sentence."
