@@ -30,7 +30,9 @@ def doctest_ok(test):
         n_tests = int(test_stats.group(1))
         n_items = int(test_stats.group(2))-1
         n_pass  = int(test_pass.group(1))
-        if n_tests // n_items < 2:
+        if n_items == 0
+            return False, "Your program must use functions"
+        elif n_tests // n_items < 2:
             return False, f"{n_tests} examples in {n_items} functions is not quite enough"
         elif n_pass < n_tests:
             return False, f"{n_pass} out of {n_tests} examples failed"
