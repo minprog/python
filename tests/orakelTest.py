@@ -12,7 +12,7 @@ def expectedOutput(target, args):
 
 def get_language(source):
     source_no_comments = lib.removeComments(source)
-    if "veertig" in source_no_comments:
+    if "forty" in source_no_comments:
         return "en"
     else:
         return "nl"
