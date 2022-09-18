@@ -22,7 +22,9 @@ def mypy_ok(test):
 @t.test(1001)
 def doctest_ok(test):
     def testMethod():
-        p = subprocess.run([sys.executable or 'python3', '-m', 'doctest', '-v', test.fileName], stdout=subprocess.PIPE, universal_newlines=True)
+        p = subprocess.run([sys.executable or 'python3', '-m', 'doctest', '-v', test.fileName], capture_output=True, universal_newlines=True)
+        if "Traceback" in p.stderr:
+            return False, p.stderr.splitlines()[-1]
         test_stats_rex = re.compile('(\d*) tests in (\d*) items')
         test_pass_rex = re.compile('(\d*) passed and (\d*) failed')
         test_stats = test_stats_rex.search(p.stdout)
