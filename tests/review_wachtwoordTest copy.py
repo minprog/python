@@ -9,7 +9,7 @@ import re
 @t.test(1000)
 def mypy_ok(test):
     def testMethod():
-        p = subprocess.run(['mypy', '--strict', '*.py'], stdout=subprocess.PIPE, universal_newlines=True)
+        p = subprocess.run(['mypy', '--strict', test.fileName], stdout=subprocess.PIPE, universal_newlines=True)
         return p.returncode == 0, p.stdout
 
     def report(output):
