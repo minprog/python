@@ -8,7 +8,7 @@ from _extensions import *
 def checks_coleman_liau(test):
     def testMethod():
         coleman_liau = lib.getFunction("coleman_liau", test.fileName)
-        if coleman_liau(537, 4.2) == 15:
+        if coleman_liau(537, 4.2) == 14.532399999999996:
             return True
         else:
             return False
