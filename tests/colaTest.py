@@ -20,7 +20,7 @@ def checks_coin(test):
 def checks_due(test):
     def testMethod():
         due = lib.getFunction("determine_due", test.fileName)
-        if due(25) == 25 and due(20) == 50 and due(10) == 40:
+        if due(50, 25) == 25 and due(50, 20) == 50 and due(50, 10) == 40:
             return True
         else:
             return False
