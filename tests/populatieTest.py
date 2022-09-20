@@ -2,6 +2,7 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
+from _extensions import *
 
 @t.test(0)
 def checks_calculate_years(test):
@@ -15,14 +16,14 @@ def checks_calculate_years(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'calculate_years' werkt correct."
+    test.description = lambda : "'calculate_years' works correctly."
 
 @t.test(1)
 def check_overall2(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=[6, 9, 5, -6, 18],
             overwriteAttributes = [("__name__", "__main__")])
-        return asserts.exact(output.strip()[-1], "8")
+        return asserts.contains(output.strip(), "8")
 
     test.test = testMethod
-    test.description = lambda : "Je programma werkt volledig: wanneer incorrecte input wordt gegeven, wordt geprompt totdat er correcte input is. Waarna correct het aantal jaar wordt geprint."
+    test.description = lambda : "Handles incorrect input and calculates correct number of years after valid retry."

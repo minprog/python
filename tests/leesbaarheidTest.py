@@ -4,21 +4,6 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-@t.test(0)
-def checks_count(test):
-    def testMethod():
-        count_values = lib.getFunction("count_values", test.fileName)
-        if (count_values("Hello, this sentence contains words.") == (30, 5, 1) and
-            count_values("Hello world. The wheather is great today!") == (33, 7, 2) and
-            count_values("Sentence, with; loads: of characeters. Let's make it two!")
-            == (43, 9, 2)):
-            return True
-        else:
-            return False
-
-    test.test = testMethod
-    test.description = lambda : "'count_values' works correctly."
-
 @t.test(1)
 def checks_coleman_liau(test):
     def testMethod():
