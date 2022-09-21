@@ -17,7 +17,7 @@ def mypy_ok(test):
 
     test.description = lambda: "Types are specified and correctly used."
     test.test = testMethod
-    # test.fail = report
+    test.fail = report
 
 @t.test(1001)
 def doctest_ok(test):
