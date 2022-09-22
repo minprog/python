@@ -38,7 +38,7 @@ def checks_shuffle_round(test):
         board = [0, 0, 0, 0]
         for i in range(10000):
             stones = shuffle_round(board, 100)
-        board = [b / 100 for b in board]
+        board = [b / 10000 for b in board]
         if (6.5 < board[0] < 8.5 and 4 < board[1] < 6 and 4 < board[2] < 6 and
             6.5 < board[3] < 8.5):
             return True
