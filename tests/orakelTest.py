@@ -2,6 +2,8 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
+import time
+
 language = "en"
 
 def expectedOutput(target, args):
@@ -19,6 +21,7 @@ def get_language(source):
 
 @t.test(0)
 def validFile(test):
+    time.sleep(1)
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=[""],
                     overwriteAttributes = [("__name__", "__main__")])
