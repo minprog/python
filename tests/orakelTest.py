@@ -21,7 +21,7 @@ def get_language(source):
 
 @t.test(0)
 def validFile(test):
-    time.sleep(1)
+    time.sleep(4)
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=[""],
                     overwriteAttributes = [("__name__", "__main__")])
