@@ -1,4 +1,4 @@
-import checkpy.tests as t
+import _tests as tt
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
@@ -6,90 +6,49 @@ language = "en"
 
 def expectedOutput(target, args):
     if language == "nl":
-        return f"Print correct: 'Je krijgt {target} cafeine binnen.' bij {str(args)} als invoer." 
+        return f"Print 'Je krijgt {target} cafeine binnen.' bij {str(args)} als invoer."
     else:
-        return f"Print correct: 'Your intake is {target} of caffeine.' for {str(args)} as input."
+        return f"Prints 'Your intake is {target} of caffeine.' for {str(args)} as input."
 
-@t.test(0)
-def validFile(test):
+def caffeineTest(test, values, target):
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[0, 0, 0, 0])
-        if "krijgt" in output:
-            global language
-            language = "nl"
-        elif not "intake" in output:
-            return False, "Output not recognized; please double check examples on the assignment page."
-        return asserts.fileExists(test.fileName)
-
-    test.test = testMethod
-    test.description = lambda : (
-        "Het bestand is in orde."
-        if language == "nl" else
-        "The file is valid."
-    )
-
-@t.test(1)
-def calculatesZeroCafeine(test):
-    target = "0 mg"
-    args = [0, 0, 0, 0]
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=args)
+        output = test.runProgram(values)
         return asserts.contains(output.strip(), target)
-
     test.test = testMethod
-    test.description = lambda: expectedOutput(target, args)
+    test.description = lambda: expectedOutput(target, values)
 
-@t.test(2)
+@tt.test(0)
+def assign_language(test):
+    source_no_comments = lib.removeComments(lib.source(test.fileName))
+    global language
+    if "binnen" in source_no_comments:
+        language = "nl"
+        test.description = lambda: f"{test.fileName} bestaat en het programma lijkt Nederlandstalig"
+    else:
+        language = "en"
+        test.description = lambda: f"{test.fileName} exists and seems to be written in {language.upper()}"
+    test.test = lambda: True
+
+@tt.test(1)
+def calculatesZeroCaffeine(test):
+    caffeineTest(test, [0, 0, 0, 0], "0 mg")
+
+@tt.test(2)
 def calculatesCoffee(test):
-    target = "90 mg"
-    args = [1, 0, 0, 0]
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=args)
-        return asserts.contains(output.strip(), target)
+    caffeineTest(test, [1, 0, 0, 0], "90 mg")
 
-    test.test = testMethod
-    test.description = lambda: expectedOutput(target, args)
-
-@t.test(2)
+@tt.test(2)
 def calculatesTea(test):
-    target = "45 mg"
-    args = [0, 1, 0, 0]
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=args)
-        return asserts.contains(output.strip(), target)
+    caffeineTest(test, [0, 1, 0, 0], "45 mg")
 
-    test.test = testMethod
-    test.description = lambda: expectedOutput(target, args)
-
-@t.test(2)
+@tt.test(2)
 def calculatesEnergy(test):
-    target = "80 mg"
-    args = [0, 0, 1, 0]
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=args)
-        return asserts.contains(output.strip(), target)
+    caffeineTest(test, [0, 0, 1, 0], "80 mg")
 
-    test.test = testMethod
-    test.description = lambda: expectedOutput(target, args)
-
-@t.test(2)
+@tt.test(2)
 def calculatesCola(test):
-    target = "40 mg"
-    args = [0, 0, 0, 1]
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=args)
-        return asserts.contains(output.strip(), target)
+    caffeineTest(test, [0, 0, 0, 1], "40 mg")
 
-    test.test = testMethod
-    test.description = lambda: expectedOutput(target, args)
-
-@t.test(3)
+@tt.test(3)
 def calculatesSomeCafeine(test):
-    target = "580 mg"
-    args = [1, 2, 3, 4]
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=args)
-        return asserts.contains(output.strip(), target)
-
-    test.test = testMethod
-    test.description = lambda: expectedOutput(target, args)
+    caffeineTest(test, [1, 2, 3, 4], "580 mg")
