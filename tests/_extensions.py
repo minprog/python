@@ -15,7 +15,7 @@ def mypy_ok(test):
     def report(output):
         return 'Line ' + '\n  - Line '.join([':'.join(i.split(':')[1:]) for i in output.splitlines()[:-1]])
 
-    test.description = lambda: "Types are specified and correctly used."
+    test.description = lambda: "Types are specified and correctly used"
     test.test = testMethod
     test.fail = report
 
@@ -40,6 +40,6 @@ def doctest_ok(test):
             return False, f"{n_pass} out of {n_tests} examples passed"
         return True
 
-    test.description = lambda: "Doctests are specified and all examples pass."
+    test.description = lambda: "Doctests are specified and all examples pass"
     test.test = testMethod
     test.fail = lambda info: info

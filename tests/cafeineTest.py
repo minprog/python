@@ -6,9 +6,9 @@ language = "en"
 
 def expectedOutput(target, args):
     if language == "nl":
-        return f"Print 'Je krijgt {target} cafeine binnen.' bij {str(args)} als invoer."
+        return f"Print 'Je krijgt {target} cafeine binnen.' bij {str(args)} als invoer"
     else:
-        return f"Prints 'Your intake is {target} of caffeine.' for {str(args)} as input."
+        return f"Prints 'Your intake is {target} of caffeine.' for {str(args)} as input"
 
 def caffeineTest(test, values, target):
     def testMethod():
