@@ -1,103 +1,72 @@
-import checkpy.tests as t
+import _tests as tt
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
-import time
-
-language = "en"
+from _extensions import *
 
 def expectedOutput(target, args):
     if language == "nl":
-        return f"Het antwoord '{args}' leidt tot de output {target[0]}." 
+        return f"Het antwoord '{args}' geeft de uitvoer {target[0]}." 
     else:
         return f"The answer '{args}' produces the output {target[1]}." 
 
-def get_language(source):
-    source_no_comments = lib.removeComments(source)
-    if "forty" in source_no_comments:
-        return "en"
+@tt.test(0)
+def assign_language(test):
+    source_no_comments = lib.removeComments(lib.source(test.fileName))
+    global language
+    if "veertig" in source_no_comments:
+        language = "nl"
     else:
-        return "nl"
+        language = "en"
+    test.test = lambda: True
+    test.description = lambda: f"{test.fileName} exists and seems to be written in {language.upper()}"
 
-@t.test(0)
-def validFile(test):
-    time.sleep(4)
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[""],
-                    overwriteAttributes = [("__name__", "__main__")])
-        if "Nee" in output or "Ja" in output:
-            global language
-            language = "nl"
-        elif not "No" in output or "Yes" in output:
-            return False, f"Output not recognized; please double check examples on the assignment page."
-        return asserts.fileExists(test.fileName)
-
-    test.test = testMethod
-    test.description = lambda : (
-        "Het bestand is in orde."
-        if language == "nl" else
-        "The file is valid."
-    )
-
-@t.test(1)
+@tt.test(1)
 def checks_answer0(test):
     target = ["Ja", "Yes"]
-    args = "42"
+    input_entries = "42"
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[args],
-                    overwriteAttributes = [("__name__", "__main__")])
+        output = test.runProgram(input_entries)
         return any([asserts.exact(output.strip(), target) for target in target])
-
     test.test = testMethod
-    test.description = lambda : expectedOutput(target, args)
+    test.description = lambda : expectedOutput(target, input_entries)
 
-@t.test(2)
+@tt.test(2)
 def checks_answer1(test):
     target = ["Ja", "Yes"]
-    language = get_language(lib.source(_fileName))
-    args = "tweeenveertig" if language == "nl" else "fortytwo"
+    input_entries = "tweeenveertig" if language == "nl" else "fortytwo"
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[args],
-                    overwriteAttributes = [("__name__", "__main__")])
+        output = test.runProgram(input_entries)
         return any([asserts.exact(output.strip(), target) for target in target])
-
     test.test = testMethod
-    test.description = lambda : expectedOutput(target, args)
+    test.description = lambda : expectedOutput(target, input_entries)
 
-@t.test(3)
+@tt.test(3)
 def checks_answer2(test):
     target = ["Ja", "Yes"]
-    language = get_language(lib.source(_fileName))
-    args = "tweeënveertig" if language == "nl" else "forty two"
+    input_entries = "tweeënveertig" if language == "nl" else "forty two"
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[args],
-                    overwriteAttributes = [("__name__", "__main__")])
+        output = test.runProgram(input_entries)
         return any([asserts.exact(output.strip(), target) for target in target])
-
     test.test = testMethod
-    test.description = lambda : expectedOutput(target, args)
+    test.description = lambda : expectedOutput(target, input_entries)
 
-@t.test(4)
+@tt.test(4)
 def checks_answer3(test):
     target = ["Nee", "No"]
-    language = get_language(lib.source(_fileName))
-    args = "TWEEENVEERTIG" if language == "nl" else "FORTYTWO"
+    input_entries = "TWEEENVEERTIG" if language == "nl" else "FORTYTWO"
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[args],
-                    overwriteAttributes = [("__name__", "__main__")])
+        output = test.runProgram(input_entries)
         return any([asserts.exact(output.strip(), target) for target in target])
-
     test.test = testMethod
-    test.description = lambda : expectedOutput(target, args)
+    test.description = lambda : expectedOutput(target, input_entries)
 
-@t.test(5)
+@tt.test(5)
 def checks_answer4(test):
     target = ["Nee", "No"]
-    args = "53"
+    input_entries = "53"
     def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[args],
-                    overwriteAttributes = [("__name__", "__main__")])
+        output = test.runProgram(input_entries)
         return any([asserts.exact(output.strip(), target) for target in target])
-
     test.test = testMethod
-    test.description = lambda : expectedOutput(target, args)
+    test.description = lambda : expectedOutput(target, input_entries)

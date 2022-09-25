@@ -44,7 +44,7 @@ class Test(object):
 		return lib.getFunction(functionName, self._fileName)
 
 	def runProgram(self, input_entries):
-		if type(input_entries) == 'str':
+		if type(input_entries) == str:
 			input_entries = [input_entries]
 		return lib.outputOf(self._fileName, 
 							stdinArgs=input_entries,
