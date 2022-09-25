@@ -4,18 +4,17 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-def expectedOutput(target, args):
-    if language == "nl":
-        return f"Het antwoord '{args}' geeft de uitvoer {target}"
-    else:
-        return f"The answer '{args}' produces the output {target}"
-
 def orakelTest(test, value, target):
     def testMethod():
         output = test.runProgram(value)
         return asserts.exact(output.strip(), target)
+    def expectedOutput():
+        if language == "nl":
+            return f"Het antwoord '{value}' geeft de uitvoer {target}"
+        else:
+            return f"The answer '{value}' produces the output {target}"
     test.test = testMethod
-    test.description = lambda : expectedOutput(target, value)
+    test.description = expectedOutput
 
 @tt.test(0)
 def assign_language(test):
