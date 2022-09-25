@@ -26,7 +26,7 @@ def assign_language(test):
         test.description = lambda: f"{test.fileName} bestaat en het programma lijkt Nederlandstalig"
     else:
         language = "en"
-        test.description = lambda: f"{test.fileName} exists and seems to be written in {language.upper()}"
+        test.description = lambda: f"{test.fileName} exists and the program seems to be in English"
     test.test = lambda: True
 
 @tt.test(1)
