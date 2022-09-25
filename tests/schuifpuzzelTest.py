@@ -6,40 +6,56 @@ import checkpy.assertlib as asserts
 @t.test(0)
 def checks_set_board(test):
     def testMethod():
-        set_board = lib.getFunction("set_board", test.fileName)
-        if (set_board(4) == [[15, 14, 13, 12], [11, 10, 9, 8], [7, 6, 5, 4], [3, 1, 2, 0]] and
-            set_board(3) == [[8, 7, 6], [5, 4, 3], [2, 1, 0]]):
+        set_board = lib.getFunction("create_board", test.fileName)
+        if set_board() == [
+            [15, 14, 13, 12],
+            [11, 10, 9, 8],
+            [7, 6, 5, 4],
+            [3, 1, 2, 0],
+        ]:
             return True
         else:
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'set_board' werkt correct."
+    test.description = lambda: "'create_board' works correctly."
+
 
 @t.test(1)
 def checks_is_won(test):
     def testMethod():
         is_won = lib.getFunction("is_won", test.fileName)
-        if (is_won([[1, 2, 3], [4, 5, 6], [7, 8, 0]]) and not
-            is_won([[1, 2, 3], [4, 5, 6], [8, 7, 0]]) and
-            is_won([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]])):
+        if (
+            is_won([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]])
+            and not is_won([[1, 2, 3], [4, 5, 6], [8, 7, 0]])
+            and not is_won(
+                [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 0, 15]]
+            )
+        ):
             return True
         else:
             return False
 
     test.test = testMethod
-    test.description = lambda : "De functie 'is_won' werkt correct."
+    test.description = lambda: "'is_won' works correctly."
 
 
 @t.test(2)
 def checks_move_tile(test):
     def testMethod():
         move_tile = lib.getFunction("move_tile", test.fileName)
-        if (move_tile([[8, 7, 6], [5, 4, 3], [2, 1, 0]], 3) == ([[8, 7, 6], [5, 4, 0], [2, 1, 3]], True)
-            and move_tile([[8, 7, 6], [5, 4, 3], [2, 1, 0]], 7) == ([[8, 7, 6], [5, 4, 3], [2, 1, 0]], False)):
-            return True
-        else:
-            return False
+        if not (
+            move_tile([[8, 7, 6], [5, 4, 3], [2, 1, 0]], 3) == True
+            and move_tile([[8, 7, 6], [5, 4, 3], [2, 1, 0]], 7) == False
+        ):
+            return False, "Returning the wrong boolean for correct/incorrect moves."
+
+        board = [[8, 7, 6], [5, 4, 3], [2, 1, 0]]
+        move_tile(board, 1)
+        if not board == [[8, 7, 6], [5, 4, 3], [2, 0, 1]]:
+            return False, "Board does not correctly update after valid move."
+
+        return True
 
     test.test = testMethod
-    test.description = lambda : "De functie 'move_tile' werkt correct."
+    test.description = lambda: "'move_tile' works correctly."
