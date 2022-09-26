@@ -52,7 +52,7 @@ def check_S2(test):
 
     test.test = testMethod
     test.description = (
-        lambda: "Player 1 with 'Hotel' loses from Player 2 with 'Kapmeren'."
+        lambda: "Player 1 with 'Hotel' loses from Player 2 with 'Kamperen'."
     )
 
 
