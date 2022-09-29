@@ -136,7 +136,7 @@ def checks_table(test):
             stdinArgs=[1800, 12],
             overwriteAttributes=[("__name__", "__main__")],
         )
-        if not re.search(r"28  29  30\ *\n", output):
+        if not re.search(r"\ *28  29  30  31\ *\n", output):
             return False, "The last week of 1800 is printed incorrectly."
 
         return True
