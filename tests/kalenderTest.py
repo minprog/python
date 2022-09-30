@@ -15,7 +15,7 @@ def checks_check_leap_year(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'is_leap_year' works correctly."
+    test.description = lambda: "'is_leap_year' works correctly"
 
 
 @t.test(1)
@@ -28,7 +28,7 @@ def checks_days_from_1800(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'days_from_1800' works correctly."
+    test.description = lambda: "'days_from_1800' works correctly"
 
 
 @t.test(2)
@@ -41,7 +41,7 @@ def checks_days_from_1800_till_year(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'days_from_1800_until_year' works correctly."
+    test.description = lambda: "'days_from_1800_until_year' works correctly"
 
 
 @t.test(3)
@@ -54,7 +54,7 @@ def checks_days_in_month(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'days_in_month' works correctly."
+    test.description = lambda: "'days_in_month' works correctly"
 
 
 @t.test(4)
@@ -71,7 +71,7 @@ def checks_days_until_month(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'days_until_month' works correctly."
+    test.description = lambda: "'days_until_month' works correctly"
 
 
 @t.test(5)
@@ -84,11 +84,11 @@ def checks_first_weekday_month(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'first_weekday_month' works correctly."
+    test.description = lambda: "'first_weekday_month' works correctly"
 
 
 @t.test(6)
-def checks_first_weekday_month(test):
+def check_header(test):
     def testMethod():
         output = lib.outputOf(
             test.fileName,
@@ -108,11 +108,11 @@ def checks_first_weekday_month(test):
         return True
 
     test.test = testMethod
-    test.description = lambda: "The correct year and month are printed in the table."
+    test.description = lambda: "year and month are printed in the header"
 
 
 @t.test(7)
-def checks_table(test):
+def check_grid(test):
     def testMethod():
         output = lib.outputOf(
             test.fileName,
@@ -122,7 +122,7 @@ def checks_table(test):
 
         if not (asserts.contains(output, "Sun Mon Tue Wed Thu Fri Sat\n") or
             asserts.contains(output, "Zon Maa Din Woe Don Vri Zat\n")):
-            return False, "The days of the month are missing."
+            return False, "the weekday names are missing or misspelled"
 
         output = lib.outputOf(
             test.fileName,
@@ -130,7 +130,7 @@ def checks_table(test):
             overwriteAttributes=[("__name__", "__main__")],
         )
         if not re.search(r"\ *1   2   3   4\ *\n", output):
-            return False, "The first week of January 1800 is printed incorrectly."
+            return False, "the first week of January 1800 is printed incorrectly"
 
         output = lib.outputOf(
             test.fileName,
@@ -138,17 +138,18 @@ def checks_table(test):
             overwriteAttributes=[("__name__", "__main__")],
         )
         if not re.search(r"\ *28  29  30  31", output):
-            return False, "The last week of December 1800 is printed incorrectly."
+            return False, "the last week of December 1800 is printed incorrectly"
 
         if not re.search(r"\ *28  29  30  31\ *\n", output):
-            return False, "The last week of December 1800 does not end with a newline."
+            return False, "the last line of the grid does not end with a newline"
 
         return True
 
     test.test = testMethod
-    test.description = lambda: "The program correctly prints a month calendar."
+    test.description = lambda: "correctly prints a calendar grid"
 
 
+@t.passed(check_grid)
 @t.test(8)
 def checks_leap_years(test):
     def testMethod():
@@ -158,7 +159,7 @@ def checks_leap_years(test):
             overwriteAttributes=[("__name__", "__main__")],
         )
         if re.search(r"\ *25  26  27  28  29\ *\n", output):
-            return False, "The year 1900 should not be a leap year, but is in your program."
+            return False, "the year 1900 should not be a leap year, but is in your program"
 
         output = lib.outputOf(
             test.fileName,
@@ -166,9 +167,9 @@ def checks_leap_years(test):
             overwriteAttributes=[("__name__", "__main__")],
         )
         if not re.search(r"\ *27  28  29\ *\n", output):
-            return False, "The year 2000 should be a leap year, but isn't in your program."
+            return False, "the year 2000 should be a leap year, but isn't in your program"
 
         return True
 
     test.test = testMethod
-    test.description = lambda: "The program correctly accounts for leap years."
+    test.description = lambda: "correctly prints leap year calendars"
