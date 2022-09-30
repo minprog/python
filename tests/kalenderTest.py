@@ -119,6 +119,7 @@ def checks_table(test):
             stdinArgs=[1900, 2],
             overwriteAttributes=[("__name__", "__main__")],
         )
+
         if not (asserts.contains(output, "Sun Mon Tue Wed Thu Fri Sat\n") or
             asserts.contains(output, "Zon Maa Din Woe Don Vri Zat\n")):
             return False, "The days of the month are missing."
@@ -129,15 +130,18 @@ def checks_table(test):
             overwriteAttributes=[("__name__", "__main__")],
         )
         if not re.search(r"\ *1   2   3   4\ *\n", output):
-            return False, "The first week of 1800 is printed incorrectly."
+            return False, "The first week of January 1800 is printed incorrectly."
 
         output = lib.outputOf(
             test.fileName,
             stdinArgs=[1800, 12],
             overwriteAttributes=[("__name__", "__main__")],
         )
+        if not re.search(r"\ *28  29  30  31", output):
+            return False, "The last week of December 1800 is printed incorrectly."
+
         if not re.search(r"\ *28  29  30  31\ *\n", output):
-            return False, "The last week of 1800 is printed incorrectly."
+            return False, "The last week of December 1800 does not end with a newline."
 
         return True
 
@@ -154,7 +158,7 @@ def checks_leap_years(test):
             overwriteAttributes=[("__name__", "__main__")],
         )
         if re.search(r"\ *25  26  27  28  29\ *\n", output):
-            return False, "The year 1900 should not a leap year, but is in your program."
+            return False, "The year 1900 should not be a leap year, but is in your program."
 
         output = lib.outputOf(
             test.fileName,
@@ -162,7 +166,7 @@ def checks_leap_years(test):
             overwriteAttributes=[("__name__", "__main__")],
         )
         if not re.search(r"\ *27  28  29\ *\n", output):
-            return False, "The year 2000 should be a leap year, but is in your program."
+            return False, "The year 2000 should be a leap year, but isn't in your program."
 
         return True
 
