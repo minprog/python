@@ -24,6 +24,37 @@ def prep_tests(test):
 
 
 @t.test(1)
+def checks_type(test):
+    def testMethod():
+        fn = lib.getFunction("create_index", test.fileName)
+        index = fn("stopwords.txt", [])
+        if len(index) != 138:
+            return False, "The index does not include all words."
+
+        for key, value in index.items():
+
+            if not isinstance(key, str):
+                return False, "Keys in index should be strings."
+
+            if not isinstance(value, list):
+                return False, "Values of the index should be lists."
+
+            try:
+                if not isinstance(value[0], int):
+                    return False, "Values of the index should be lists of integers."
+            except:
+                return (
+                    False,
+                    "Values of the index should be non-empty lists of integers.",
+                )
+
+        return True
+
+    test.test = testMethod
+    test.description = lambda: "'create_index' returns the correct type and data."
+
+
+@t.test(2)
 def checks_tekst1(test):
     def testMethod():
         output = lib.outputOf(
@@ -41,7 +72,7 @@ def checks_tekst1(test):
     )
 
 
-@t.test(2)
+@t.test(3)
 def checks_crash(test):
     def testMethod():
         output = lib.outputOf(
