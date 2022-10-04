@@ -36,7 +36,9 @@ def checks_tekst1(test):
         return re.search(r".*dinner.*51, 306", output)
 
     test.test = testMethod
-    test.description = lambda: "Finds the word 'dinner' on lines 51 and 306"
+    test.description = (
+        lambda: "Finds the word 'dinner' on lines 51 and 306 in a modified text file."
+    )
 
 
 @t.test(2)
