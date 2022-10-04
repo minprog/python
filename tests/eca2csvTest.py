@@ -31,4 +31,4 @@ def output_test(test):
                 return False, f"'climate.csv' does not contain exactly what is expected"
         return True
     test.test = testMethod
-    test.description = lambda : "prints exactly the right output"
+    test.description = lambda : "generates files with exactly the right contents"
