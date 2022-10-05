@@ -14,19 +14,21 @@ def checks_coin(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "'check_coin' works correctly."
+    test.description = lambda : "'check_coin' works correctly"
 
 @t.test(1)
 def checks_due(test):
     def testMethod():
         due = lib.getFunction("determine_due", test.fileName)
+        if due(50, 20) == 30:
+            return False, "function accepts a coin of 20, but this coin should not exist"
         if due(50, 25) == 25 and due(50, 20) == 50 and due(50, 10) == 40:
             return True
         else:
             return False
 
     test.test = testMethod
-    test.description = lambda : "'determine_due' works correctly."
+    test.description = lambda : "'determine_due' works correctly"
 
 @t.test(2)
 def checks_main(test):
@@ -37,4 +39,4 @@ def checks_main(test):
         return asserts.exact(output.strip()[-2:], answer)
 
     test.test = testMethod
-    test.description = lambda : "The change (10) is correctly calculated after inserting 25, 10, en 25 cents."
+    test.description = lambda : "the change (10) is correctly calculated after inserting 25, 10, and 25 cents"
