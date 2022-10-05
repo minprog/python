@@ -52,7 +52,7 @@ def checks_tekst1(test):
 
     test.test = testMethod
     test.description = (
-        lambda: "finds the word 'dinner' on lines 51 and 306 in a modified text file"
+        lambda: "finds the word 'dinner' on lines 549 and 1542 in birdman.txt"
     )
 
 
