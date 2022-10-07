@@ -22,7 +22,10 @@ def output_test(test):
             if hash != '87defdce3b585d4fe3d59be8a07d61e1':
                 return False, f"'climate-noheader-no2020.txt' does not contain exactly what is expected"
         with open('climate-cleaned.txt') as cnh:
-            hash = hashlib.md5(cnh.read().strip().encode('utf-8')).hexdigest()
+            content = cnh.read().strip()
+            if not '19010225' in content:
+                return False, "'climate-cleaned.txt' appears to be missing data for 19010225"
+            hash = hashlib.md5(content.encode('utf-8')).hexdigest()
             if hash != 'aa7138f0b4e8eb25a5982afe21ef79f0':
                 return False, f"'climate-cleaned.txt' does not contain exactly what is expected"
         with open('climate.csv') as cnh:
