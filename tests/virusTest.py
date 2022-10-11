@@ -254,13 +254,13 @@ def simulate_medicine_avg(test):
 
         viruses = ["GGGG", "AAAA", "TTTT", "GGGG", "ATGC"] * 20
         n_trials = 100
-        timesteps = 1000
+        timesteps = 100
 
         avg = lambda : sum(simulate(viruses[:], 0.1, 0.1, 0.5, 100, timesteps)) / timesteps
         avg_pop_size = sum(avg() for _ in range(n_trials)) / n_trials
 
-        if not 50 <= avg_pop_size <= 75:
-            return False, f"expected an average population size of roughly 50 to 65, but found {avg_pop_size}"
+        if not 85 <= avg_pop_size <= 90:
+            return False, f"expected an average population size of roughly 85 to 90, but found {avg_pop_size}"
 
         return True
 
