@@ -50,7 +50,7 @@ def mutate_length(test):
                 v = generate_virus(i)
                 if not len(v) == len(mutate(v)):
                     return False, f"expected mutate() to produce a virus of the same length as the parent"
-        except ValueError:
+        except:
             return False, "it seems that mutate gives an error, are you sure it works for viruses of length 1?"
 
         return True
@@ -82,10 +82,13 @@ def mutate_one_difference(test):
 
         off_by_one = lambda col1, col2 : sum(a != b for a, b in zip(col1, col2)) == 1
 
-        for v in [generate_virus(i) for i in range(1, 100)]:
-            mutated_v = mutate(v)
-            if not off_by_one(mutated_v, v):
-                return False, f"expected mutate({v}) to return a virus with only one mutation, not {mutated_v}"
+        try:
+            for v in [generate_virus(i) for i in range(1, 100)]:
+                mutated_v = mutate(v)
+                if not off_by_one(mutated_v, v):
+                    return False, f"expected mutate({v}) to return a virus with only one mutation, not {mutated_v}"
+        except:
+            return False, "it seems that mutate gives an error, are you sure it works for viruses of length 1?"
 
         return True
 
