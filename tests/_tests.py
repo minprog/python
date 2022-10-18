@@ -59,6 +59,10 @@ class Test(object):
 		raise NotImplementedError()
 
 	@staticmethod
+	def language():
+		raise NotImplementedError()
+
+	@staticmethod
 	def success(info):
 		return ""
 
