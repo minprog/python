@@ -10,7 +10,7 @@ def check_no_output(test):
         return lib.outputOf(test.fileName) == ''
 
     test.test = testMethod
-    test.description = lambda: "the code does not run automatically when imported"
+    test.description = lambda: "the code should not run automatically when imported"
 
 @t.passed(check_no_output)
 @t.test(1)
