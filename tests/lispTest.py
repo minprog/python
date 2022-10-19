@@ -5,6 +5,14 @@ import checkpy.assertlib as asserts
 from _extensions import *
 
 @t.test(0)
+def check_no_output(test):
+    def testMethod():
+        return lib.outputOf(test.fileName) == ''
+
+    test.test = testMethod
+    test.description = lambda: "the code does not run automatically when imported"
+
+@t.test(0)
 def check_example1(test):
     def testMethod():
         import lisp
