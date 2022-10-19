@@ -12,7 +12,8 @@ def check_no_output(test):
     test.test = testMethod
     test.description = lambda: "the code does not run automatically when imported"
 
-@t.test(0)
+@t.passed(check_no_output)
+@t.test(1)
 def check_example1(test):
     def testMethod():
         import lisp
@@ -21,7 +22,8 @@ def check_example1(test):
     test.test = testMethod
     test.description = lambda: "the validator class works for a default example"
 
-@t.test(1)
+@t.passed(check_no_output)
+@t.test(2)
 def check_empty(test):
     def testMethod():
         import lisp
