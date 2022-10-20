@@ -47,3 +47,4 @@ def doctest_ok(test):
     test.description = lambda: "doctests are specified and all examples pass"
     test.test = testMethod
     test.fail = lambda info: info
+    test.timeout = lambda: 120
