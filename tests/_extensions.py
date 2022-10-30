@@ -15,7 +15,7 @@ def mypy_ok(test):
     def report(output):
         return 'line ' + '\n  - line '.join([':'.join(i.split(':')[1:]) for i in output.splitlines()[:-1]])
 
-    test.description = lambda: "types are specified and correctly used"
+    test.description = lambda: "type hints zijn ingevuld en consistent bevonden"
     test.test = testMethod
     test.fail = report
 
@@ -37,14 +37,14 @@ def doctest_ok(test):
         n_items = int(test_stats.group(2))-1-n_functions_not_returning
         n_pass  = int(test_pass.group(1))
         if n_items == 0:
-            return False, "Your program must use functions"
+            return False, "je programma moet functies gebruiken (of type hints ontbreken!)"
         elif n_tests // n_items < 2:
-            return False, f"{n_tests} examples in {n_items} functions is not quite enough \n    (we only count functions that return something)"
+            return False, f"{n_tests} voorbeelden bij {n_items} functies is niet genoeg \n    (we tellen alleen functies die iets returnen)"
         elif n_pass < n_tests:
-            return False, f"{n_pass} out of {n_tests} examples passed"
+            return False, f"{n_pass} van {n_tests} voorbeelden slagen"
         return True
 
-    test.description = lambda: "doctests are specified and all examples pass"
+    test.description = lambda: "doctests zijn voldoende aanwezig en geven allemaal akkoord"
     test.test = testMethod
     test.fail = lambda info: info
     test.timeout = lambda: 120
