@@ -10,9 +10,9 @@ def orakelTest(test, value, target):
         return asserts.exact(output.strip(), target)
     def expectedOutput():
         if test.language == "nl":
-            return f"Het antwoord '{value}' geeft de uitvoer {target}"
+            return f"het antwoord '{value}' geeft de uitvoer '{target}'"
         else:
-            return f"The answer '{value}' produces the output {target}"
+            return f"the answer '{value}' produces the output '{target}'"
     test.test = testMethod
     test.description = expectedOutput
 
