@@ -8,7 +8,7 @@ language = "en"
 
 def expectedOutput(target, args):
     # if language == "nl":
-        return f"print correct: 'Jouw vakantie kost: {target}' bij {str(args)} als invoer." 
+        return f"print correct 'Jouw vakantie kost: {target}' bij {str(args)} als invoer" 
     # else:
         # return f"Print correct: 'Your vacation costs: {target}' for {str(args)} as input."
 
@@ -59,7 +59,7 @@ def calculatesTravelCostsWithHint(test):
 
   test.test = testMethod
   test.description = lambda : (
-    "de functie 'travel_costs' berekent correct de vervoerkosten."
+    "de functie 'travel_costs' berekent correct de vervoerkosten"
     # if language == "nl" else
     # "The function 'travel_costs' calculates the costs of travel correctly."
   )
@@ -90,6 +90,17 @@ def calculatesSleepingCosts(test):
 def calculatesCosts(test):
     target = "589"
     args = [650, 7]
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=args, overwriteAttributes = [("__name__", "__main__")])
+        return asserts.contains(output.strip(), target)
+
+    test.test = testMethod
+    test.description = lambda: expectedOutput(target, args)
+
+@t.test(5)
+def calculatesCostsAndRoundsCorrectly(test):
+    target = "371"
+    args = [1425, 0]
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=args, overwriteAttributes = [("__name__", "__main__")])
         return asserts.contains(output.strip(), target)
