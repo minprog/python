@@ -7,7 +7,9 @@ from _extensions import *
 def orakelTest(test, value, target):
     def testMethod():
         output = test.runProgram(value)
-        return asserts.exact(output.strip(), target)
+        # print(output.strip().split('\n')[-1].__repr__())
+        # print(target.__repr__())
+        return asserts.exact(output.strip().split('\n')[-1], target)
     def expectedOutput():
         # if test.language == "nl":
             return f"het antwoord '{value}' geeft de uitvoer '{target}'"
