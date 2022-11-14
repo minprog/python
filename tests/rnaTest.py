@@ -20,7 +20,7 @@ def checks_input(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'check_input' works correctly."
+    test.description = lambda: "'check_input' works correctly"
 
 
 @t.test(1)
@@ -35,7 +35,7 @@ def checks_convert_dna(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'transcribe_dna_to_rna' works correctly."
+    test.description = lambda: "'transcribe_dna_to_rna' works correctly (with any combination of upper/lower case input)"
 
 
 @t.test(2)
@@ -48,7 +48,7 @@ def checks_convert_list(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'convert_to_list' works correctly."
+    test.description = lambda: "'convert_to_list' works correctly"
 
 
 @t.test(3)
@@ -61,4 +61,4 @@ def checks_convert_string(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'convert_to_string' works correctly."
+    test.description = lambda: "'convert_to_string' works correctly"
