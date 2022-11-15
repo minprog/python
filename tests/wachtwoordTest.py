@@ -53,3 +53,11 @@ def checks_password(test):
 
     test.test = testMethod
     test.description = lambda : "check_password"
+
+@t.test(3)
+def check_any(test):
+    def testMethod():
+        source_no_comments = lib.removeComments(lib.source(test.fileName))
+        return "any(" not in source_no_comments and "any (" not in source_no_comments
+    test.test = testMethod
+    test.description = lambda : "programma gebruikt niet any()"

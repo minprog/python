@@ -3,7 +3,7 @@ import checkpy.lib as lib
 import checkpy.assertlib as asserts
 from checkpy.entities import exception
 
-# from _extensions import *
+from _extensions import *
 
 @t.test(0)
 def checks_set_board(test):
