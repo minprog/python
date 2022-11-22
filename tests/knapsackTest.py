@@ -3,4 +3,3 @@ import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
 from _extensions import *
-from _typecheck import *
