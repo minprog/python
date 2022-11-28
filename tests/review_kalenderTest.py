@@ -62,9 +62,9 @@ def checks_days_until_month(test):
     def testMethod():
         fn = lib.getFunction("days_until_month", test.fileName)
         if (
-            fn(1, 1800, True) == 0
-            and fn(5, 1804, True) == 121
-            and fn(5, 1800, False) == 120
+            fn(1, 1800) == 0
+            and fn(5, 1804) == 121
+            and fn(5, 1800) == 120
         ):
             return True
         else:
