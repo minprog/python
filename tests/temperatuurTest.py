@@ -53,7 +53,7 @@ def check_overall2(test):
     test.description = lambda : "The correct table is printed when converting C to F with 0 as begin temperature, 20 as end temperature and 5 as step size."
 
 @t.test(4)
-def check_overall1(test):
+def check_overall3(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["f", 0, 9, 3],
             overwriteAttributes = [("__name__", "__main__")])
