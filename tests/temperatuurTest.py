@@ -17,18 +17,18 @@ def checks_convert_temperature(test):
     test.description = lambda : "'convert_temperature' works correctly."
 
 
-@t.test(1)
-def checks_capital(test):
-    def testMethod():
-        convert_temperature = lib.getFunction("convert_temperature", test.fileName)
-        if (convert_temperature("C", 10) and convert_temperature("c", 10) and
-            convert_temperature("F", 9) and convert_temperature("f", 9)):
-            return True
-        else:
-            return False
-
-    test.test = testMethod
-    test.description = lambda : "All of 'C', 'F', 'c' and 'f' are accepted by the program."
+# @t.test(1)
+# def checks_capital(test):
+#     def testMethod():
+#         convert_temperature = lib.getFunction("convert_temperature", test.fileName)
+#         if (convert_temperature("C", 10) and convert_temperature("c", 10) and
+#             convert_temperature("F", 9) and convert_temperature("f", 9)):
+#             return True
+#         else:
+#             return False
+#
+#     test.test = testMethod
+#     test.description = lambda : "All of 'C', 'F', 'c' and 'f' are accepted by the program."
 
 
 @t.test(2)
@@ -51,3 +51,14 @@ def check_overall2(test):
 
     test.test = testMethod      
     test.description = lambda : "The correct table is printed when converting C to F with 0 as begin temperature, 20 as end temperature and 5 as step size."
+
+@t.test(4)
+def check_overall1(test):
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=["f", 0, 9, 3],
+            overwriteAttributes = [("__name__", "__main__")])
+        return asserts.exact(output.strip(), "F |   C\n  0 | -17\n  3 | -16\n  6 | -14\n  9 | -12")
+
+    test.test = testMethod
+    test.description = lambda : "The correct table is printed when converting f (lowercase) to C with 0 as begin temperature, 9 as end temperature and 3 as step size."
+
