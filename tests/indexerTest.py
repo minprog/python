@@ -5,8 +5,8 @@ import checkpy.assertlib as asserts
 from _extensions import *
 
 def sandbox():
-    lib.require("stopwords.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week5/indexer/dist/indexer/stopwords.txt")
-    lib.require("test.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week5/indexer/dist/indexer/texts/birdman.txt")
+    lib.require("stopwords.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week6/indexer/dist/indexer/stopwords.txt")
+    lib.require("test.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week6/indexer/dist/indexer/texts/birdman.txt")
 
 @t.test(1)
 def checks_type(test):
