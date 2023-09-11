@@ -1,4 +1,4 @@
-import _tests as tt
+import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
@@ -31,39 +31,39 @@ def orakelTest(test, value, target):
 #
 
 
-# @tt.test(0)
+# @t.test(0)
 # def assign_language(test):
 #     detect_language("veertig", test)
 
-@tt.test(1)
+@t.test(1)
 def checks_answer0(test):
     # if test.language == "nl":
         orakelTest(test, "42", "Ja")
     # else:
     #     orakelTest(test, "42", "Yes")
 
-@tt.test(2)
+@t.test(2)
 def checks_answer1(test):
     # if test.language == "nl":
         orakelTest(test, "tweeenveertig", "Ja")
     # else:
     #     orakelTest(test, "fortytwo", "Yes")
 
-@tt.test(3)
+@t.test(3)
 def checks_answer2(test):
     # if test.language == "nl":
         orakelTest(test, "tweeënveertig", "Ja")
     # else:
     #     orakelTest(test, "forty two", "Yes")
 
-@tt.test(4)
+@t.test(4)
 def checks_answer3(test):
     # if test.language == "nl":
         orakelTest(test, "TWEEENVEERTIG", "Nee")
     # else:
     #     orakelTest(test, "FORTYTWO", "No")
 
-@tt.test(5)
+@t.test(5)
 def checks_answer4(test):
     # if test.language == "nl":
         orakelTest(test, "53", "Nee")

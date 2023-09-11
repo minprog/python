@@ -1,10 +1,10 @@
-import _tests as tt
+import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
 from _extensions import *
 
-@tt.test(10)
+@t.test(10)
 def check_is_same_rectangle(test):
     def testCase():
         is_same_rectangle = test.getFunction("is_same_rectangle")
@@ -13,7 +13,7 @@ def check_is_same_rectangle(test):
     test.test = testCase
     test.description = lambda : "De functie 'is_same_rectangle' werkt correct"
 
-@tt.test(20)
+@t.test(20)
 def check_is_same_square(test):
     def testCase():
         is_same_square = test.getFunction("is_same_square")
@@ -24,7 +24,7 @@ def check_is_same_square(test):
     test.test = testCase
     test.description = lambda : "De functie 'is_same_square' werkt correct"
 
-@tt.test(30)
+@t.test(30)
 def check_calculate_length(test):
     def testCase():
         calculate_length = test.getFunction("calculate_length")
@@ -36,7 +36,7 @@ def check_calculate_length(test):
     test.test = testCase
     test.description = lambda : "De functie 'calculate_length' werkt correct"
 
-@tt.test(40)
+@t.test(40)
 def check_identical_rectangle(test):
     def testCase():
         input_entries = ["0,7", "0,4", "6,13", "2,6"]
@@ -49,7 +49,7 @@ def check_identical_rectangle(test):
     test.test = testCase
     test.description = lambda : ("Het programma identificeert gelijke rechthoeken")
 
-@tt.test(50)
+@t.test(50)
 def check_identical_square(test):
     def testCase():
         input_entries = ["0,7", "0,7", "6,13", "2,9"]
@@ -62,7 +62,7 @@ def check_identical_square(test):
     test.test = testCase
     test.description = lambda : ("Het programma identificeert gelijke vierkanten")
 
-@tt.test(60)
+@t.test(60)
 def check_no_result(test):
     def testCase():
         input_entries = ["0,7", "0,7", "6,15", "2,9"]
