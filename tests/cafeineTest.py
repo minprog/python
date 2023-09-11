@@ -7,50 +7,76 @@ from _extensions import *
 language = "en"
 
 def expectedOutput(target, args):
-    # if language == "nl":
-        return f"print 'Je krijgt {target} cafeine binnen.' bij {str(args)} als invoer"
-    # else:
-    #     return f"Prints 'Your intake is {target} of caffeine.' for {str(args)} as input"
-
-def caffeineTest(test, values, target):
-    def testMethod():
-        output = test.runProgram(values)
-        return asserts.contains(output.strip(), target)
-    test.test = testMethod
-    test.description = lambda: expectedOutput(target, values)
-
-# @t.test(0)
-# def assign_language(test):
-#     source_no_comments = lib.removeComments(lib.source(test.fileName))
-#     global language
-#     if "binnen" in source_no_comments:
-#         language = "nl"
-#         test.description = lambda: f"{test.fileName} bestaat en het programma lijkt Nederlandstalig"
-#     else:
-#         language = "en"
-#         test.description = lambda: f"{test.fileName} exists and the program seems to be in English"
-#     test.test = lambda: True
+    return f"print 'Je krijgt {target} cafeine binnen.' bij {str(args)} als invoer"
 
 @t.test(1)
 def calculatesZeroCaffeine(test):
-    caffeineTest(test, [0, 0, 0, 0], "0 mg")
+    args = [0, 0, 0, 0]
+    target = "0 mg"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=args,
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.contains(output.strip(), target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)
 
 @t.test(2)
 def calculatesCoffee(test):
-    caffeineTest(test, [1, 0, 0, 0], "90 mg")
+    args = [1, 0, 0, 0]
+    target = "90 mg"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=args,
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.contains(output.strip(), target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)
 
 @t.test(2)
 def calculatesTea(test):
-    caffeineTest(test, [0, 1, 0, 0], "45 mg")
+    args = [0, 1, 0, 0]
+    target = "45 mg"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=args,
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.contains(output.strip(), target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)
 
 @t.test(2)
 def calculatesEnergy(test):
-    caffeineTest(test, [0, 0, 1, 0], "80 mg")
+    args = [0, 0, 1, 0]
+    target = "80 mg"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=args,
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.contains(output.strip(), target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)
 
 @t.test(2)
 def calculatesCola(test):
-    caffeineTest(test, [0, 0, 0, 1], "40 mg")
+    args = [0, 0, 0, 1]
+    target = "40 mg"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=args,
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.contains(output.strip(), target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)
 
 @t.test(3)
 def calculatesSomeCafeine(test):
-    caffeineTest(test, [1, 2, 3, 4], "580 mg")
+    args = [1, 2, 3, 4]
+    target = "580 mg"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=args,
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.contains(output.strip(), target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)

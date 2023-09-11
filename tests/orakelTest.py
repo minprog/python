@@ -4,68 +4,65 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-def orakelTest(test, value, target):
-    def testMethod():
-        output = test.runProgram(value)
-        # print(output.strip().split('\n')[-1].__repr__())
-        # print(target.__repr__())
-        return asserts.exact(output.strip().split('\n')[-1], target)
-    def expectedOutput():
-        # if test.language == "nl":
-            return f"het antwoord '{value}' geeft de uitvoer '{target}'"
-        # else:
-        #     return f"the answer '{value}' produces the output '{target}'"
-    test.test = testMethod
-    test.description = expectedOutput
-
-
-# def detect_language(keyword, test):
-#     source_no_comments = lib.removeComments(lib.source(test.fileName))
-#     if keyword in source_no_comments:
-#         test.language = "nl"
-#         test.description = lambda: f"{test.fileName} bestaat en het programma lijkt Nederlandstalig"
-#     else:
-#         test.language = "en"
-#         test.description = lambda: f"{test.fileName} exists and the program seems to be in English"
-#     test.test = lambda: True
-#
-
-
-# @t.test(0)
-# def assign_language(test):
-#     detect_language("veertig", test)
+def expectedOutput(target, args):
+    return f"het antwoord '{args}' geeft de uitvoer '{target}'"
 
 @t.test(1)
 def checks_answer0(test):
-    # if test.language == "nl":
-        orakelTest(test, "42", "Ja")
-    # else:
-    #     orakelTest(test, "42", "Yes")
+    args = "42"
+    target = "Ja"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=[args],
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.exact(output.strip().split('\n')[-1], target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)
 
 @t.test(2)
 def checks_answer1(test):
-    # if test.language == "nl":
-        orakelTest(test, "tweeenveertig", "Ja")
-    # else:
-    #     orakelTest(test, "fortytwo", "Yes")
+    args = "tweeenveertig"
+    target = "Ja"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=[args],
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.exact(output.strip().split('\n')[-1], target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)
 
 @t.test(3)
 def checks_answer2(test):
-    # if test.language == "nl":
-        orakelTest(test, "tweeënveertig", "Ja")
-    # else:
-    #     orakelTest(test, "forty two", "Yes")
+    args = "tweeënveertig"
+    target = "Ja"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=[args],
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.exact(output.strip().split('\n')[-1], target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)
 
 @t.test(4)
 def checks_answer3(test):
-    # if test.language == "nl":
-        orakelTest(test, "TWEEENVEERTIG", "Nee")
-    # else:
-    #     orakelTest(test, "FORTYTWO", "No")
+    args = "TWEEENVEERTIG"
+    target = "Ja"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=[args],
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.exact(output.strip().split('\n')[-1], target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)
 
 @t.test(5)
 def checks_answer4(test):
-    # if test.language == "nl":
-        orakelTest(test, "53", "Nee")
-    # else:
-    #     orakelTest(test, "53", "No")
+    args = "53"
+    target = "Nee"
+    def testMethod():
+        output = lib.outputOf(test.fileName, stdinArgs=[args],
+                    overwriteAttributes = [("__name__", "__main__")])
+        return asserts.exact(output.strip().split('\n')[-1], target)
+
+    test.test = testMethod
+    test.description = lambda : expectedOutput(target, args)
