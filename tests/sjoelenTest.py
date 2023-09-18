@@ -14,7 +14,7 @@ def checks_calculate_points(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "'calculate_points' works correctly."
+    test.description = lambda : "'calculate_points' werkt correct"
 
 
 @t.test(1)
@@ -29,7 +29,7 @@ def checks_calculate_points_board(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "The board remains unchanged in 'calculate_points'."
+    test.description = lambda : "de functie 'calculate_points' doet geen wijzigingen aan het board"
 
 @t.test(2)
 def checks_shuffle_round(test):
@@ -43,7 +43,7 @@ def checks_shuffle_round(test):
             6.5 < board[3] < 8.5):
             return True
         else:
-            return False, board
+            return False, f"we komen uit op {board}"
 
     test.test = testMethod
-    test.description = lambda : "'shuffle_round' simulates games with chances within the required ranges."
+    test.description = lambda : "simulaties met 'shuffle_round' komen uit binnen de aangegeven grenzen"
