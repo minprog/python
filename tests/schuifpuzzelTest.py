@@ -20,7 +20,7 @@ def checks_set_board(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'create_board' works correctly"
+    test.description = lambda: "'create_board' werkt correct"
 
 
 @t.test(1)
@@ -38,7 +38,7 @@ def checks_is_won(test):
             return False
 
     test.test = testMethod
-    test.description = lambda: "'is_won' works correctly"
+    test.description = lambda: "'is_won' werkt correct"
 
 
 @t.test(2)
@@ -59,7 +59,7 @@ def checks_move_tile(test):
                 [3, 1, 2, 0],
             ], 14) == False
         ):
-            return False, "Returns the wrong value for correct/incorrect moves"
+            return False, "geeft de verkeerde return als een move wel/niet mogelijk is"
 
         board = [
             [15, 14, 13, 12],
@@ -74,12 +74,12 @@ def checks_move_tile(test):
             [7, 6, 5, 4],
             [3, 1, 0, 2],
         ]:
-            return False, "Board does not correctly update after valid move"
+            return False, "het bord wordt niet correct bijgewerkt na een move"
 
         return True
 
     test.test = testMethod
-    test.description = lambda: "'move_tile' works correctly"
+    test.description = lambda: "'move_tile' werkt correct"
 
 @t.test(10)
 def check_win(test):
@@ -106,9 +106,9 @@ def check_win(test):
         try:
             output = lib.outputOf(test.fileName, stdinArgs=steps, overwriteAttributes=[("__name__", "__main__")]).splitlines()
         except exception.InputError:
-            return False, "Your program does not accept the full solution, please check manually"
+            return False, "je programma lijkt niet te werken met de juiste oplossing voor het 4x4-board"
 
         return asserts.contains(output[-1], 'Gefeliciteerd') or asserts.contains(output[-1], 'Congratulations')
 
     test.test = testMethod
-    test.description = lambda: "Game works and is solvable as expected"
+    test.description = lambda: "spel werkt en is uit te spelen"
