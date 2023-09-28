@@ -4,10 +4,10 @@ import checkpy.assertlib as asserts
 
 import hashlib
 
+from checkpy import *
 from _typecheck import *
 
-def sandbox():
-    lib.require("climate.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week5/eca2csv/climate.txt")
+download("climate.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week5/eca2csv/climate.txt")
 
 @t.test(1)
 def output_test(test):
