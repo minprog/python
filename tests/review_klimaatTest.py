@@ -4,8 +4,9 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-def sandbox():
-    lib.require("climate.csv", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week5/klimaat/climate.csv")
+from checkpy import *
+
+download("climate.csv", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week5/klimaat/climate.csv")
 
 @t.test(1)
 def output_test(test):

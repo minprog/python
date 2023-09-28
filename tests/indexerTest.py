@@ -2,11 +2,12 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
+from checkpy import *
+
 from _extensions import *
 
-def sandbox():
-    lib.require("stopwords.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week6/indexer/dist/indexer/stopwords.txt")
-    lib.require("test.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week6/indexer/dist/indexer/texts/birdman.txt")
+download("stopwords.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week6/indexer/dist/indexer/stopwords.txt")
+download("test.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week6/indexer/dist/indexer/texts/birdman.txt")
 
 @t.test(1)
 def checks_type(test):
