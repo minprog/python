@@ -6,6 +6,7 @@ from _extensions import *
 
 from checkpy import *
 
+include("review_klimaat.py")
 download("climate.csv", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week5/klimaat/climate.csv")
 
 @t.test(1)

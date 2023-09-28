@@ -6,6 +6,7 @@ from checkpy import *
 
 from _extensions import *
 
+include("indexer.py")
 download("stopwords.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week6/indexer/dist/indexer/stopwords.txt")
 download("test.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week6/indexer/dist/indexer/texts/birdman.txt")
 
@@ -49,7 +50,7 @@ def checks_tekst1(test):
             stdinArgs=["dinner", ""],
             overwriteAttributes=[("__name__", "__main__")],
         )
-        return re.search(r".*dinner.*\ 549, 1542", output)
+        return re.search(r".*dinner.*\ 549, 1542", output) is not None
 
     test.test = testMethod
     test.description = (
@@ -66,7 +67,7 @@ def checks_crash(test):
             stdinArgs=["women", "dinner", ""],
             overwriteAttributes=[("__name__", "__main__")],
         )
-        return re.search(r".*dinner.*\ 549, 1542", output)
+        return re.search(r".*dinner.*\ 549, 1542", output) is not None
 
     test.test = testMethod
     test.description = lambda: "allows for another search if a word is not found"

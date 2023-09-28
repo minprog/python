@@ -7,6 +7,7 @@ import hashlib
 from checkpy import *
 from _typecheck import *
 
+include("eca2csv.py")
 download("climate.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week5/eca2csv/climate.txt")
 
 @t.test(1)
