@@ -4,7 +4,7 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-@t.test(0)
+@t.test(10)
 def checks_length(test):
     def testMethod():
         length = lib.getFunction("check_length", test.fileName)
@@ -17,7 +17,7 @@ def checks_length(test):
     test.description = lambda : "check_length"
 
 
-@t.test(1)
+@t.test(20)
 def checks_letter(test):
     def testMethod():
         letter = lib.getFunction("check_letter", test.fileName)
@@ -30,7 +30,7 @@ def checks_letter(test):
     test.description = lambda : "check_letter"
 
 
-@t.test(2)
+@t.test(30)
 def checks_number(test):
     def testMethod():
         number = lib.getFunction("check_number", test.fileName)
@@ -42,7 +42,7 @@ def checks_number(test):
     test.test = testMethod
     test.description = lambda : "check_number"
 
-@t.test(3)
+@t.test(40)
 def checks_password(test):
     def testMethod():
         password = lib.getFunction("check_password", test.fileName)
@@ -54,7 +54,7 @@ def checks_password(test):
     test.test = testMethod
     test.description = lambda : "check_password"
 
-@t.test(3)
+@t.test(50)
 def check_any(test):
     def testMethod():
         source_no_comments = lib.removeComments(lib.source(test.fileName))

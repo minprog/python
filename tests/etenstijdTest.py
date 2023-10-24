@@ -4,34 +4,10 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-language = "en"
-
 def expectedOutput(target, args):
-    if language == "nl":
-        return f"Bepaalt correct de tijd voor {target[0]}." 
-    else:
-        return f"Correctly determines the time for {target[1]}." 
+    return f"bepaalt correct de tijd voor {target[0]}" 
 
-@t.test(0)
-def validFile(test):
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=["7:01"],
-                    overwriteAttributes = [("__name__", "__main__")])
-        if "ontbijt" in output:
-            global language
-            language = "nl"
-        elif not "breakfast" in output:
-            return False, "Output not recognized; please double check examples on the assignment page."
-        return asserts.fileExists(test.fileName)
-
-    test.test = testMethod
-    test.description = lambda : (
-        "Het bestand is in orde."
-        if language == "nl" else
-        "The file is valid."
-    )
-
-@t.test(1)
+@t.test(10)
 def checks_breakfast(test):
     correct_meal_descriptions = ["ontbijt", "breakfast"]
     def testMethod():
@@ -53,7 +29,7 @@ def checks_breakfast(test):
     test.description = lambda : expectedOutput(correct_meal_descriptions, None)
 
 
-@t.test(2)
+@t.test(20)
 def checks_lunch(test):
     correct_meal_descriptions = ["lunch", "lunch"]
     def testMethod():
@@ -75,7 +51,7 @@ def checks_lunch(test):
     test.description = lambda : expectedOutput(correct_meal_descriptions, None)
 
 
-@t.test(3)
+@t.test(30)
 def checks_dinner(test):
     correct_meal_descriptions = ["avondeten", "dinner"]
     def testMethod():

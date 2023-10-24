@@ -5,7 +5,7 @@ import checkpy.assertlib as asserts
 from _extensions import *
 
 
-@t.test(0)
+@t.test(10)
 def checks_compute_score(test):
     def testMethod():
         compute_score = lib.getFunction("compute_score", test.fileName)
@@ -22,7 +22,7 @@ def checks_compute_score(test):
     test.description = lambda: "De functie 'compute_score' werkt correct."
 
 
-@t.test(1)
+@t.test(20)
 def check_S1(test):
     targets = ["Speler 1 wint!", "Player 1 wins!"]
 
@@ -38,7 +38,7 @@ def check_S1(test):
     test.description = lambda: "Player 1 with 'Pizza' wins from Player 2 with 'Kaas'."
 
 
-@t.test(2)
+@t.test(30)
 def check_S2(test):
     targets = ["Speler 2 wint!", "Player 2 wins!"]
 
@@ -56,7 +56,7 @@ def check_S2(test):
     )
 
 
-@t.test(3)
+@t.test(40)
 def check_gelijkspel(test):
     targets = ["Gelijkspel!", "It's a tie!"]
 
@@ -74,7 +74,7 @@ def check_gelijkspel(test):
     )
 
 
-@t.test(4)
+@t.test(50)
 def check_gelijkspel(test):
     targets = ["Gelijkspel!", "It's a tie!"]
 

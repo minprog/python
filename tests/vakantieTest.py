@@ -4,34 +4,10 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-language = "en"
-
 def expectedOutput(target, args):
-    # if language == "nl":
-        return f"print correct 'Jouw vakantie kost: {target}' bij {str(args)} als invoer" 
-    # else:
-        # return f"Print correct: 'Your vacation costs: {target}' for {str(args)} as input."
+    return f"print correct 'Jouw vakantie kost: {target}' bij {str(args)} als invoer" 
 
-# @t.test(0)
-# def validFile(test):
-#     def testMethod():
-#         output = lib.outputOf(test.fileName, stdinArgs=[0, 0])
-#         print(output.__repr__())
-#         if "vakantie" in output:
-#             global language
-#             language = "nl"
-#         elif not "vacation" in output:
-#             return False, "Output not recognized; please double check examples on the assignment page."
-#         return asserts.fileExists(test.fileName)
-#
-#     test.test = testMethod
-#     test.description = lambda : (
-#         "Het bestand is in orde."
-#         # if language == "nl" else
-#         # "The file is valid."
-#     )
-
-@t.test(1)
+@t.test(10)
 def calculatesZeroCosts(test):
     target = "0"
     args = [0, 0]
@@ -42,7 +18,7 @@ def calculatesZeroCosts(test):
     test.test = testMethod
     test.description = lambda: expectedOutput(target, args)
 
-@t.test(2)
+@t.test(20)
 def calculatesTravelCostsWithHint(test):
   def testMethod():
     travelCosts = lib.getFunction("travel_costs", test.fileName, stdinArgs=[1000, 0])(1000)
@@ -64,7 +40,7 @@ def calculatesTravelCostsWithHint(test):
     # "The function 'travel_costs' calculates the costs of travel correctly."
   )
 
-@t.test(2)
+@t.test(20)
 def calculatesTravelCosts(test):
     target = "260"
     args = [1000, 0]
@@ -75,7 +51,7 @@ def calculatesTravelCosts(test):
     test.test = testMethod
     test.description = lambda: expectedOutput(target, args)
 
-@t.test(3)
+@t.test(30)
 def calculatesSleepingCosts(test):
     target = "600"
     args = [0, 10]
@@ -86,7 +62,7 @@ def calculatesSleepingCosts(test):
     test.test = testMethod
     test.description = lambda: expectedOutput(target, args)
 
-@t.test(4)
+@t.test(40)
 def calculatesCosts(test):
     target = "589"
     args = [650, 7]
@@ -97,7 +73,7 @@ def calculatesCosts(test):
     test.test = testMethod
     test.description = lambda: expectedOutput(target, args)
 
-@t.test(5)
+@t.test(50)
 def calculatesCostsAndRoundsCorrectly(test):
     target = "371"
     args = [1425, 0]

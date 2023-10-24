@@ -7,7 +7,7 @@ from _extensions import *
 def expectedOutput(target, args):
     return f"het antwoord '{args}' geeft de uitvoer '{target}'"
 
-@t.test(1)
+@t.test(10)
 def checks_answer0(test):
     args = "42"
     target = "Ja"
@@ -19,7 +19,7 @@ def checks_answer0(test):
     test.test = testMethod
     test.description = lambda : expectedOutput(target, args)
 
-@t.test(2)
+@t.test(20)
 def checks_answer1(test):
     args = "tweeenveertig"
     target = "Ja"
@@ -31,7 +31,7 @@ def checks_answer1(test):
     test.test = testMethod
     test.description = lambda : expectedOutput(target, args)
 
-@t.test(3)
+@t.test(30)
 def checks_answer2(test):
     args = "tweeënveertig"
     target = "Ja"
@@ -57,7 +57,7 @@ def checks_answer2(test):
 #     test.test = testMethod
 #     test.description = lambda : expectedOutput(target, args)
 
-@t.test(5)
+@t.test(50)
 def checks_answer4(test):
     args = "53"
     target = "Nee"

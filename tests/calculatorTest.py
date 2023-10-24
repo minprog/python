@@ -4,7 +4,7 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-@t.test(0)
+@t.test(10)
 def checks_answer0(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["3 + 5"],
@@ -14,7 +14,7 @@ def checks_answer0(test):
     test.test = testMethod
     test.description = lambda : "3 + 5 = 8.0"
 
-@t.test(1)
+@t.test(20)
 def checks_answer1(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["19 - 6"],
@@ -24,7 +24,7 @@ def checks_answer1(test):
     test.test = testMethod
     test.description = lambda : "19 - 6 = 13.0"
 
-@t.test(2)
+@t.test(30)
 def checks_answer2(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["6 - 19"],
@@ -35,7 +35,7 @@ def checks_answer2(test):
     test.description = lambda : "6 - 19 = -13.0"
 
 
-@t.test(3)
+@t.test(40)
 def checks_answer3(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["12 * 23"],
@@ -45,7 +45,7 @@ def checks_answer3(test):
     test.test = testMethod
     test.description = lambda : "12 * 23 = 276.0"
 
-@t.test(4)
+@t.test(50)
 def checks_answer4(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["6 / 4"],
@@ -56,7 +56,7 @@ def checks_answer4(test):
     test.description = lambda : "6 / 4 = 1.5"
 
 
-@t.test(5)
+@t.test(60)
 def checks_answer5(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["-8 * 12"],

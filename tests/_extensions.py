@@ -6,7 +6,16 @@ import sys
 import subprocess
 import re
 
-@t.test(1000)
+from _notAllowedCode import *
+
+@t.test(0)
+def tabs_ok(test):
+    test.description = lambda: "het bestand is in orde"
+    test.test = lambda: (
+        notAllowedCode(test, lib.source(test.fileName), {'tab': '	'})
+    )
+
+@t.test(1)
 def mypy_ok(test):
     def testMethod():
         p = subprocess.run(['mypy', '--strict', '--ignore-missing-imports', test.fileName], capture_output=True, universal_newlines=True)
@@ -19,7 +28,7 @@ def mypy_ok(test):
     test.test = testMethod
     test.fail = report
 
-@t.test(1001)
+@t.test(2)
 def doctest_ok(test):
     def testMethod():
         with open(test.fileName, 'r') as source_file:

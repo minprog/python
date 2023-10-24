@@ -4,7 +4,7 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-@t.test(0)
+@t.test(10)
 def checks_convert_temperature(test):
     def testMethod():
         convert_temperature = lib.getFunction("convert_temperature", test.fileName)
@@ -31,7 +31,7 @@ def checks_convert_temperature(test):
 #     test.description = lambda : "All of 'C', 'F', 'c' and 'f' are accepted by the program."
 
 
-@t.test(2)
+@t.test(20)
 def check_overall1(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["F", 0, 9, 3],
@@ -42,7 +42,7 @@ def check_overall1(test):
     test.description = lambda : "The correct table is printed when converting F to C with 0 as begin temperature, 9 as end temperature and 3 as step size."
 
 
-@t.test(3)
+@t.test(30)
 def check_overall2(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["C", 0, 20, 5],
@@ -52,7 +52,7 @@ def check_overall2(test):
     test.test = testMethod      
     test.description = lambda : "The correct table is printed when converting C to F with 0 as begin temperature, 20 as end temperature and 5 as step size."
 
-@t.test(4)
+@t.test(40)
 def check_overall3(test):
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=["f", 0, 9, 3],
@@ -61,4 +61,3 @@ def check_overall3(test):
 
     test.test = testMethod
     test.description = lambda : "The correct table is printed when converting f (lowercase) to C with 0 as begin temperature, 9 as end temperature and 3 as step size."
-
