@@ -16,15 +16,15 @@ def basic_style(test):
             return False, "let op dat je geen tabs gebruikt"
         try:
             max_line_length = os.environ['MAX_LINE_LENGTH']
-        except NameError:
+        except KeyError:
             max_line_length = 99
         try:
             max_doc_length = os.environ['MAX_DOC_LENGTH']
-        except NameError:
+        except KeyError:
             max_doc_length = 79
         p = subprocess.run(['pycodestyle', '--select=E101,E112,E113,E115,E116,E117,E501,W505', f"--max-line-length={max_line_length}", f"--max-doc-length={max_doc_length}", test.fileName], capture_output=True, universal_newlines=True)
         if p.returncode != 0:
-            test.fail = lambda info : f"let op indentatie en regellengte"
+            test.fail = lambda info : f"let op juiste indentatie, code >{max_line_length} tekens, comments >{max_doc_length} tekens"
             return False, p.stdout
         return True
     test.test = testMethod
