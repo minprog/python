@@ -9,11 +9,18 @@ import re
 from _notAllowedCode import *
 
 @t.test(0)
-def tabs_ok(test):
+def basic_style(test):
+    def testMethod():
+        if not notAllowedCode(test, lib.source(test.fileName), {'tabs': '	'}):
+            return False
+        p = subprocess.run(['pycodestyle', '--select=E101,E112,E113,E115,E116,E117,E501,W505', '--max-line-length=99', '--max-doc-length=79', test.fileName])
+        if p.returncode != 0:
+            test.fail = lambda info : f"let op indentatie en regellengte"
+            return False, p.stdout
+        return True
+
     test.description = lambda: "het bestand is in orde"
-    test.test = lambda: (
-        notAllowedCode(test, lib.source(test.fileName), {'tab': '	'})
-    )
+    test.test = testMethod
 
 @t.test(1)
 def mypy_ok(test):
@@ -22,7 +29,7 @@ def mypy_ok(test):
         return p.returncode == 0, p.stdout
 
     def report(output):
-        return 'line ' + '\n  - line '.join([':'.join(i.split(':')[1:]) for i in output.splitlines()[:-1]])
+        return '- line ' + '\n- line '.join([':'.join(i.split(':')[1:])[:60] for i in output.splitlines()[:-1]])
 
     test.description = lambda: "type hints zijn ingevuld en consistent bevonden"
     test.test = testMethod
