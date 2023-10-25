@@ -4,8 +4,10 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-@t.test(0)
+@t.passed(doctest_ok)
+@t.test(10)
 def checks_calculate_years(test):
+    """functie 'calculate_years' werkt correct"""
     def testMethod():
         calculate_years = lib.getFunction("calculate_years", test.fileName)
         if (calculate_years(1200, 1300) == 1 and calculate_years(20, 100) == 20
@@ -14,16 +16,14 @@ def checks_calculate_years(test):
         else:
 
             return False
-
     test.test = testMethod
-    test.description = lambda : "'calculate_years' works correctly."
 
-@t.test(1)
+@t.passed(doctest_ok)
+@t.test(20)
 def check_overall2(test):
+    """kan overweg met foute invoer"""
     def testMethod():
         output = lib.outputOf(test.fileName, stdinArgs=[6, 9, 5, -6, 18],
             overwriteAttributes = [("__name__", "__main__")])
         return asserts.contains(output.strip(), "8")
-
     test.test = testMethod
-    test.description = lambda : "Handles incorrect input and calculates correct number of years after valid retry."

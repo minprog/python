@@ -4,21 +4,22 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-@t.test(0)
+@t.passed(doctest_ok)
+@t.test(10)
 def checks_calculate_points(test):
+    """functie `calculate_points` werkt correct"""
     def testMethod():
         calculate_points = lib.getFunction("calculate_points", test.fileName)
         if (calculate_points([7,2,3,4]) == 56 and calculate_points([4, 4, 4, 4]) == 80):
             return True
         else:
             return False
-
     test.test = testMethod
-    test.description = lambda : "'calculate_points' werkt correct"
 
-
-@t.test(1)
+@t.passed(doctest_ok)
+@t.test(20)
 def checks_calculate_points_board(test):
+    """functie `calculate_points` doet geen wijzigingen aan het board"""
     def testMethod():
         calculate_points = lib.getFunction("calculate_points", test.fileName)
         board = [1,2,3,4]
@@ -27,12 +28,12 @@ def checks_calculate_points_board(test):
             return True
         else:
             return False
-
     test.test = testMethod
-    test.description = lambda : "functie 'calculate_points' doet geen wijzigingen aan het board"
 
-@t.test(2)
+@t.passed(doctest_ok)
+@t.test(30)
 def checks_shuffle_round(test):
+    """simulaties met `shuffle_round` komen uit binnen de aangegeven grenzen"""
     def testMethod():
         shuffle_round = lib.getFunction("shuffle_round", test.fileName)
         board = [0, 0, 0, 0]
@@ -44,6 +45,4 @@ def checks_shuffle_round(test):
             return True
         else:
             return False, f"we komen uit op {board}"
-
     test.test = testMethod
-    test.description = lambda : "simulaties met 'shuffle_round' komen uit binnen de aangegeven grenzen"
