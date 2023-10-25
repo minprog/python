@@ -3,10 +3,12 @@ import checkpy.lib as lib
 import checkpy.assertlib as asserts
 from checkpy.entities import exception
 
-# from _extensions import *
+from _extensions import *
 
-@t.test(0)
+@t.passed(doctest_ok)
+@t.test(10)
 def checks_set_board(test):
+    """functie `create_board` werkt correct"""
     def testMethod():
         set_board = lib.getFunction("create_board", test.fileName)
         if set_board() == [
@@ -18,13 +20,12 @@ def checks_set_board(test):
             return True
         else:
             return False
-
     test.test = testMethod
-    test.description = lambda: "'create_board' werkt correct"
 
-
-@t.test(1)
+@t.passed(doctest_ok)
+@t.test(20)
 def checks_is_won(test):
+    """functie `is_won` werkt correct"""
     def testMethod():
         is_won = lib.getFunction("is_won", test.fileName)
         if (
@@ -36,13 +37,12 @@ def checks_is_won(test):
             return True
         else:
             return False
-
     test.test = testMethod
-    test.description = lambda: "'is_won' werkt correct"
 
-
-@t.test(2)
+@t.passed(doctest_ok)
+@t.test(30)
 def checks_move_tile(test):
+    """functie `move_tile` werkt correct"""
     def testMethod():
         move_tile = lib.getFunction("move_tile", test.fileName)
         if not (
@@ -77,12 +77,12 @@ def checks_move_tile(test):
             return False, "het bord wordt niet correct bijgewerkt na een move"
 
         return True
-
     test.test = testMethod
-    test.description = lambda: "'move_tile' werkt correct"
 
-@t.test(10)
+@t.passed(doctest_ok)
+@t.test(40)
 def check_win(test):
+    """spel werkt en is uit te spelen"""
     def testMethod():
         steps = ["4","5","6","1","2","4","5","6",
                  "1","2","3","7","11","10","9","1",
@@ -109,6 +109,4 @@ def check_win(test):
             return False, "je programma lijkt niet te werken met de juiste oplossing voor het 4x4-board"
 
         return asserts.contains(output[-1], 'Gefeliciteerd') or asserts.contains(output[-1], 'Congratulations')
-
     test.test = testMethod
-    test.description = lambda: "spel werkt en is uit te spelen"
