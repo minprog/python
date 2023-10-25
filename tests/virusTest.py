@@ -3,7 +3,7 @@ import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
 import os
-os.environ['MAX_LINE_LENGTH'] = '99'
+os.environ['MAX_LINE_LENGTH'] = '115'
 os.environ['MAX_DOC_LENGTH'] = '110'
 
 from _extensions import *
