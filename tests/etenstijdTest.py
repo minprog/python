@@ -7,7 +7,7 @@ from _extensions import *
 @t.passed(doctest_ok)
 @t.test(8)
 def correct_meal_if_meal(test):
-    """de functie 'meal' geeft de juiste maaltijd voor elke tijd"""
+    """functie 'meal' geeft de juiste maaltijd voor elke tijd"""
     def testMethod():
         f = lib.getFunction("meal", test.fileName)
         return (
@@ -23,7 +23,7 @@ def correct_meal_if_meal(test):
 @t.passed(doctest_ok)
 @t.test(9)
 def correct_none_if_no_meal(test):
-    """de functie 'meal' geeft None als er geen maaltijd van toepassing is"""
+    """functie 'meal' geeft None als er geen maaltijd van toepassing is"""
     def testMethod():
         f = lib.getFunction("meal", test.fileName)
         return (

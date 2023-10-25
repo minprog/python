@@ -59,7 +59,7 @@ def calculatesTravelCostsWithHint(test):
 
   test.test = testMethod
   test.description = lambda : (
-    "de functie 'travel_costs' berekent correct de vervoerkosten"
+    "functie 'travel_costs' berekent correct de vervoerkosten"
     # if language == "nl" else
     # "The function 'travel_costs' calculates the costs of travel correctly."
   )

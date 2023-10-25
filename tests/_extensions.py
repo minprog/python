@@ -6,15 +6,13 @@ import sys
 import subprocess
 import re
 
-from _notAllowedCode import *
-
 @t.test(0)
 def basic_style(test):
     """het bestand is in orde"""
     def testMethod():
-        if not notAllowedCode(test, lib.source(test.fileName), {'tabs': '	'}):
-            return False
-        p = subprocess.run(['pycodestyle', '--select=E101,E112,E113,E115,E116,E117,E501,W505', '--max-line-length=99', '--max-doc-length=79', test.fileName])
+        if "	" in lib.source(test.fileName):
+            return False, "let op dat je geen tabs gebruikt"
+        p = subprocess.run(['pycodestyle', '--select=E101,E112,E113,E115,E116,E117,E501,W505', '--max-line-length=99', '--max-doc-length=79', test.fileName], capture_output=True, universal_newlines=True)
         if p.returncode != 0:
             test.fail = lambda info : f"let op indentatie en regellengte"
             return False, p.stdout

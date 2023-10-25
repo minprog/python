@@ -7,7 +7,7 @@ from _extensions import *
 @t.passed(doctest_ok)
 @t.test(10)
 def calculatesTravelCostsWithHint(test):
-    """de functie 'travel_costs' berekent correct de vervoerkosten"""
+    """functie 'travel_costs' berekent correct de vervoerkosten"""
     def testMethod():
         travelCosts = lib.getFunction("travel_costs", test.fileName, stdinArgs=[1000, 0])(1000)
         if travelCosts == 130:

@@ -4,9 +4,10 @@ import checkpy.assertlib as asserts
 
 from _extensions import *
 
-
-@t.test(0)
+@t.passed(doctest_ok)
+@t.test(10)
 def checks_input(test):
+    """functie `check_input` werkt correct"""
     def testMethod():
         input_dna = lib.getFunction("check_input", test.fileName)
         if (
@@ -18,13 +19,12 @@ def checks_input(test):
             return True
         else:
             return False
-
     test.test = testMethod
-    test.description = lambda: "'check_input' works correctly"
 
-
-@t.test(1)
+@t.passed(doctest_ok)
+@t.test(20)
 def checks_convert_dna(test):
+    """functie `transcribe_dna_to_rna` werkt correct met elke combinatie van uppercase/lowercase"""
     def testMethod():
         convert = lib.getFunction("transcribe_dna_to_rna", test.fileName)
         if convert(["A", "T", "G", "C"]) == ["U", "A", "C", "G"] and convert(
@@ -33,32 +33,28 @@ def checks_convert_dna(test):
             return True
         else:
             return False
-
     test.test = testMethod
-    test.description = lambda: "'transcribe_dna_to_rna' works correctly (with any combination of upper/lower case input)"
 
-
-@t.test(2)
+@t.passed(doctest_ok)
+@t.test(30)
 def checks_convert_list(test):
+    """functie `convert_to_list` werkt correct"""
     def testMethod():
         convert = lib.getFunction("convert_to_list", test.fileName)
         if convert("ATGCAGA") == ["A", "T", "G", "C", "A", "G", "A"]:
             return True
         else:
             return False
-
     test.test = testMethod
-    test.description = lambda: "'convert_to_list' works correctly"
 
-
-@t.test(3)
+@t.passed(doctest_ok)
+@t.test(40)
 def checks_convert_string(test):
+    """functie `convert_to_string` werkt correct"""
     def testMethod():
         convert = lib.getFunction("convert_to_string", test.fileName)
         if convert(["A", "T", "G", "C", "T", "T", "G"]) == "ATGCTTG":
             return True
         else:
             return False
-
     test.test = testMethod
-    test.description = lambda: "'convert_to_string' works correctly"

@@ -29,7 +29,7 @@ def checks_calculate_points_board(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "de functie 'calculate_points' doet geen wijzigingen aan het board"
+    test.description = lambda : "functie 'calculate_points' doet geen wijzigingen aan het board"
 
 @t.test(2)
 def checks_shuffle_round(test):
