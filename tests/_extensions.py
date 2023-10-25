@@ -10,6 +10,7 @@ from _notAllowedCode import *
 
 @t.test(0)
 def basic_style(test):
+    """het bestand is in orde"""
     def testMethod():
         if not notAllowedCode(test, lib.source(test.fileName), {'tabs': '	'}):
             return False
@@ -18,25 +19,24 @@ def basic_style(test):
             test.fail = lambda info : f"let op indentatie en regellengte"
             return False, p.stdout
         return True
-
-    test.description = lambda: "het bestand is in orde"
     test.test = testMethod
 
+@t.passed(basic_style, hide=False)
 @t.test(1)
 def mypy_ok(test):
+    """type hints zijn ingevuld en consistent bevonden"""
     def testMethod():
         p = subprocess.run(['mypy', '--strict', '--ignore-missing-imports', test.fileName], capture_output=True, universal_newlines=True)
         return p.returncode == 0, p.stdout
-
+    test.test = testMethod
     def report(output):
         return '- line ' + '\n- line '.join([':'.join(i.split(':')[1:])[:60] for i in output.splitlines()[:-1]])
-
-    test.description = lambda: "type hints zijn ingevuld en consistent bevonden"
-    test.test = testMethod
     test.fail = report
 
+@t.passed(mypy_ok, hide=False)
 @t.test(2)
 def doctest_ok(test):
+    """doctests zijn voldoende aanwezig en geven allemaal akkoord"""
     def testMethod():
         with open(test.fileName, 'r') as source_file:
             source = source_file.read()
@@ -60,7 +60,6 @@ def doctest_ok(test):
             return False, f"{n_pass} van {n_tests} voorbeelden slagen"
         return True
 
-    test.description = lambda: "doctests zijn voldoende aanwezig en geven allemaal akkoord"
     test.test = testMethod
     test.fail = lambda info: info
     test.timeout = lambda: 120
