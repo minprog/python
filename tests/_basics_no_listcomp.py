@@ -1,31 +1,68 @@
+from typing import Any
 import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as assertlib
 
+from checkpy import static
+
+import ast
 import sys
 import subprocess
 import re
 
 import os
 
+def get_banned_call() -> str | None:
+    banned_calls = ["min", "max", "sorted", "all", "any"]
+    
+    found: str | None = None
+
+    class Visitor(ast.NodeVisitor):
+        def visit_Name(self, node: ast.Name) -> Any:
+            if node.id in banned_calls:
+                nonlocal found
+                found = node.id
+            
+    calls: list[ast.Call] = static.getAstNodes(ast.Call)
+    for call in calls:
+        Visitor().visit(call)
+
+    return found
+
+def get_banned_import() -> str | None:
+    banned_imports = ["math"]
+
+    imports: list[ast.Import] = static.getAstNodes(ast.Import)
+    for imp in imports:
+        names = [alias.name for alias in imp.names]
+        for name in names:
+            if name in banned_imports:
+                return name
+
+    imports_from: list[ast.ImportFrom] = static.getAstNodes(ast.ImportFrom)
+    for imp in imports_from:
+        if imp.name in banned_imports:
+            return imp.name
+
+    return None
+
 @t.test(0)
 def basic_style(test):
     """het bestand is in orde"""
     def testMethod():
-        source = lib.source(test.fileName)
-        if "	" in source:
+        if "	" in static.getSource():
             return False, "let op dat je geen tabs gebruikt"
-        if re.search(r'(min|max)\s*\(', source):
-            return False, "let op dat je geen min() of max() gebruikt"
-        if re.search(r'sorted\s*\(', source):
-            return False, "let op dat je geen sorted() gebruikt"
-        if re.search(r'(import|from)\s*math', source):
-            return False, "let op dat je geen import math gebruikt"
+        
+        banned_call = get_banned_call()
+        if banned_call:
+            return False, f"let op dat je geen {banned_call}() gebruikt"
 
-        if re.search(r'(all|any)\s*\(', source):
-            return False, "let op dat je geen all() of any() gebruikt"
-        if re.search(r'\[[^\]]*for[^\]]*\]', source):
-            return False, "let op dat je geen [... for ...] gebruikt"
+        banned_import = get_banned_import()
+        if banned_import:
+            return False, f"let op dat je geen import {banned_import} gebruikt"
+
+        if static.getAstNodes(ast.ListComp, ast.DictComp, ast.SetComp, ast.GeneratorExp):
+            return False, "let op dat je geen comprehensions gebruikt: [... for ...]"
 
         try:
             max_line_length = os.environ['MAX_LINE_LENGTH']
@@ -35,10 +72,17 @@ def basic_style(test):
             max_doc_length = os.environ['MAX_DOC_LENGTH']
         except KeyError:
             max_doc_length = 79
-        p = subprocess.run(['pycodestyle', '--select=E101,E112,E113,E115,E116,E117,E501,W505', f"--max-line-length={max_line_length}", f"--max-doc-length={max_doc_length}", test.fileName], capture_output=True, universal_newlines=True)
+        p = subprocess.run([
+                'pycodestyle',
+                '--select=E101,E112,E113,E115,E116,E117,E501,W505',
+                f"--max-line-length={max_line_length}",
+                f"--max-doc-length={max_doc_length}",
+                test.fileName
+            ], capture_output=True, universal_newlines=True)
         if p.returncode != 0:
             test.fail = lambda info : f"let op juiste indentatie, code >{max_line_length} tekens, comments >{max_doc_length} tekens"
             return False, p.stdout
+        
         return True
     test.test = testMethod
 
