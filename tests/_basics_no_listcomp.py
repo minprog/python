@@ -19,10 +19,14 @@ def basic_style(test):
             return False, "let op dat je geen min() of max() gebruikt"
         if re.search(r'sorted\s*\(', source):
             return False, "let op dat je geen sorted() gebruikt"
+        if re.search(r'(import|from)\s*math', source):
+            return False, "let op dat je geen import math gebruikt"
+
         if re.search(r'(all|any)\s*\(', source):
             return False, "let op dat je geen all() of any() gebruikt"
         if re.search(r'\[[^\]]*for[^\]]*\]', source):
             return False, "let op dat je geen [... for ...] gebruikt"
+
         try:
             max_line_length = os.environ['MAX_LINE_LENGTH']
         except KeyError:
