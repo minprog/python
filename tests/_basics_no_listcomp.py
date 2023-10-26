@@ -1,9 +1,6 @@
-from typing import Any
 import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as assertlib
-
-from checkpy import static
 
 from _static_analysis import *
 
