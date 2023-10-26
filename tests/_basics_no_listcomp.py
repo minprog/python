@@ -1,4 +1,3 @@
-from _ast import Import, ImportFrom
 from typing import Any
 import checkpy.tests as t
 import checkpy.lib as lib
