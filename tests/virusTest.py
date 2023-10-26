@@ -6,7 +6,7 @@ import os
 os.environ['MAX_LINE_LENGTH'] = '115'
 os.environ['MAX_DOC_LENGTH'] = '110'
 
-from _extensions import *
+from _basics import *
 
 @t.passed(doctest_ok)
 @t.test(10)

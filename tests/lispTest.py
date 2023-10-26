@@ -2,7 +2,7 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
-from _extensions import *
+from _basics import *
 
 @t.test(0)
 def check_no_output(test):

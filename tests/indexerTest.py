@@ -4,7 +4,7 @@ import checkpy.assertlib as asserts
 
 from checkpy import *
 
-from _extensions import *
+from _basics import *
 
 include("indexer.py")
 download("stopwords.txt", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week6/indexer/dist/indexer/stopwords.txt")

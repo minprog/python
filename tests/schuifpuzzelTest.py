@@ -3,7 +3,7 @@ import checkpy.lib as lib
 import checkpy.assertlib as asserts
 from checkpy.entities import exception
 
-from _extensions import *
+from _basics_no_listcomp import *
 
 @t.passed(doctest_ok)
 @t.test(10)
