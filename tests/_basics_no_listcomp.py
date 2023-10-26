@@ -51,18 +51,14 @@ def get_banned_import() -> str | None:
 def basic_style(test):
     """het bestand is in orde"""
     def testMethod():
-        source = static.getSource(test.fileName)
-
-        if "	" in source:
+        if "	" in static.getSource():
             return False, "let op dat je geen tabs gebruikt"
         
         banned_call = get_banned_call()
-
         if banned_call:
             return False, f"let op dat je geen {banned_call}() gebruikt"
 
         banned_import = get_banned_import()
-
         if banned_import:
             return False, f"let op dat je geen import {banned_import} gebruikt"
 
@@ -77,10 +73,17 @@ def basic_style(test):
             max_doc_length = os.environ['MAX_DOC_LENGTH']
         except KeyError:
             max_doc_length = 79
-        p = subprocess.run(['pycodestyle', '--select=E101,E112,E113,E115,E116,E117,E501,W505', f"--max-line-length={max_line_length}", f"--max-doc-length={max_doc_length}", test.fileName], capture_output=True, universal_newlines=True)
+        p = subprocess.run([
+                'pycodestyle',
+                '--select=E101,E112,E113,E115,E116,E117,E501,W505',
+                f"--max-line-length={max_line_length}",
+                f"--max-doc-length={max_doc_length}",
+                test.fileName
+            ], capture_output=True, universal_newlines=True)
         if p.returncode != 0:
             test.fail = lambda info : f"let op juiste indentatie, code >{max_line_length} tekens, comments >{max_doc_length} tekens"
             return False, p.stdout
+        
         return True
     test.test = testMethod
 
