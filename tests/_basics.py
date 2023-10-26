@@ -2,26 +2,29 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as assertlib
 
+from _static_analysis import *
+
 import sys
 import subprocess
 import re
-
 import os
 
 @t.test(0)
 def basic_style(test):
     """het bestand is in orde"""
     def testMethod():
-        source = lib.source(test.fileName)
-        if "	" in source:
+        if lineno := has_syntax_error():
+            return False, f"de code bevat een syntax error op regel {lineno}"
+        if has_string("	"):
             return False, "let op dat je geen tabs gebruikt"
-        if re.search(r'(min|max)\s*\(', source):
+        if has_call('min', 'max'):
             return False, "let op dat je geen min() of max() gebruikt"
-        if re.search(r'sorted\s*\(', source):
-            return False, "let op dat je geen sorted() gebruikt"
-        if re.search(r'(import|from)\s*math', source):
+        if has_call('sorted'):
+            return False, "let op dat je geen sorted gebruikt"
+        if has_import('math'):
             return False, "let op dat je geen import math gebruikt"
 
+        # run pycodestyle for a couple of basic checks
         try:
             max_line_length = os.environ['MAX_LINE_LENGTH']
         except KeyError:
@@ -30,10 +33,17 @@ def basic_style(test):
             max_doc_length = os.environ['MAX_DOC_LENGTH']
         except KeyError:
             max_doc_length = 79
-        p = subprocess.run(['pycodestyle', '--select=E101,E112,E113,E115,E116,E117,E501,W505', f"--max-line-length={max_line_length}", f"--max-doc-length={max_doc_length}", test.fileName], capture_output=True, universal_newlines=True)
+        p = subprocess.run([
+                'pycodestyle',
+                '--select=E101,E112,E113,E115,E116,E117,E501,W505',
+                f"--max-line-length={max_line_length}",
+                f"--max-doc-length={max_doc_length}",
+                test.fileName
+            ], capture_output=True, universal_newlines=True)
         if p.returncode != 0:
             test.fail = lambda info : f"let op juiste indentatie, code >{max_line_length} tekens, comments >{max_doc_length} tekens"
             return False, p.stdout
+        
         return True
     test.test = testMethod
 

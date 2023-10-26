@@ -5,65 +5,33 @@ import checkpy.assertlib as assertlib
 
 from checkpy import static
 
-import ast
+from _static_analysis import *
+
 import sys
 import subprocess
 import re
-
 import os
-
-def get_banned_call() -> str | None:
-    banned_calls = ["min", "max", "sorted", "all", "any"]
-    
-    found: str | None = None
-
-    class Visitor(ast.NodeVisitor):
-        def visit_Name(self, node: ast.Name) -> Any:
-            if node.id in banned_calls:
-                nonlocal found
-                found = node.id
-            
-    calls: list[ast.Call] = static.getAstNodes(ast.Call)
-    for call in calls:
-        Visitor().visit(call)
-
-    return found
-
-def get_banned_import() -> str | None:
-    banned_imports = ["math"]
-
-    imports: list[ast.Import] = static.getAstNodes(ast.Import)
-    for imp in imports:
-        names = [alias.name for alias in imp.names]
-        for name in names:
-            if name in banned_imports:
-                return name
-
-    imports_from: list[ast.ImportFrom] = static.getAstNodes(ast.ImportFrom)
-    for imp in imports_from:
-        if imp.name in banned_imports:
-            return imp.name
-
-    return None
 
 @t.test(0)
 def basic_style(test):
     """het bestand is in orde"""
     def testMethod():
-        if "	" in static.getSource():
+        if lineno := has_syntax_error():
+            return False, f"de code bevat een syntax error op regel {lineno}"
+        if has_string("	"):
             return False, "let op dat je geen tabs gebruikt"
-        
-        banned_call = get_banned_call()
-        if banned_call:
-            return False, f"let op dat je geen {banned_call}() gebruikt"
+        if has_call('min', 'max'):
+            return False, "let op dat je geen min() of max() gebruikt"
+        if has_call('sorted'):
+            return False, "let op dat je geen sorted gebruikt"
+        if has_call('all', 'any'):
+            return False, "let op dat je geen all() of any() gebruikt"
+        if has_import('math'):
+            return False, "let op dat je geen import math gebruikt"
+        if has_generators():
+            return False, "let op dat je geen [... for ...] gebruikt"
 
-        banned_import = get_banned_import()
-        if banned_import:
-            return False, f"let op dat je geen import {banned_import} gebruikt"
-
-        if static.getAstNodes(ast.ListComp, ast.DictComp, ast.SetComp, ast.GeneratorExp):
-            return False, "let op dat je geen comprehensions gebruikt: [... for ...]"
-
+        # run pycodestyle for a couple of basic checks
         try:
             max_line_length = os.environ['MAX_LINE_LENGTH']
         except KeyError:
