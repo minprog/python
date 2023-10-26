@@ -1,31 +1,73 @@
+from _ast import Import, ImportFrom
+from typing import Any
 import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as assertlib
 
+from checkpy import static
+
+import ast
 import sys
 import subprocess
 import re
 
 import os
 
+def get_banned_call() -> str | None:
+    banned_calls = ["min", "max", "sorted", "all", "any"]
+    
+    found: str | None = None
+
+    class Visitor(ast.NodeVisitor):
+        def visit_Name(self, node: ast.Name) -> Any:
+            if node.id in banned_calls:
+                nonlocal found
+                found = node.id
+            
+    calls: list[ast.Call] = static.getAstNodes(ast.Call)
+    for call in calls:
+        Visitor().visit(call)
+
+    return found
+
+def get_banned_import() -> str | None:
+    banned_imports = ["math"]
+
+    imports: list[ast.Import] = static.getAstNodes(ast.Import)
+    for imp in imports:
+        names = [alias.name for alias in imp.names]
+        for name in names:
+            if name in banned_imports:
+                return name
+
+    imports_from: list[ast.ImportFrom] = static.getAstNodes(ast.ImportFrom)
+    for imp in imports_from:
+        if imp.name in banned_imports:
+            return imp.name
+
+    return None
+
 @t.test(0)
 def basic_style(test):
     """het bestand is in orde"""
     def testMethod():
-        source = lib.source(test.fileName)
+        source = static.getSource(test.fileName)
+
         if "	" in source:
             return False, "let op dat je geen tabs gebruikt"
-        if re.search(r'(min|max)\s*\(', source):
-            return False, "let op dat je geen min() of max() gebruikt"
-        if re.search(r'sorted\s*\(', source):
-            return False, "let op dat je geen sorted() gebruikt"
-        if re.search(r'(import|from)\s*math', source):
-            return False, "let op dat je geen import math gebruikt"
+        
+        banned_call = get_banned_call()
 
-        if re.search(r'(all|any)\s*\(', source):
-            return False, "let op dat je geen all() of any() gebruikt"
-        if re.search(r'\[[^\]]*for[^\]]*\]', source):
-            return False, "let op dat je geen [... for ...] gebruikt"
+        if banned_call:
+            return False, f"let op dat je geen {banned_call}() gebruikt"
+
+        banned_import = get_banned_import()
+
+        if banned_import:
+            return False, f"let op dat je geen import {banned_import} gebruikt"
+
+        if static.getAstNodes(ast.ListComp, ast.DictComp, ast.SetComp, ast.GeneratorExp):
+            return False, "let op dat je geen comprehensions gebruikt: [... for ...]"
 
         try:
             max_line_length = os.environ['MAX_LINE_LENGTH']
