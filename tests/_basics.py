@@ -20,7 +20,7 @@ def basic_style(test):
         if has_call('min', 'max'):
             return False, "let op dat je geen min() of max() gebruikt"
         if has_call('sorted'):
-            return False, "let op dat je geen sorted gebruikt"
+            return False, "let op dat je geen sorted() gebruikt"
         if has_import('math'):
             return False, "let op dat je geen import math gebruikt"
 
