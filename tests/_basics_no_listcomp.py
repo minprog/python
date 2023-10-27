@@ -17,6 +17,10 @@ def basic_style(test):
             return False, f"de code bevat een syntax error op regel {lineno}"
         if has_string("	"):
             return False, "let op dat je geen tabs gebruikt"
+        if has_string("Optional"):
+            return False, "let op dat je niet Optional[...] gebruikt als type hint maar ... | None"
+        if has_string("List[", "Tuple[", "Dict[", "Sequence["):
+            return False, "let op dat je niet List[...] gebruikt als type hint maar list[...]"
         if has_call('min', 'max'):
             return False, "let op dat je geen min() of max() gebruikt"
         if has_call('sorted'):
