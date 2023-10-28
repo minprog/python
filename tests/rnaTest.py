@@ -3,6 +3,7 @@ import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
 from _basics_no_listcomp import *
+from _static_analysis import *
 
 @t.passed(doctest_ok)
 @t.test(10)
@@ -26,6 +27,9 @@ def checks_input(test):
 def checks_convert_dna(test):
     """functie `transcribe_dna_to_rna` werkt correct met elke combinatie van uppercase/lowercase"""
     def testMethod():
+        if has_string(".index"):
+            return False, "gebruik geen .index() voor deze opdracht"
+
         convert = lib.getFunction("transcribe_dna_to_rna", test.fileName)
         if convert(["A", "T", "G", "C"]) == ["U", "A", "C", "G"] and convert(
             ["a", "a", "t", "g", "c"]
