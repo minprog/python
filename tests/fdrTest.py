@@ -49,14 +49,14 @@ def test_kmmiles(test):
 def test_avg3(test):
     """functie `avg3` werkt correct"""
     assert getFunction("avg3")(0,1,2) == 1.0
-    assert getFunction("avg3")(4,5,6) == 5
+    assert getFunction("avg3")(4,5,6) == 5.0
     assert getFunction("avg3")(20,100,50) == approx(56.66666)
-    assert getFunction("avg3")(0,0,0) == 0
+    assert getFunction("avg3")(0,0,0) == 0.0
 
 @t.passed(has_functions)
 def test_avg3of4(test):
     """functie `avg3of4` werkt correct"""
     assert getFunction("avg3of4")(0,1,2,0) == 1.0
-    assert getFunction("avg3of4")(4,5,6,7) == 6
+    assert getFunction("avg3of4")(4,5,6,7) == 6.0
     assert getFunction("avg3of4")(20,100,50,0) == approx(56.66666)
-    assert getFunction("avg3of4")(0,0,0,0) == 0
+    assert getFunction("avg3of4")(0,0,0,0) == 0.0
