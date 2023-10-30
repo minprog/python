@@ -4,12 +4,12 @@ from _basics_no_listcomp import *
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert "pie_percent" in static.getFunctionDefinitions()
-    assert "triple" in static.getFunctionDefinitions()
-    assert "absdiff" in static.getFunctionDefinitions()
-    assert "kmmiles" in static.getFunctionDefinitions()
-    assert "avg3" in static.getFunctionDefinitions()
-    assert "avg3of4" in static.getFunctionDefinitions()
+    assert "pie_percent" in static.getFunctionDefinitions(), "`pie_percent` is niet aanwezig"
+    assert "triple" in static.getFunctionDefinitions(), "`triple` is niet aanwezig"
+    assert "absdiff" in static.getFunctionDefinitions(), "`absdiff` is niet aanwezig"
+    assert "kmmiles" in static.getFunctionDefinitions(), "`kmmiles` is niet aanwezig"
+    assert "avg3" in static.getFunctionDefinitions(), "`avg3` is niet aanwezig"
+    assert "avg3of4" in static.getFunctionDefinitions(), "`avg3of4` is niet aanwezig"
 
 @t.passed(has_functions)
 def test_pie_percent(test):
