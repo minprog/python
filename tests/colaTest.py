@@ -5,6 +5,14 @@ import checkpy.assertlib as asserts
 from _basics_no_listcomp import *
 
 @t.passed(doctest_ok)
+def has_functions():
+    """alle gevraagde functies zijn aanwezig"""
+    assert "check_coin" in static.getFunctionDefinitions(), "`check_coin` is niet aanwezig"
+    assert "determine_due" in static.getFunctionDefinitions(), "`determine_due` is niet aanwezig"
+    assert "prompt_coin" not in static.getFunctionDefinitions(), "`prompt_coin` is aanwezig, maar dat staat niet in de opdracht"
+    assert ast.While in static.AbstractSyntaxTree(), "er wordt geen gebruik gemaakt van een `while`-loop"
+
+@t.passed(doctest_ok)
 @t.test(10)
 def checks_coin(test):
     """functie `check_coin` werkt correct"""
