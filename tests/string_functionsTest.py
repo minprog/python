@@ -2,13 +2,17 @@ from checkpy import *
 from _basics_no_listcomp import *
 from _static_analysis import *
 
+import ast
+
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert "repeat" in static.getFunctionDefinitions(), "`repeat` is niet aanwezig"
     assert "total_length" in static.getFunctionDefinitions(), "`total_length` is niet aanwezig"
-    assert not (has_string("if(") or has_string("if ")), "let op dat je geen `if` gebruikt"
-    assert not (has_string("for ") or has_string("while ")), "let op dat je geen `for` of `while` gebruikt"
+    
+    assert ast.If not in static.AbstractSyntaxTree()
+    assert ast.While not in static.AbstractSyntaxTree()
+    assert ast.For not in static.AbstractSyntaxTree()
 
 @t.passed(has_functions)
 def test_repeat(test):
