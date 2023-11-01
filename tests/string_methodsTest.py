@@ -11,7 +11,7 @@ def has_functions():
     assert defines_function("first_O")
     assert defines_function("number_of_letters")
     assert defines_function("where_letter")
-    assert defines_function("total_occurences")
+    assert defines_function("total_occurrences")
     assert has_string(".count"), "gebruik de opgegeven methodes in je oplossing"
     assert has_string(".find"), "gebruik de opgegeven methodes in je oplossing"
     assert not_in_code(ast.While)
