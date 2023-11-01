@@ -6,14 +6,12 @@ from _basics_no_listcomp import *
 
 @t.passed(doctest_ok)
 @t.test(9)
-def check_any(test):
-    def testMethod():
-        source_no_comments = lib.removeComments(lib.source(test.fileName))
-        return "any(" not in source_no_comments and "any (" not in source_no_comments
-    test.test = testMethod
-    test.description = lambda : "geen gebruik van de functie any()"
+def check_code(test):
+    """geen loops gebruikt in deze opdracht"""
+    assert not_in_code(ast.While)
+    assert not_in_code(ast.For)
 
-@t.passed(check_any)
+@t.passed(check_code)
 @t.test(10)
 def checks_length(test):
     """functie `check_length` werkt correct"""
@@ -25,7 +23,7 @@ def checks_length(test):
             return False
     test.test = testMethod
 
-@t.passed(check_any)
+@t.passed(check_code)
 @t.test(20)
 def checks_letter(test):
     """functie `check_letter` werkt correct"""
@@ -37,7 +35,7 @@ def checks_letter(test):
             return False
     test.test = testMethod
 
-@t.passed(check_any)
+@t.passed(check_code)
 @t.test(30)
 def checks_number(test):
     """functie `check_number` werkt correct"""
@@ -49,7 +47,7 @@ def checks_number(test):
             return False
     test.test = testMethod
 
-@t.passed(check_any)
+@t.passed(check_code)
 @t.test(40)
 def checks_password(test):
     """functie `check_password` werkt correct"""
