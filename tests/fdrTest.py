@@ -1,15 +1,16 @@
 from checkpy import *
 from _basics_no_listcomp import *
+from _static_analysis import *
 
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert "pie_percent" in static.getFunctionDefinitions(), "`pie_percent` is niet aanwezig"
-    assert "triple" in static.getFunctionDefinitions(), "`triple` is niet aanwezig"
-    assert "absdiff" in static.getFunctionDefinitions(), "`absdiff` is niet aanwezig"
-    assert "kmmiles" in static.getFunctionDefinitions(), "`kmmiles` is niet aanwezig"
-    assert "avg3" in static.getFunctionDefinitions(), "`avg3` is niet aanwezig"
-    assert "avg3of4" in static.getFunctionDefinitions(), "`avg3of4` is niet aanwezig"
+    assert defines_function("pie_percent")
+    assert defines_function("triple")
+    assert defines_function("absdiff")
+    assert defines_function("kmmiles")
+    assert defines_function("avg3")
+    assert defines_function("avg3of4")
 
 @t.passed(has_functions)
 def test_pie_percent(test):

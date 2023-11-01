@@ -1,10 +1,11 @@
 from checkpy import *
 from _basics_no_listcomp import *
+from _static_analysis import *
 
 @t.passed(doctest_ok)
 def has_functions():
     """functie `is_acidic` is aanwezig"""
-    assert "is_acidic" in static.getFunctionDefinitions(), "`is_acidic` is niet aanwezig"
+    assert defines_function("is_acidic")
 
 @t.passed(has_functions)
 def test_weeks_elapsed(test):

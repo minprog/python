@@ -1,10 +1,11 @@
 from checkpy import *
 from _basics_no_listcomp import *
+from _static_analysis import *
 
 @t.passed(doctest_ok)
 def has_functions():
     """functie `weeks_elapsed` is aanwezig"""
-    assert "weeks_elapsed" in static.getFunctionDefinitions(), "`weeks_elapsed` is niet aanwezig"
+    assert defines_function("weeks_elapsed")
 
 @t.passed(has_functions)
 def test_weeks_elapsed(test):

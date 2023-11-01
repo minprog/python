@@ -7,12 +7,11 @@ import ast
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert "repeat" in static.getFunctionDefinitions(), "`repeat` is niet aanwezig"
-    assert "total_length" in static.getFunctionDefinitions(), "`total_length` is niet aanwezig"
-    
-    assert ast.If not in static.AbstractSyntaxTree()
-    assert ast.While not in static.AbstractSyntaxTree()
-    assert ast.For not in static.AbstractSyntaxTree()
+    assert defines_function("repeat")
+    assert defines_function("total_length")
+    assert not_in_code(ast.If)
+    assert not_in_code(ast.While)
+    assert not_in_code(ast.For)
 
 @t.passed(has_functions)
 def test_repeat(test):

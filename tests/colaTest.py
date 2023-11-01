@@ -3,14 +3,15 @@ import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
 from _basics_no_listcomp import *
+from _static_analysis import *
 
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert "check_coin" in static.getFunctionDefinitions(), "`check_coin` is niet aanwezig"
-    assert "determine_due" in static.getFunctionDefinitions(), "`determine_due` is niet aanwezig"
-    assert "prompt_coin" not in static.getFunctionDefinitions(), "`prompt_coin` is aanwezig, maar dat staat niet in de opdracht"
-    assert ast.While in static.AbstractSyntaxTree(), "er wordt geen gebruik gemaakt van een `while`-loop"
+    assert defines_function("check_coin")
+    assert defines_function("determine_due")
+    assert defines_function("prompt_coin")
+    assert in_code(ast.While)
 
 @t.passed(doctest_ok)
 @t.test(10)

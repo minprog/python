@@ -1,7 +1,28 @@
+from checkpy import *
 from typing import Any
 import ast
 
 from checkpy import static
+
+def defines_function(name: str) -> bool:
+    check = name in static.getFunctionDefinitions()
+    if not check:
+        raise AssertionError(f"`{name}` is niet aanwezig")
+    return check
+
+def not_in_code(construct: type):
+    check = construct in static.AbstractSyntaxTree()
+    name = str(construct).split(".")[1].split("'")[0].lower()
+    if check:
+        raise AssertionError(f"`{name}` mag niet gebruikt worden in deze opdracht")
+    return check
+
+def in_code(construct: type):
+    check = construct in static.AbstractSyntaxTree()
+    name = str(construct).split(".")[1].split("'")[0].lower()
+    if not check:
+        raise AssertionError(f"`{name}` moet gebruikt worden in deze opdracht")
+    return check
 
 def has_syntax_error():
     try:
