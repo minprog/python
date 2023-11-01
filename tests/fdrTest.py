@@ -14,6 +14,7 @@ def has_functions():
     assert not_in_code(ast.If)
     assert not_in_code(ast.While)
     assert not_in_code(ast.For)
+    assert not_in_code(ast.List)
 
 @t.passed(has_functions)
 def test_pie_percent(test):
