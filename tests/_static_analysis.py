@@ -11,9 +11,9 @@ def defines_function(name: str) -> bool:
     return check
 
 def not_in_code(construct: type):
-    check = construct in static.AbstractSyntaxTree()
+    check = construct not in static.AbstractSyntaxTree()
     name = str(construct).split(".")[1].split("'")[0].lower()
-    if check:
+    if not check:
         raise AssertionError(f"`{name}` mag niet gebruikt worden in deze opdracht")
     return check
 
