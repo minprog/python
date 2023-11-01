@@ -11,6 +11,9 @@ def has_functions():
     assert defines_function("kmmiles")
     assert defines_function("avg3")
     assert defines_function("avg3of4")
+    assert not_in_code(ast.If)
+    assert not_in_code(ast.While)
+    assert not_in_code(ast.For)
 
 @t.passed(has_functions)
 def test_pie_percent(test):
