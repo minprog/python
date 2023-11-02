@@ -5,11 +5,16 @@ import checkpy.assertlib as asserts
 from _basics_no_listcomp import *
 from _static_analysis import *
 
+# special check in has_functions because of older assignment version
+from checkpy import static
+
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert defines_function("check_coin")
     assert defines_function("determine_due")
+    if "prompt_coin" in static.getFunctionDefinitions():
+        raise AssertionError("`prompt_coin` is aanwezig, maar dat staat niet in de opdracht")
     assert in_code(ast.While)
 
 @t.passed(doctest_ok)
