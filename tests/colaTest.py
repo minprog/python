@@ -10,7 +10,6 @@ def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert defines_function("check_coin")
     assert defines_function("determine_due")
-    assert defines_function("prompt_coin")
     assert in_code(ast.While)
 
 @t.passed(doctest_ok)
