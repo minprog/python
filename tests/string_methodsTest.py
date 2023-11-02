@@ -42,10 +42,10 @@ def test_number_of_letters(test):
 @t.passed(has_functions)
 def test_where_letter(test):
     """functie `where_letter` werkt correct"""
-    assert getFunction("first_O")('ooo', 'o') == 0
-    assert getFunction("first_O")('ao', 'o') == 1
-    assert getFunction("first_O")('aaa', 'a') == 0
-    assert getFunction("first_O")('ya', 'a') == 1
+    assert getFunction("where_letter")('ooo', 'o') == 0
+    assert getFunction("where_letter")('ao', 'o') == 1
+    assert getFunction("where_letter")('aaa', 'a') == 0
+    assert getFunction("where_letter")('ya', 'a') == 1
 
 @t.passed(has_functions)
 def test_total_occurrences(test):
