@@ -12,9 +12,9 @@ def has_functions():
     assert defines_function("isupper")
     assert defines_function("isdigit")
     assert defines_function("isblank")
-    assert not has_string("defgh"), "gebruik de variabelen uit de string-module voor deze opdracht"
-    assert not has_string("DEFGH"), "gebruik de variabelen uit de string-module voor deze opdracht"
-    assert not has_string("1234"), "gebruik de variabelen uit de string-module voor deze opdracht"
+    assert not has_string("defghijklmnopqrstuvw"), "gebruik de variabelen uit de string-module voor deze opdracht"
+    assert not has_string("DEFGHIJKLMNOPQRSTUVW"), "gebruik de variabelen uit de string-module voor deze opdracht"
+    assert not has_string("123456789"), "gebruik de variabelen uit de string-module voor deze opdracht"
     assert has_string(".ascii_lowercase"), "gebruik de variabelen uit de string-module voor deze opdracht"
     assert has_string(".ascii_uppercase"), "gebruik de variabelen uit de string-module voor deze opdracht"
     assert has_string(".whitespace"), "gebruik de variabelen uit de string-module voor deze opdracht"
