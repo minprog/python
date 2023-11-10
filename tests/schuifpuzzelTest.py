@@ -4,8 +4,22 @@ import checkpy.assertlib as asserts
 from checkpy.entities import exception
 
 from _basics_no_listcomp import *
+from _static_analysis import *
 
 @t.passed(doctest_ok)
+@t.test(9)
+def checks_content(test):
+    """datastructuur `list[list[int]]` is toegepast"""
+    if not has_string("Board = list[list[int]]"):
+        return False, "Board = list[list[int]] niet gevonden"
+    if not has_string("def is_won(board: Board) -> bool:"):
+        return False, "functie `is_won` moet een `board: Board`-parameter hebben"
+    if not has_string("def print_board(board: Board) -> None:"):
+        return False, "functie `print_board` moet een `board: Board`-parameter hebben"
+    if not has_string("def create_board() -> Board:"):
+        return False, "functie `create_board` moet een `Board` teruggeven"
+
+@t.passed(checks_content)
 @t.test(10)
 def checks_set_board(test):
     """functie `create_board` werkt correct"""
@@ -22,7 +36,7 @@ def checks_set_board(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(checks_content)
 @t.test(20)
 def checks_is_won(test):
     """functie `is_won` werkt correct"""
@@ -39,7 +53,7 @@ def checks_is_won(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(checks_content)
 @t.test(30)
 def checks_move_tile(test):
     """functie `move_tile` werkt correct"""
@@ -79,7 +93,7 @@ def checks_move_tile(test):
         return True
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(checks_content)
 @t.test(40)
 def check_win(test):
     """spel werkt en is uit te spelen"""
