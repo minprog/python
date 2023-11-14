@@ -17,8 +17,8 @@ def has_functions():
 @t.passed(has_functions)
 def test_four_random_letters(test):
     """functie `four_random_letters` werkt correct"""
-    assert getFunction("four_random_letters")("A") == "AAAA"
-    assert getFunction("four_random_letters")("BBB") == "BBBB"
+    assert getFunction("four_random_letters")("A") == ['A','A','A','A']
+    assert getFunction("four_random_letters")("BBB") == ['B','B','B','B']
     assert len(getFunction("four_random_letters")("A")) == 4
 
 @t.passed(has_functions)
