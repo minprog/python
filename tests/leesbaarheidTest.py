@@ -38,7 +38,7 @@ def checks_tekst1(test):
         if asserts.exact(output.strip(), "Grade 7"):
             return True
         else:
-            return False, "zorg dat je niet te vaak afrondt"
+            return False, "zorg dat de output exact zo is als in de voorbeelden"
     test.test = testMethod
 
 @t.passed(doctest_ok)
