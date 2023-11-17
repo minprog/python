@@ -9,8 +9,8 @@ from _basics_no_listcomp import *
 def checks_no_index(test):
     """oplossing gebruikt geen `.index()` of `.find()`"""
     def testMethod():
-        if has_string(".index") or has_string(".find"):
-            return False, "gebruik geen .index() of .find() voor deze opdracht"
+        if has_string(".index") or has_string(".find") or has_call("ord"):
+            return False, "gebruik geen .index() of .find() of ord() voor deze opdracht"
         return True
     test.test = testMethod
 

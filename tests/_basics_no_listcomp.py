@@ -29,6 +29,8 @@ def basic_style(test):
             return False, "let op dat je geen map() gebruikt"
         if has_call('eval'):
             return False, "let op dat je geen eval() gebruikt"
+        if has_call('zip'):
+            return False, "let op dat je geen zip() gebruikt"
         if has_call('all', 'any'):
             return False, "let op dat je geen all() of any() gebruikt"
         if has_import('math'):
