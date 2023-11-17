@@ -5,6 +5,16 @@ import checkpy.assertlib as asserts
 from _basics_no_listcomp import *
 
 @t.passed(doctest_ok)
+@t.test(9)
+def checks_no_index(test):
+    """oplossing gebruikt geen `.index()` of `.find()`"""
+    def testMethod():
+        if has_string(".index") or has_string(".find"):
+            return False, "gebruik geen .index() of .find() voor deze opdracht"
+        return True
+    test.test = testMethod
+
+@t.passed(doctest_ok)
 @t.test(10)
 def checks_compute_score(test):
     """functie 'compute_score' werkt correct"""

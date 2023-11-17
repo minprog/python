@@ -8,10 +8,10 @@ from _static_analysis import *
 @t.passed(doctest_ok)
 @t.test(9)
 def checks_no_index(test):
-    """oplossing gebruikt geen `.index()`"""
+    """oplossing gebruikt geen `.index()` of `.find()`"""
     def testMethod():
-        if has_string(".index"):
-            return False, "gebruik geen .index() voor deze opdracht"
+        if has_string(".index") or has_string(".find"):
+            return False, "gebruik geen .index() of .find() voor deze opdracht"
         return True
     test.test = testMethod
 
