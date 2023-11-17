@@ -27,6 +27,8 @@ def basic_style(test):
             return False, "let op dat je geen sorted() gebruikt"
         if has_call('map'):
             return False, "let op dat je geen map() gebruikt"
+        if has_call('eval'):
+            return False, "let op dat je geen eval() gebruikt"
         if has_call('all', 'any'):
             return False, "let op dat je geen all() of any() gebruikt"
         if has_import('math'):
