@@ -2,9 +2,13 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
+from checkpy import monkeypatch
+
 import os
 os.environ['MAX_LINE_LENGTH'] = '115'
 os.environ['MAX_DOC_LENGTH'] = '110'
+
+monkeypatch.patchMatplotlib()
 
 from _basics import *
 
