@@ -1,6 +1,5 @@
 from checkpy import *
 
-import typing
 import sys
 import pathlib
 sys.path.append(str(pathlib.Path(__file__).parent.parent))
@@ -127,6 +126,17 @@ def testWonNewGame():
         'assert game.won() == False'
     )
 
+@passed(testWonNewGame, hide=False)
+def testWonAfter26Guesses():
+    """won() returns True after guessing the entire alphabet"""
+    run(
+        'game = Hangman("abcdefghijklmnopqrstuvwxyz", 26)',
+        'for letter in "abcdefghijklmnopqrstuvwxyz":\n'
+        '    assert not game.won()\n'
+        '    game.guess(letter)',
+        'assert not game.won()'
+    )
+
 def run(*instructions: str):
     """Helper function that 'exec()'s each instruction with shared globals()."""
     env = {}
@@ -142,13 +152,27 @@ def raiseDebugMessage(*lines: str):
     Helper function that formats each line as if it were fed to Python's repl.
     Then raises an AssertionError with the formatted message.
     """
+    def fixLine(line: str) -> str:
+        line = line.rstrip("\n")
+
+        if line.startswith(" "):
+            return "... " + line
+        if not line.startswith(">>> "):
+            return ">>> " + line
+        return line
+
+    # break-up multi-line statements
+    actualLines = []
+    for line in lines:
+        actualLines.extend([l for l in line.split("\n") if l])
+
+    # prepend >>> and ... (what you'd see in the REPL)
+    fixedLines = [fixLine(l) for l in actualLines]
+    
     pre = (
         'This check failed. To reproduce its results run the following in the terminal:\n'
         '$ python3\n'
         '>>> from hangman import *\n'
     )
 
-    lines = [l if l.startswith(">>> ") else ">>> " + l for l in lines]
-    lines = [l.rstrip("\n") for l in lines]
-    
-    raise AssertionError(pre + "\n".join(lines))
+    raise AssertionError(pre + "\n".join(fixedLines))
