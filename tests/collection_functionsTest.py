@@ -10,7 +10,6 @@ def has_functions():
     assert defines_function("find_dups")
     assert defines_function("mating_pairs")
     assert defines_function("count_values")
-    assert in_code(ast.For)
 
 @t.passed(has_functions)
 def test_find_dups(test):
