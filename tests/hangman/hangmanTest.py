@@ -17,17 +17,10 @@ def canImport():
 @passed(canImport, hide=False)
 def testLoadLexicon():
     """lexicon object with 4-letter words can be created"""
-    hangman = getModule()
-
-    if not hasattr(hangman, "Lexicon"):
+    if not hasattr(getModule(), "Lexicon"):
         raise AssertionError("missing class 'Lexicon' in hangman.py")
 
-    try:
-        hangman.Lexicon(4)
-    except:
-        raiseDebugMessage(
-            "Lexicon(4)"
-        )
+    run('Lexicon(4)')
 
 @passed(testLoadLexicon, hide=False)
 def testLexicon():
@@ -50,143 +43,64 @@ def testLexicon():
 @passed(testLexicon, hide=False)
 def testLoadHangman():
     """can create a hangman game with "hello" and 5 guesses"""
-    hangman = getModule()
-
-    if not hasattr(hangman, "Hangman"):
+    if not hasattr(getModule(), "Hangman"):
         raise AssertionError("missing class 'Hangman' in hangman.py")
     
-    try:
-        hangman.Hangman("hello", 5)
-    except:
-        raiseDebugMessage(
-            'Hangman("hello", 5)'
-        )
+    run('Hangman("hello", 5)')
     
 @passed(testLoadHangman, hide=False)
 def testGuessesLeftStart():
-    """guesses_left() returns the correct number of starting guesses"""
-    Hangman = getModule().Hangman
-    
-    try:
-        assert Hangman("hello", 5).guesses_left() == 5
-    except:
-        raiseDebugMessage(
-            'game = Hangman("hello", 5)',
-            'game.guesses_left()'
-        )
-
-    try:
-        assert Hangman("seven", 7).guesses_left() == 7
-    except:
-        raiseDebugMessage(
-            'game = Hangman("seven", 7)',
-            'game.guesses_left()'
-        )
+    """guesses_left() returns the correct number of starting guesses"""    
+    run('assert Hangman("hello", 5).guesses_left() == 5')
+    run('assert Hangman("seven", 7).guesses_left() == 7')
 
 @passed(testGuessesLeftStart, hide=False)
 def testGuessesLeftTwice():
     """calling guesses_left() twice returns the same result"""
-    Hangman = getModule().Hangman
-
-    try:
-        game = Hangman("hello", 5)
-        assert game.guesses_left() == game.guesses_left()
-    except:
-        raiseDebugMessage(
-            'game = Hangman("hello", 5)',
-            'game.guesses_left()',
-            'game.guesses_left()'
-        )
+    run(
+        'game = Hangman("hello", 5)',
+        'assert game.guesses_left() == game.guesses_left()'
+    )
     
 @passed(testGuessesLeftTwice, hide=False)
 def testGuess():
     """guess() returns True if letter is in the word, False if not"""
-    Hangman = getModule().Hangman
-
-    try:
-        assert Hangman("abc", 5).guess("a") == True
-    except:
-        raiseDebugMessage(
-            'game = Hangman("abc", 5)',
-            'game.guess("a")'
-        )
-
-    try:
-        assert Hangman("abc", 5).guess("d") == False
-    except:
-        raiseDebugMessage(
-            'game = Hangman("abc", 5)',
-            'game.guess("d")'
-        )
+    run('assert Hangman("abc", 5).guess("a")')
+    run('assert not Hangman("abc", 5).guess("d")')
 
 @passed(testGuess, hide=False)
 def testGuessRepeatedLetter():
     """guess() returns True if letter is in the word, then False when that same letter is guessed again"""
-    Hangman = getModule().Hangman
-
-    try:
-        game = Hangman("abc", 5)
-        assert game.guess("a")
-        assert not game.guess("a")
-    except:
-        raiseDebugMessage(
-            'game = Hangman("abc", 5)',
-            'game.guess("a")',
-            'game.guess("a")'
-        )
+    run(
+        'game = Hangman("abc", 5)',
+        'assert game.guess("a")',
+        'assert not game.guess("a")'
+    )
     
 @passed(testGuessRepeatedLetter, hide=False)
 def testGuessesDecreaseAfterGuess():
     """guesses_left() decreases after a call to guess()"""
-    Hangman = getModule().Hangman
-
-    try:
-        game = Hangman("abc", 5)
-        start = game.guesses_left()
-        game.guess("a")
-        end = game.guesses_left()
-        assert start == end + 1
-    except:
-        raiseDebugMessage(
-            'game = Hangman("abc", 5)',
-            'game.guesses_left()',
-            'game.guess("a")',
-            'game.guesses_left()'
-        )
+    run(
+        'game = Hangman("abc", 5)',
+        'start = game.guesses_left()',
+        'game.guess("a")',
+        'end = game.guesses_left()',
+        'assert start == end + 1'
+    )
     
 @passed(testGuessesDecreaseAfterGuess, hide=False)
 def testCurrentPatternEmpty():
     """current_pattern() creates a pattern of underscores of the correct length"""
-    Hangman = getModule().Hangman
-
-    try:
-        assert Hangman("abc", 5).current_pattern() == "___"
-    except:
-        raiseDebugMessage(
-            'game = Hangman("abc", 5)',
-            'game.current_pattern()'
-        )
-    
-    try:
-        assert Hangman("hello", 5).current_pattern() == "_____"
-    except:
-        raiseDebugMessage(
-            'game = Hangman("hello", 5)',
-            'game.current_pattern()'
-        )
+    run('assert Hangman("abc", 5).current_pattern() == "___"')
+    run('assert Hangman("hello", 5).current_pattern() == "_____"')
 
 @passed(testCurrentPatternEmpty, hide=False)
 def testCurrentPatternTwice():
     """calling current_pattern() twice returns the same result"""
-    try:
-        game = getModule().Hangman("abc", 5)
-        assert game.current_pattern() == game.current_pattern()
-    except:
-        raiseDebugMessage(
-            'game = Hangman("abc", 5)',
-            'game.current_pattern()',
-            'game.current_pattern()'
-        )
+    run(
+        'game = Hangman("abc", 5)',
+        'assert game.current_pattern() == game.current_pattern()'
+    )
     
 @passed(testCurrentPatternEmpty, hide=False)
 def testCurrentPatternChangesAfterGuess():
