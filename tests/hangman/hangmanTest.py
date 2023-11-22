@@ -7,8 +7,7 @@ from _basics import *
 
 includeFromTests("dictionary.txt")
 
-#@passed(basic_style, mypy_ok, doctest_ok)
-@test()
+@passed(basic_style, mypy_ok, doctest_ok)
 def canImport():
     """hangman.py loads without printing anything"""
     assert outputOf() == "", "make sure you do not edit the distribution code and make sure your code is free of exceptions"
@@ -121,12 +120,14 @@ def testCurrentPatternChangesAfterGuess():
 @passed(testCurrentPatternChangesAfterGuess, hide=False)
 def testWonNewGame():
     """won() returns False on a new game"""
-    run(
-        'game = Hangman("abc", 5)',
-        'assert game.won() == False'
-    )
+    run('assert not Hangman("abc", 5).won()')
 
 @passed(testWonNewGame, hide=False)
+def testIsRunningNewGame():
+    """is_running() returns True on a new game"""
+    run('assert Hangman("abc", 5).is_running()')
+
+@passed(testIsRunningNewGame, hide=False)
 def testWonAfter26Guesses():
     """won() returns True after guessing the entire alphabet"""
     run(
@@ -134,18 +135,40 @@ def testWonAfter26Guesses():
         'for letter in "abcdefghijklmnopqrstuvwxyz":\n'
         '    assert not game.won()\n'
         '    game.guess(letter)',
-        'assert not game.won()'
+        'assert game.won()'
     )
 
-def run(*instructions: str):
-    """Helper function that 'exec()'s each instruction with shared globals()."""
+@passed(testWonAfter26Guesses, hide=False)
+def testIsRunningAfterGameIsWon():
+    """is_running() returns False after winning a game"""
+    run(
+        'game = Hangman("abcdefghijklmnopqrstuvwxyz", 26)',
+        'for letter in "abcdefghijklmnopqrstuvwxyz":\n'
+        '    game.guess(letter)',
+        'assert not game.is_running()'
+    )
+
+@passed(testIsRunningAfterGameIsWon, hide=False)
+def testIsRunningNoGuesses():
+    """is_running() returns False after running out of guesses"""
+    run(
+        'game = Hangman("abc", 2)',
+        'game.guess("a")',
+        'assert game.is_running()',
+        'game.guess("b")',
+        'assert not game.is_running()'
+    )
+
+
+def run(*statements: str):
+    """Helper function that 'exec()'s each statement with shared globals()."""
     env = {}
     exec("from hangman import *", env)
     try:
-        for instr in instructions:
+        for instr in statements:
             exec(instr, env)
     except:
-        raiseDebugMessage(*instructions)
+        raiseDebugMessage(*statements)
 
 def raiseDebugMessage(*lines: str):
     """
