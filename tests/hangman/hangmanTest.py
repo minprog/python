@@ -106,14 +106,14 @@ def testCurrentPatternChangesAfterGuess():
     run(
         'game = Hangman("abc", 5)',
         'assert game.current_pattern() == "___"',
-        'game.guess("a")',
+        'assert game.guess("a")',
         'assert game.current_pattern() == "a__"'
     )
 
     run(
         'game = Hangman("abba", 5)',
         'assert game.current_pattern() == "____"',
-        'game.guess("b")',
+        'assert game.guess("b")',
         'assert game.current_pattern() == "_bb_"'
     )
 
@@ -128,23 +128,31 @@ def testIsRunningNewGame():
     run('assert Hangman("abc", 5).is_running()')
 
 @passed(testIsRunningNewGame, hide=False)
-def testWonAfter26Guesses():
-    """won() returns True after guessing the entire alphabet"""
+def testWonAfterGuessingWord():
+    """won() returns True after guessing the word"""
     run(
-        'game = Hangman("abcdefghijklmnopqrstuvwxyz", 26)',
-        'for letter in "abcdefghijklmnopqrstuvwxyz":\n'
-        '    assert not game.won()\n'
-        '    game.guess(letter)',
+        'game = Hangman("cde", 5)',
+        'assert not game.won()',
+        'assert not game.guess("a")',
+        'assert not game.won()',
+        'assert not game.guess("b")',
+        'assert not game.won()',
+        'assert game.guess("c")',
+        'assert not game.won()',
+        'assert game.guess("d")',
+        'assert not game.won()',
+        'assert game.guess("e")',
         'assert game.won()'
     )
 
-@passed(testWonAfter26Guesses, hide=False)
+@passed(testWonAfterGuessingWord, hide=False)
 def testIsRunningAfterGameIsWon():
     """is_running() returns False after winning a game"""
     run(
-        'game = Hangman("abcdefghijklmnopqrstuvwxyz", 26)',
-        'for letter in "abcdefghijklmnopqrstuvwxyz":\n'
-        '    game.guess(letter)',
+        'game = Hangman("cde", 5)',
+        'assert game.guess("c")',
+        'assert game.guess("d")',
+        'assert game.guess("e")',
         'assert not game.is_running()'
     )
 
@@ -153,9 +161,9 @@ def testIsRunningNoGuesses():
     """is_running() returns False after running out of guesses"""
     run(
         'game = Hangman("abc", 2)',
-        'game.guess("a")',
+        'assert game.guess("a")',
         'assert game.is_running()',
-        'game.guess("b")',
+        'assert game.guess("b")',
         'assert not game.is_running()'
     )
 
@@ -165,8 +173,8 @@ def run(*statements: str):
     env = {}
     exec("from hangman import *", env)
     try:
-        for instr in statements:
-            exec(instr, env)
+        for stat in statements:
+            exec(stat, env)
     except:
         raiseDebugMessage(*statements)
 
@@ -190,10 +198,11 @@ def raiseDebugMessage(*lines: str):
         actualLines.extend([l for l in line.split("\n") if l])
 
     # prepend >>> and ... (what you'd see in the REPL)
+    # replace any "assert " statements with "True" on the next line
     fixedLines = [fixLine(l) for l in actualLines]
-    
+
     pre = (
-        'This check failed. To reproduce its results run the following in the terminal:\n'
+        'This check failed. Run the following code in the terminal to see if you can find out why:\n'
         '$ python3\n'
         '>>> from hangman import *\n'
     )
