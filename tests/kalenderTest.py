@@ -114,8 +114,8 @@ def check_grid(test):
             overwriteAttributes=[("__name__", "__main__")],
         )
 
-        if not (asserts.contains(output, "Sun Mon Tue Wed Thu Fri Sat\n") or
-            asserts.contains(output, "Zon Maa Din Woe Don Vri Zat\n")):
+        if not (asserts.contains(output, "Sun Mon Tue Wed Thu Fri Sat") or
+            asserts.contains(output, "Zon Maa Din Woe Don Vri Zat")):
             return False, "namen van dagen missen of zijn verkeerd gespeld"
 
         output = lib.outputOf(
