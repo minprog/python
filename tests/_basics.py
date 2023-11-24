@@ -9,7 +9,7 @@ import subprocess
 import re
 import os
 
-@t.test(0)
+@t.test(1)
 def basic_style(test):
     """het bestand is in orde"""
     def testMethod():
@@ -67,7 +67,7 @@ def basic_style(test):
     test.test = testMethod
 
 @t.passed(basic_style, hide=False)
-@t.test(1)
+@t.test(2)
 def mypy_ok(test):
     """type hints zijn ingevuld en consistent bevonden"""
     def testMethod():
@@ -79,7 +79,7 @@ def mypy_ok(test):
     test.fail = report
 
 @t.passed(mypy_ok, hide=False)
-@t.test(2)
+@t.test(3)
 def doctest_ok(test):
     """doctests zijn voldoende aanwezig en geven allemaal akkoord"""
     def testMethod():
