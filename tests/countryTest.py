@@ -1,6 +1,4 @@
 from checkpy import *
-from _basics import *
-from _static_analysis import *
 
 import sys
 
@@ -22,6 +20,9 @@ def rewrite(test):
                     f.write('from typing_extensions import Self\n')
                 else:
                     f.write(line)
+
+from _basics import *
+from _static_analysis import *
 
 @t.passed(doctest_ok)
 def test_country(test):
