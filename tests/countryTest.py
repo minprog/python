@@ -4,31 +4,24 @@ from _static_analysis import *
 
 import sys
 
+only("country.py")
+
 @test(0)
 def rewrite(test):
     """bestand is aanwezig"""
 
     # vervangt typing module door typing_extensions voor Self
-
     if sys.version_info.minor < 11:
-        global _originalFileName
-        global _fileName
 
-        _originalFileName = _fileName
+        with open(test.fileName, 'r') as f:
+            original_file_contents = f.readlines()
 
-        with open(_fileName, 'r') as f:
-            file_contents = f.readlines()
-
-        tempfile = f"_{_fileName}.tmp"
-
-        with open(tempfile, 'w') as f:
-            for line in file_contents:
+        with open(test.fileName, 'w') as f:
+            for line in original_file_contents:
                 if line.strip() == 'from typing import Self':
                     f.write('from typing_extensions import Self\n')
                 else:
                     f.write(line)
-
-        _fileName = tempfile
 
 @t.passed(doctest_ok)
 def test_country(test):
