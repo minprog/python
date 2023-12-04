@@ -16,9 +16,14 @@ def checks_type(test):
     """functie 'create_index' geeft een index van het juiste type met ingeladen data"""
     def testMethod():
         fn = lib.getFunction("create_index", test.fileName)
+
         index = fn("stopwords.txt", [])
         if len(index) != 138:
             return False, "de index heeft niet het juiste aantal woorden"
+
+        index = fn("stopwords.txt", ['myself'])
+        if len(index) != 137:
+            return False, "`create_index` lijkt geen rekening te houden met stopwords"
 
         for key, value in index.items():
 
