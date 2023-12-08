@@ -6,9 +6,18 @@ from _basics import *
 from checkpy import *
 
 include("klimaat.py")
-download("climate.csv", "https://raw.githubusercontent.com/minprog/pyprog/2022/opdrachten/week5/klimaat/climate.csv")
+download("climate.csv", "https://raw.githubusercontent.com/minprog/pyprog/2023/opdrachten/week7/klimaat/climate.csv")
 
-@t.test(1)
+@t.passed(doctest_ok)
+@t.test(10)
+def has_functions():
+    """alle gevraagde functies zijn aanwezig"""
+    assert defines_function("print_basis_info")
+    assert defines_function("extremen")
+    assert defines_function("print_extremen")
+
+@t.passed(doctest_ok)
+@t.test(90)
 def output_test(test):
     def testMethod():
         o1 = ("""KLIMAATANALYSE
@@ -94,4 +103,5 @@ In 2019 the temperature varied between -1.1° on 24-01 and 37.5° on 25-07""")
         output = lib.outputOf(test.fileName, overwriteAttributes = [("__name__", "__main__")]).strip()
         return output == o1.strip() or output == o2.strip() or output == o15.strip()
     test.test = testMethod
-    test.description = lambda : "prints exactly the right output"
+    test.description = lambda : "print exact de juiste uitvoer"
+
