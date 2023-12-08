@@ -77,11 +77,11 @@ def testGuessRepeatedLetter():
     
 @passed(testGuessRepeatedLetter, hide=False)
 def testGuessesDecreaseAfterGuess():
-    """guesses_left() decreases after a call to guess()"""
+    """guesses_left() decreases after a call to guess() with wrong letter"""
     run(
         'game = Hangman("abc", 5)',
         'start = game.guesses_left()',
-        'game.guess("a")',
+        'game.guess("d")',
         'end = game.guesses_left()',
         'assert start == end + 1'
     )
