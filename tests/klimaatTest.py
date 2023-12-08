@@ -12,9 +12,9 @@ download("climate.csv", "https://raw.githubusercontent.com/minprog/pyprog/2023/o
 @t.test(10)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("print_basis_info")
-    assert defines_function("extremen")
-    assert defines_function("print_extremen")
+    assert defines_function("print_basic_info")
+    assert defines_function("extremes")
+    assert defines_function("print_extremes")
 
 @t.passed(doctest_ok)
 @t.test(90)
