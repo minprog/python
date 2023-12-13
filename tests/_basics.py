@@ -19,8 +19,8 @@ def basic_style(test):
             return False, "let op dat je geen tabs gebruikt"
         if has_string("Optional"):
             return False, "let op dat je niet Optional[...] gebruikt als type hint maar ... | None"
-        if has_string("List[", "Tuple[", "Dict[", "Sequence["):
-            return False, "let op dat je niet List[...] gebruikt als type hint maar list[...]"
+        if has_string("List[", "Tuple[", "Dict[", "Set["):
+            return False, "let op dat je niet List[...] e.d. gebruikt als type hint maar list[...]"
         # if has_call('min', 'max'):
         #     return False, "let op dat je geen min() of max() gebruikt"
         if has_call('sorted'):
@@ -95,11 +95,12 @@ def doctest_ok(test):
         test_stats = test_stats_rex.search(p.stdout.splitlines()[-3])
         test_pass = test_pass_rex.search(p.stdout.splitlines()[-2])
         n_tests = int(test_stats.group(1))
-        n_items = int(test_stats.group(2))-1-n_functions_not_returning
+        n_items = int(test_stats.group(2))-1
+        n_tested = n_items-n_functions_not_returning
         n_pass  = int(test_pass.group(1))
         if n_items == 0:
-            return False, "je programma moet functies gebruiken (of type hints ontbreken!)"
-        elif n_tests // n_items < 2:
+            return False, "het programma heeft geen functies"
+        elif n_tested > 0 and n_tests // n_tested < 2:
             return False, f"{n_tests} voorbeelden bij {n_items} functies is niet genoeg \n    (we tellen alleen functies die iets returnen)"
         elif n_pass < n_tests:
             return False, f"{n_pass} van {n_tests} voorbeelden slagen"
