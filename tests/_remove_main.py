@@ -4,10 +4,17 @@ from _static_analysis import *
 def remove_main(test):
     """voorbewerking van het bestand voor testen"""
 
-    with open(test.fileName, 'r') as f:
+    global _originalFileName
+    global _fileName
+
+    _originalFileName = _fileName
+
+    with open(_fileName, 'r') as f:
         file_contents = f.readlines()
 
-    with open(test.fileName, 'w') as f:
+    tempfile = f"_{_fileName}.tmp"
+
+    with open(tempfile, 'w') as f:
         state = 0
         for line in file_contents:
             if state == 0:
@@ -23,3 +30,5 @@ def remove_main(test):
                 if line.startswith('def '):
                     f.write(line)
                     state = 1
+
+    _fileName = tempfile
