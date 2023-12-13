@@ -161,9 +161,9 @@ def testIsRunningNoGuesses():
     """is_running() returns False after running out of guesses"""
     run(
         'game = Hangman("abc", 2)',
-        'assert game.guess("a")',
+        'assert not game.guess("d")',
         'assert game.is_running()',
-        'assert game.guess("b")',
+        'assert not game.guess("e")',
         'assert not game.is_running()'
     )
 
