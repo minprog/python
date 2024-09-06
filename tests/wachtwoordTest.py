@@ -12,6 +12,14 @@ def check_code(test):
     assert not_in_code(ast.For)
 
 @t.passed(check_code)
+def has_functions():
+    """functies `check_length` enz. zijn aanwezig"""
+    assert defines_function("check_length")
+    assert defines_function("check_letter")
+    assert defines_function("check_number")
+    assert defines_function("check_password")
+
+@t.passed(has_functions)
 @t.test(10)
 def checks_length(test):
     """functie `check_length` werkt correct"""
@@ -23,7 +31,7 @@ def checks_length(test):
             return False
     test.test = testMethod
 
-@t.passed(check_code)
+@t.passed(has_functions)
 @t.test(20)
 def checks_letter(test):
     """functie `check_letter` werkt correct"""
@@ -35,7 +43,7 @@ def checks_letter(test):
             return False
     test.test = testMethod
 
-@t.passed(check_code)
+@t.passed(has_functions)
 @t.test(30)
 def checks_number(test):
     """functie `check_number` werkt correct"""
@@ -47,7 +55,7 @@ def checks_number(test):
             return False
     test.test = testMethod
 
-@t.passed(check_code)
+@t.passed(has_functions)
 @t.test(40)
 def checks_password(test):
     """functie `check_password` werkt correct"""

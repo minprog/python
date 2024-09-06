@@ -6,6 +6,14 @@ from _basics_no_listcomp import *
 from _static_analysis import *
 
 @t.passed(doctest_ok)
+def has_functions():
+    """functie `check_input` enz. zijn aanwezig"""
+    assert defines_function("check_input")
+    assert defines_function("transcribe_dna_to_rna")
+    assert defines_function("convert_to_list")
+    assert defines_function("convert_to_string")
+
+@t.passed(has_functions)
 @t.test(10)
 def checks_input(test):
     """functie `check_input` werkt correct"""
@@ -22,7 +30,7 @@ def checks_input(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(20)
 def checks_convert_dna(test):
     """functie `transcribe_dna_to_rna` werkt correct met elke combinatie van uppercase/lowercase"""
@@ -39,7 +47,7 @@ def checks_convert_dna(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(30)
 def checks_convert_list(test):
     """functie `convert_to_list` werkt correct"""
@@ -51,7 +59,7 @@ def checks_convert_list(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(40)
 def checks_convert_string(test):
     """functie `convert_to_string` werkt correct"""

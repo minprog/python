@@ -5,6 +5,11 @@ import checkpy.assertlib as asserts
 from _basics_no_listcomp import *
 
 @t.passed(doctest_ok)
+def has_functions():
+    """functie `meal` is aanwezig"""
+    assert defines_function("meal")
+
+@t.passed(has_functions)
 @t.test(8)
 def correct_meal_if_meal(test):
     """functie 'meal' geeft de juiste maaltijd voor elke tijd"""
@@ -20,7 +25,7 @@ def correct_meal_if_meal(test):
         )
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(9)
 def correct_none_if_no_meal(test):
     """functie 'meal' geeft None als er geen maaltijd van toepassing is"""
@@ -36,7 +41,7 @@ def correct_none_if_no_meal(test):
         )
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(10)
 def checks_breakfast(test):
     """bepaalt correct de tijd voor ontbijt"""
@@ -57,7 +62,7 @@ def checks_breakfast(test):
         return True
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(20)
 def checks_lunch(test):
     """bepaalt correct de tijd voor lunch"""
@@ -78,7 +83,7 @@ def checks_lunch(test):
         return True
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(30)
 def checks_dinner(test):
     """bepaalt correct de tijd voor avondeten"""

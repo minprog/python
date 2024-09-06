@@ -6,6 +6,11 @@ from _basics_no_listcomp import *
 from _static_analysis import *
 
 @t.passed(doctest_ok)
+def has_functions():
+    """functie `convert` is aanwezig"""
+    assert defines_function("convert")
+
+@t.passed(has_functions)
 @t.test(9)
 def checks_no_index(test):
     """oplossing gebruikt geen `.index()` of `.find()`"""
@@ -15,7 +20,7 @@ def checks_no_index(test):
         return True
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(10)
 def checks_convert0(test):
     """aanroep `convert('check')` geeft `check`"""
@@ -27,7 +32,7 @@ def checks_convert0(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(20)
 def checks_convert1(test):
     """aanroep `convert('convertInput')` geeft `convert_input`"""
@@ -39,7 +44,7 @@ def checks_convert1(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(30)
 def checks_convert2(test):
     """aanroep `convert('readFromFile')` geeft `read_from_file`"""
