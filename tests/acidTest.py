@@ -18,4 +18,4 @@ def test_weeks_elapsed(test):
 @t.passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
-    assert outputOf(stdinArgs=[3], overwriteAttributes=[("__name__", "__main__")]) == "It's acidic!\n"
+    assert outputOf(stdinArgs=[3], overwriteAttributes=[("__name__", "__main__")]) == "Het is een zuur\n"
