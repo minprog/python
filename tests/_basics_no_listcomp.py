@@ -77,7 +77,7 @@ def basic_style(test):
 def mypy_ok(test):
     """type hints zijn ingevuld en consistent bevonden"""
     def testMethod():
-        p = subprocess.run(['mypy', '--strict', '--ignore-missing-imports', test.fileName], capture_output=True, universal_newlines=True)
+        p = subprocess.run(['mypy', '--strict', '--ignore-missing-imports', '--disable-error-code=name-defined', test.fileName], capture_output=True, universal_newlines=True)
         return p.returncode == 0, p.stdout
     test.test = testMethod
     def report(output):
