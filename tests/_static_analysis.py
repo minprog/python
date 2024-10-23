@@ -10,6 +10,12 @@ def defines_function(name: str) -> bool:
         raise AssertionError(f"`{name}` is niet aanwezig")
     return check
 
+def not_defines_function(name: str) -> bool:
+    check = name not in static.getFunctionDefinitions()
+    if not check:
+        raise AssertionError(f"`{name}` is onverwacht aanwezig")
+    return check
+
 def not_in_code(construct: type):
     check = construct not in static.AbstractSyntaxTree()
     name = str(construct).split(".")[1].split("'")[0].lower()

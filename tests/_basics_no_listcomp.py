@@ -59,7 +59,7 @@ def basic_style(test):
                 test.fail = lambda info : f"let op juiste indentatie"
                 return False, p.stdout
             if "E501" in p.stdout or "W505" in p.stdout:
-                test.fail = lambda info : f"regel(s) te lang, code max {max_line_length} tekens, comments max {max_doc_length} tekens\n  zie boek pagina 24 voor uitleg over splitsen van lange regels"
+                test.fail = lambda info : f"regel(s) te lang, code max {max_line_length} tekens, comments max {max_doc_length} tekens"
                 return False, p.stdout
             if "E502" in p.stdout:
                 test.fail = lambda info: f"gebruik tussen haakjes geen \\ om de regel af te breken"
