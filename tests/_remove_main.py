@@ -1,20 +1,18 @@
 from _static_analysis import *
 
+import checkpy
+
 @test(0)
 def remove_main(test):
     """voorbewerking van het bestand voor testen"""
+    # lees file via checkpy API, voeg weer \n toe na splitten
+    file_contents = [f"{x}\n" for x in checkpy.static.getSource().split("\n")]
 
-    global _originalFileName
-    global _fileName
-
-    _originalFileName = _fileName
-
-    with open(_fileName, 'r') as f:
-        file_contents = f.readlines()
-
-    tempfile = f"_{_fileName}.tmp"
-
-    with open(tempfile, 'w') as f:
+    # wat het echt doet is het verwijderen van alle code die niet
+    # in een functie staat, maar wel pas vanaf de eerste functie
+    # (zodat dingen als imports en globals wel bewaard blijven mits
+    # ze boven de bovenste functie staan)
+    with open(checkpy.file.name, 'w') as f:
         state = 0
         for line in file_contents:
             if state == 0:
@@ -31,4 +29,6 @@ def remove_main(test):
                     f.write(line)
                     state = 1
 
-    _fileName = tempfile
+    # debug code
+    # with open(checkpy.file.name, 'r') as f:
+    #     print(f.read())
