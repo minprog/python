@@ -17,5 +17,5 @@ def test_hoeveelheid_water(test):
 
 @t.passed(has_functions)
 def test_program(test):
-    """het programma werkt correct met invoer en uitvoer"""
-    assert outputOf(stdinArgs=[21], overwriteAttributes=[("__name__", "__main__")]) == "240\n"
+    """het programma werkt correct met invoer en uitvoer (21 minuten)"""
+    assert outputOf(stdinArgs=[21], overwriteAttributes=[("__name__", "__main__")]) == "252\n"
