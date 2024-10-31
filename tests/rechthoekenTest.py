@@ -56,7 +56,7 @@ def check_calculate_length(test):
 def check_identical_rectangle(test):
     """het programma identificeert gelijke rechthoeken"""
     def testCase():
-        input_entries = ["0,7", "0,4", "6,13", "2,6"]
+        input_entries = ["0", "7", "0", "4", "6", "13", "2", "6"]
         target_1 = ['zijn gelijk!', 'are identical!']
         target_2 = ['vierkant!', ' square,']
         target_3 = ['niks aan', 'to report']
@@ -70,7 +70,7 @@ def check_identical_rectangle(test):
 def check_identical_square(test):
     """het programma identificeert gelijke vierkanten"""
     def testCase():
-        input_entries = ["0,7", "0,7", "6,13", "2,9"]
+        input_entries = ["0", "7", "0", "7", "6", "13", "2", "9"]
         target_1 = ['zijn gelijk!', 'are identical!']
         target_2 = ['vierkant!', ' square,']
         target_3 = ['niks aan', 'to report']
@@ -84,7 +84,7 @@ def check_identical_square(test):
 def check_no_result(test):
     """het programma rapporteert teleurstelling bij gebrek aan gelijkheid"""
     def testCase():
-        input_entries = ["0,7", "0,7", "6,15", "2,9"]
+        input_entries = ["0", "7", "0", "7", "6", "15", "2", "9"]
         target_1 = ['zijn gelijk!', 'are identical!']
         target_2 = ['vierkant!', ' square,']
         target_3 = ['niks aan', 'to report']
