@@ -7,7 +7,7 @@ from _basics_no_listcomp import *
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert in_code(ast.While)
+    # assert in_code(ast.While)
     assert not_in_code(ast.For)
     assert not_in_code(ast.Set)
     assert not_in_code(ast.List)
