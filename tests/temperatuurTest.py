@@ -5,6 +5,14 @@ import checkpy.assertlib as asserts
 from _basics_no_listcomp import *
 
 @t.passed(doctest_ok)
+def has_functions():
+    """alle gevraagde functies zijn aanwezig"""
+    assert not_in_code(ast.Set)
+    assert not_in_code(ast.List)
+    assert not_in_code(ast.Tuple)
+    assert not_in_code(ast.Dict)
+
+@t.passed(has_functions)
 @t.test(10)
 def checks_convert_temperature(test):
     """functie 'convert_temperature' werkt correct"""
@@ -16,7 +24,7 @@ def checks_convert_temperature(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(20)
 def check_overall1(test):
     """print juiste tabel voor F naar C met start 0, eind 9 en stapgrootte 3"""
@@ -26,7 +34,7 @@ def check_overall1(test):
         return asserts.exact(output.strip(), "F |   C\n  0 | -17\n  3 | -16\n  6 | -14\n  9 | -12")
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(30)
 def check_overall2(test):
     """print juiste tabel voor C naar F met start 0, eind 20 en stapgrootte 5"""
@@ -36,7 +44,7 @@ def check_overall2(test):
         return asserts.exact(output.strip(), "C |   F\n  0 |  32\n  5 |  41\n 10 |  50\n 15 |  59\n 20 |  68")
     test.test = testMethod      
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(40)
 def check_overall3(test):
     """print juiste tabel voor f (lowercase) naar C met start 0, eind 9 en stapgrootte 3"""
