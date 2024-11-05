@@ -20,7 +20,10 @@ def not_in_code(construct: type):
     check = construct not in static.AbstractSyntaxTree()
     name = str(construct).split(".")[1].split("'")[0].lower()
     if not check:
-        raise AssertionError(f"`{name}` mag niet gebruikt worden in deze opdracht")
+        if name in ['list', 'set', 'tuple', 'dict']:
+            raise AssertionError(f"{name}s mogen niet gebruikt worden in deze opdracht")
+        else:
+            raise AssertionError(f"`{name}` mag niet gebruikt worden in deze opdracht")
     return check
 
 def in_code(construct: type):

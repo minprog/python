@@ -5,6 +5,19 @@ import checkpy.assertlib as asserts
 from _basics_no_listcomp import *
 
 @t.passed(doctest_ok)
+def has_functions():
+    """alle gevraagde functies zijn aanwezig"""
+    assert defines_function("calculate_years")
+
+    assert in_code(ast.While)
+    assert not_in_code(ast.For)
+    assert not_in_code(ast.Set)
+    assert not_in_code(ast.List)
+    assert not_in_code(ast.Tuple)
+    assert not_in_code(ast.Dict)
+
+
+@t.passed(has_functions)
 @t.test(10)
 def checks_calculate_years(test):
     """functie 'calculate_years' werkt correct"""
@@ -18,7 +31,7 @@ def checks_calculate_years(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(20)
 def check_overall2(test):
     """kan overweg met foute invoer"""

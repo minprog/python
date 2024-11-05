@@ -10,6 +10,20 @@ TODO:
 - check programma overall (als niet goed geraden opnieuw prompten)
 """
 
+@t.passed(doctest_ok)
+def has_functions():
+    """alle gevraagde functies zijn aanwezig"""
+    assert defines_function("check_guess")
+    assert defines_function("decide_number")
+
+    assert in_code(ast.While)
+    assert not_in_code(ast.For)
+    assert not_in_code(ast.Set)
+    assert not_in_code(ast.List)
+    assert not_in_code(ast.Tuple)
+    assert not_in_code(ast.Dict)
+
+@t.passed(has_functions)
 @t.test(0)
 def checks_check_guess(test):
     def testMethod():
@@ -22,6 +36,7 @@ def checks_check_guess(test):
     test.test = testMethod
     test.description = lambda : "'check_guess' werkt correct"
 
+@t.passed(has_functions)
 @t.test(1)
 def checks_decide_number(test):
     def testMethod():
@@ -35,6 +50,7 @@ def checks_decide_number(test):
     test.test = testMethod
     test.description = lambda : "'decide_number' werkt correct"
 
+@t.passed(has_functions)
 @t.test(2)
 def check_level1(test):
     targets = ["gefeliciteerd", "congratulations"]
@@ -46,6 +62,7 @@ def check_level1(test):
     test.test = testMethod
     test.description = lambda : "bij level 1 wordt het getal 1 herkend als winnaar"
 
+@t.passed(has_functions)
 @t.test(2)
 def check_overall(test):
     targets = ["gefeliciteerd", "congratulations"]

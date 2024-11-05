@@ -16,6 +16,11 @@ def has_functions():
     if "prompt_coin" in static.getFunctionDefinitions():
         raise AssertionError("`prompt_coin` is aanwezig, maar dat staat niet in de opdracht")
     assert in_code(ast.While)
+    assert not_in_code(ast.For)
+    assert not_in_code(ast.Set)
+    assert not_in_code(ast.List)
+    assert not_in_code(ast.Tuple)
+    assert not_in_code(ast.Dict)
 
 @t.passed(doctest_ok)
 @t.test(10)
