@@ -5,6 +5,14 @@ import checkpy.assertlib as asserts
 from _basics_no_listcomp import *
 
 @t.passed(doctest_ok)
+def has_functions():
+    """alle gevraagde functies zijn aanwezig"""
+    assert not_in_code(ast.Set)
+    assert not_in_code(ast.List)
+    assert not_in_code(ast.Tuple)
+    assert not_in_code(ast.Dict)
+
+@t.passed(has_functions)
 @t.test(10)
 def checks_check_leap_year(test):
     """functie `is_leap_year` werkt correct"""
@@ -16,7 +24,7 @@ def checks_check_leap_year(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(20)
 def checks_days_from_1800(test):
     """functie `days_from_1800` werkt correct"""
@@ -28,7 +36,7 @@ def checks_days_from_1800(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(30)
 def checks_days_from_1800_till_year(test):
     """functie `days_from_1800_until_year` werkt correct"""
@@ -40,7 +48,7 @@ def checks_days_from_1800_till_year(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(40)
 def checks_days_in_month(test):
     """functie `days_in_month` werkt correct"""
@@ -52,7 +60,7 @@ def checks_days_in_month(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(50)
 def checks_days_until_month(test):
     """functie `days_until_month` werkt correct"""
@@ -68,7 +76,7 @@ def checks_days_until_month(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(60)
 def checks_first_weekday_month(test):
     """functie `first_weekday_month` werkt correct"""
@@ -80,7 +88,7 @@ def checks_first_weekday_month(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(70)
 def check_header(test):
     """print jaar en maand in de header"""
@@ -103,7 +111,7 @@ def check_header(test):
         return True
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(80)
 def check_grid(test):
     """print het grid op de juiste manier"""
