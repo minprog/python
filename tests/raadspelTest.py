@@ -10,7 +10,6 @@ TODO:
 - check programma overall (als niet goed geraden opnieuw prompten)
 """
 
-
 @t.test(0)
 def checks_check_guess(test):
     def testMethod():
@@ -21,7 +20,7 @@ def checks_check_guess(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "'check_guess' works correctly."
+    test.description = lambda : "'check_guess' werkt correct"
 
 @t.test(1)
 def checks_decide_number(test):
@@ -34,7 +33,7 @@ def checks_decide_number(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "'decide_number' works correctly."
+    test.description = lambda : "'decide_number' werkt correct"
 
 @t.test(2)
 def check_level1(test):
@@ -45,7 +44,7 @@ def check_level1(test):
         return any([asserts.contains(output, target) for target in targets])
 
     test.test = testMethod
-    test.description = lambda : "Correctly guesses 1 for level 1."
+    test.description = lambda : "bij level 1 wordt het getal 1 herkend als winnaar"
 
 @t.test(2)
 def check_overall(test):
@@ -56,4 +55,4 @@ def check_overall(test):
         return any([asserts.contains(output, target) for target in targets])
 
     test.test = testMethod
-    test.description = lambda : "Can guess the number correctly for level 10."
+    test.description = lambda : "bij level 10 wordt na maximaal 10 keer raden het getal goedgekeurd"
