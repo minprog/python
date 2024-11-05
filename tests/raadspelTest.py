@@ -24,7 +24,7 @@ def has_functions():
     assert not_in_code(ast.Dict)
 
 @t.passed(has_functions)
-@t.test(0)
+@t.test(10)
 def checks_check_guess(test):
     def testMethod():
         check_guess = lib.getFunction("check_guess", test.fileName)
@@ -37,7 +37,7 @@ def checks_check_guess(test):
     test.description = lambda : "'check_guess' werkt correct"
 
 @t.passed(has_functions)
-@t.test(1)
+@t.test(20)
 def checks_decide_number(test):
     def testMethod():
         decide_number = lib.getFunction("decide_number", test.fileName)
@@ -51,7 +51,7 @@ def checks_decide_number(test):
     test.description = lambda : "'decide_number' werkt correct"
 
 @t.passed(has_functions)
-@t.test(2)
+@t.test(30)
 def check_level1(test):
     targets = ["gefeliciteerd", "congratulations"]
     def testMethod():
@@ -63,7 +63,7 @@ def check_level1(test):
     test.description = lambda : "bij level 1 wordt het getal 1 herkend als winnaar"
 
 @t.passed(has_functions)
-@t.test(2)
+@t.test(40)
 def check_overall(test):
     targets = ["gefeliciteerd", "congratulations"]
     def testMethod():
