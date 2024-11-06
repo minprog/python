@@ -35,7 +35,6 @@ def in_code(construct: type):
 
 def not_has_stringmult() -> bool:
     tree = ast.parse(static.getSource())
-    import astpretty
     for n in ast.walk(tree):
         if isinstance(n, ast.BinOp) and isinstance(n.op, ast.Mult):
             if (isinstance(n.left, ast.Constant) and isinstance(n.left.value, str)):
