@@ -33,6 +33,15 @@ def in_code(construct: type):
         raise AssertionError(f"`{name}` moet gebruikt worden in deze opdracht")
     return check
 
+def not_has_stringmult() -> bool:
+    tree = ast.parse(static.getSource())
+    import astpretty
+    for n in ast.walk(tree):
+        if isinstance(n, ast.BinOp) and isinstance(n.op, ast.Mult):
+            if (isinstance(n.left, ast.Constant) and isinstance(n.left.value, str)):
+                raise AssertionError(f"`*` mag alleen gebruikt worden om getallen te vermenigvuldigen met elkaar")
+    return True
+
 def has_syntax_error():
     try:
         compile(static.getSource(), "<your program>", "exec")

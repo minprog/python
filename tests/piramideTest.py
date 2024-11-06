@@ -14,6 +14,8 @@ def has_functions():
     assert not_in_code(ast.List)
     assert not_in_code(ast.Tuple)
     assert not_in_code(ast.Dict)
+    assert not_in_code(ast.Try)
+    assert not_has_stringmult()
 
 @t.passed(has_functions)
 @t.test(10)
