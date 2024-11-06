@@ -37,7 +37,8 @@ def not_has_stringmult() -> bool:
     tree = ast.parse(static.getSource())
     for n in ast.walk(tree):
         if isinstance(n, ast.BinOp) and isinstance(n.op, ast.Mult):
-            if (isinstance(n.left, ast.Constant) and isinstance(n.left.value, str)):
+            if (isinstance(n.left, ast.Constant) and isinstance(n.left.value, str)
+                or isinstance(n.right, ast.Constant) and isinstance(n.right.value, str)):
                 raise AssertionError(f"`*` mag alleen gebruikt worden om getallen te vermenigvuldigen met elkaar")
     return True
 
