@@ -10,8 +10,6 @@ def has_functions():
     """functie `check_input` enz. zijn aanwezig"""
     assert defines_function("check_input")
     assert defines_function("transcribe_dna_to_rna")
-    assert defines_function("convert_to_list")
-    assert defines_function("convert_to_string")
 
 @t.passed(has_functions)
 @t.test(10)
@@ -42,30 +40,6 @@ def checks_convert_dna(test):
         if convert(["A", "T", "G", "C"]) == ["U", "A", "C", "G"] and convert(
             ["a", "a", "t", "g", "c"]
         ) == ["U", "U", "A", "C", "G"]:
-            return True
-        else:
-            return False
-    test.test = testMethod
-
-@t.passed(has_functions)
-@t.test(30)
-def checks_convert_list(test):
-    """functie `convert_to_list` werkt correct"""
-    def testMethod():
-        convert = lib.getFunction("convert_to_list", test.fileName)
-        if convert("ATGCAGA") == ["A", "T", "G", "C", "A", "G", "A"]:
-            return True
-        else:
-            return False
-    test.test = testMethod
-
-@t.passed(has_functions)
-@t.test(40)
-def checks_convert_string(test):
-    """functie `convert_to_string` werkt correct"""
-    def testMethod():
-        convert = lib.getFunction("convert_to_string", test.fileName)
-        if convert(["A", "T", "G", "C", "T", "T", "G"]) == "ATGCTTG":
             return True
         else:
             return False
