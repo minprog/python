@@ -4,16 +4,16 @@ from _static_analysis import *
 
 @t.passed(doctest_ok)
 def has_functions():
-    """functie `comes_before` is aanwezig"""
-    assert defines_function("comes_before")
+    """functie `compare` is aanwezig"""
+    assert defines_function("compare")
 
 @t.passed(has_functions)
 def test_comes_before(test):
-    """functie `comes_before` werkt correct"""
-    assert getFunction("comes_before")('Taylor', 'Lana') == False
-    assert getFunction("comes_before")('shark', 'sWoRd') == True
-    assert getFunction("comes_before")('Daantje', 'Daan') == False
-    assert getFunction("comes_before")('amanda', 'Amanda') == True, "de functie mag True geven als de woorden gelijk zijn"
+    """functie `compare` werkt correct"""
+    assert getFunction("compare")('Taylor', 'Lana') == 1
+    assert getFunction("compare")('shark', 'sWoRd') == -1
+    assert getFunction("compare")('Daantje', 'Daan') == 1
+    assert getFunction("compare")('amanda', 'Amanda') == 0, "de functie moet 0 geven als de woorden gelijk zijn"
 
 @t.passed(has_functions)
 def test_program(test):
