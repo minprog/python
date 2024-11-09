@@ -10,6 +10,12 @@ def has_functions():
     """functie `check_input` enz. zijn aanwezig"""
     assert defines_function("check_input")
     assert defines_function("transcribe_dna_to_rna")
+    assert not_in_code(ast.Set)
+    assert not_in_code(ast.List)
+    assert not_in_code(ast.Tuple)
+    assert not_in_code(ast.Dict)
+    assert not_has_stringmult()
+    assert not_has_stringmethods()
 
 @t.passed(has_functions)
 @t.test(10)

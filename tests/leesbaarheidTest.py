@@ -5,6 +5,18 @@ import checkpy.assertlib as asserts
 from _basics_no_listcomp import *
 
 @t.passed(doctest_ok)
+def has_functions():
+    """functies `coleman_liau` en `calculate_grade` zijn aanwezig"""
+    assert defines_function("coleman_liau")
+    assert defines_function("calculate_grade")
+    assert not_in_code(ast.Set)
+    assert not_in_code(ast.List)
+    assert not_in_code(ast.Tuple)
+    assert not_in_code(ast.Dict)
+    assert not_has_stringmult()
+    assert not_has_stringmethods()
+
+@t.passed(has_functions)
 @t.test(10)
 def checks_coleman_liau(test):
     """functie `coleman_liau` werkt correct"""
@@ -16,7 +28,7 @@ def checks_coleman_liau(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(20)
 def checks_calculate_grade(test):
     """functie `calculate_grade` werkt correct"""
@@ -28,7 +40,7 @@ def checks_calculate_grade(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(30)
 def checks_tekst1(test):
     """geeft Grade 7 voor "In my younger and more..." """
@@ -36,11 +48,10 @@ def checks_tekst1(test):
         overwriteAttributes = [("__name__", "__main__")])
     assert output.strip() == "Grade 7", "zorg dat de output exact zo is als in de voorbeelden"
 
-@t.passed(doctest_ok)
+@t.passed(has_functions)
 @t.test(40)
 def checks_tekst2(test):
     """geeft Grade 10 voor "It was a bright cold day..." """
     output = outputOf(test.fileName, stdinArgs=["It was a bright cold day in April, and the clocks were striking thirteen. Winston Smith, his chin nuzzled into his breast in an effort to escape the vile wind, slipped quickly through the glass doors of Victory Mansions, though not quickly enough to prevent a swirl of gritty dust from entering along with him."],
         overwriteAttributes = [("__name__", "__main__")])
     assert output.strip() == "Grade 10"
-

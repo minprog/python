@@ -7,9 +7,14 @@ from _basics_no_listcomp import *
 @t.passed(doctest_ok)
 @t.test(9)
 def check_code(test):
-    """geen loops gebruikt in deze opdracht"""
-    assert not_in_code(ast.While)
-    assert not_in_code(ast.For)
+    """wel loops gebruikt in deze opdracht"""
+    assert in_code(ast.For)
+    assert not_in_code(ast.Set)
+    assert not_in_code(ast.List)
+    assert not_in_code(ast.Tuple)
+    assert not_in_code(ast.Dict)
+    assert not_has_stringmult()
+    assert not_has_stringmethods()
 
 @t.passed(check_code)
 def has_functions():
