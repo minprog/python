@@ -9,6 +9,7 @@ def has_functions():
     """functies `coleman_liau` en `calculate_grade` zijn aanwezig"""
     assert defines_function("coleman_liau")
     assert defines_function("calculate_grade")
+    assert in_code(ast.For)
     assert not_in_code(ast.Set)
     assert not_in_code(ast.List)
     assert not_in_code(ast.Tuple)
