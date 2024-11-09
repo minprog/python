@@ -91,7 +91,7 @@ def doctest_ok(test):
     def testMethod():
         with open(test.fileName, 'r') as source_file:
             source = source_file.read()
-            functions = re.findall(r'def\s+(\w+)\(([^\)]*)\)[^-]+(->\s*([\w\[,\] _]+))?:', source)
+            functions = re.findall(r'def\s+(\w+)\(([^\)]*)\)[^-](->\s*([\w\|\s\[,\] _]+))?:', source)
             n_functions_not_returning = len([function for function in functions if ('file' in function[1] or function[3] == 'None' or function[3] == '')])
             n_functions = len(functions)
         p = subprocess.run([sys.executable or 'python3', '-m', 'doctest', '-v', test.fileName], capture_output=True, universal_newlines=True)
