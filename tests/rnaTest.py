@@ -43,9 +43,10 @@ def checks_convert_dna(test):
             return False, "gebruik geen .index() voor deze opdracht"
 
         convert = lib.getFunction("transcribe_dna_to_rna", test.fileName)
-        if convert(["A", "T", "G", "C"]) == ["U", "A", "C", "G"] and convert(
-            ["a", "a", "t", "g", "c"]
-        ) == ["U", "U", "A", "C", "G"]:
+        if (convert(["A", "T", "G", "C"]) == ["U", "A", "C", "G"]
+            and convert(["a", "a", "t", "g", "c"]) == ["U", "U", "A", "C", "G"]) or\
+            (convert("ATGC") == "UACG"
+            and convert("aatgc") == "UUACG"):
             return True
         else:
             return False
