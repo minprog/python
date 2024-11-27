@@ -35,7 +35,7 @@ def test_mating_pairs(test):
 @t.passed(has_functions)
 def test_reverse_dict(test):
     """functie `reverse_dict` werkt correct"""
-    result = getFunction("reverse_dict")({ 'a': 1, 'b': 2, 'Q', 4 })
+    result = getFunction("reverse_dict")({ 'a': 1, 'b': 2, 'Q': 4 })
     assert result = { 1: 'a', 2: 'b', 4: 'Q' }
     result = getFunction("reverse_dict")({})
     assert result = {}
