@@ -15,7 +15,7 @@ def basic_style(test):
     def testMethod():
         if lineno := has_syntax_error():
             return False, f"de code bevat een syntax error op regel {lineno}"
-        if has_string("    "):
+        if has_string("	"):
             return False, "let op dat je geen tabs gebruikt"
         if has_string("Optional"):
             return False, "let op dat je niet Optional[...] gebruikt als type hint maar ... | None"
