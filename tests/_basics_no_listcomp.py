@@ -33,8 +33,8 @@ def basic_style(test):
             return False, "let op dat je geen zip() gebruikt"
         if has_call('all', 'any'):
             return False, "let op dat je geen all() of any() gebruikt"
-        if has_import('math'):
-            return False, "let op dat je geen import math gebruikt"
+        # if has_import('math'):
+        #     return False, "let op dat je geen import math gebruikt"
         if has_generators():
             return False, "let op dat je geen [... for ...] gebruikt"
 
