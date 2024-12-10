@@ -23,8 +23,8 @@ def basic_style(test):
             return False, "let op dat je niet List[...] e.d. gebruikt als type hint maar list[...]"
         # if has_call('min', 'max'):
         #     return False, "let op dat je geen min() of max() gebruikt"
-        if has_call('sorted'):
-            return False, "let op dat je geen sorted() gebruikt"
+        # if has_call('sorted'):
+        #     return False, "let op dat je geen sorted() gebruikt"
         if has_call('map'):
             return False, "let op dat je geen map() gebruikt"
         if has_call('eval'):
