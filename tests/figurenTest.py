@@ -1,12 +1,12 @@
 from checkpy import *
-from _basics import *
+# from _basics import *
 from _static_analysis import *
 
 getClass = getFunction
 
 import math
 
-@t.passed(doctest_ok)
+@test()
 def has_classes():
     """De benodigde klassen `Quare`, `Rectangle`, `Circle` en `Shape` zijn aanwezig"""
     assert "class Square" in static.getSource()
@@ -14,7 +14,7 @@ def has_classes():
     assert "class Circle" in static.getSource()
     assert "class Shape" in static.getSource()
 
-@t.passed(has_classes)
+@passed(has_classes)
 def test_square_methods():
     """De klasse `Square` heeft correcte implementaties van de gevraagde methoden"""
     Square = getClass("Square")
@@ -29,7 +29,7 @@ def test_square_methods():
     # assert not hasattr(test_square, "__lt__"), "De methode `__lt__` mag niet gedefinieerd zijn in Square"
     assert hasattr(test_square, "__repr__"), "De methode `__repr__` moet gedefinieerd zijn voor Square"
     
-@t.passed(has_classes)
+@passed(has_classes)
 def test_rectangle_methods():
     """De klasse `Rectangle` heeft correcte implementaties van de gevraagde methoden"""
     Rectangle = getClass("Rectangle")
@@ -44,7 +44,7 @@ def test_rectangle_methods():
     # assert not hasattr(test_rectangle, "__lt__"), "De methode `__lt__` mag niet gedefinieerd zijn in Rectangle"
     assert hasattr(test_rectangle, "__repr__"), "De methode `__repr__` moet gedefinieerd zijn voor Rectangle"
     
-@t.passed(has_classes)
+@passed(has_classes)
 def test_circle_methods():
     """De klasse `Circle` heeft correcte implementaties van de gevraagde methoden"""
     Circle = getClass("Circle")
@@ -59,7 +59,7 @@ def test_circle_methods():
     # assert not hasattr(test_circle, "__lt__"), "De methode `__lt__` mag niet gedefinieerd zijn in Square"
     assert hasattr(test_circle, "__repr__"), "De methode `__repr__` moet gedefinieerd zijn voor Circle"
     
-@t.passed(has_classes)
+@passed(has_classes)
 def test_shape_methods():
     """De klasse `Shape` heeft lege implementaties van de gevraagde methoden"""
     Shape = getClass("Shape")
@@ -74,7 +74,7 @@ def test_shape_methods():
     assert test_shape.area() == None, "De methode `area` van `Rectangle` moet None returnen"
     # assert not hasattr(test_shape, "__lt__"), "De methode `__repr__` mag niet gedefinieerd zijn in Shape"
     
-@t.passed(has_classes)
+@passed(has_classes)
 def test_common_methods():
     """Beide klassen ondersteunen correcte implementaties van gemeenschappelijke methoden"""
     Circle = getClass("Circle")
@@ -89,7 +89,7 @@ def test_common_methods():
     assert hasattr(test_rectangle, "__repr__"), "De methode `__repr__` ontbreekt in de klasse Rectangle"
     assert isinstance(test_rectangle.__repr__(), str), "De methode `__repr__` van `Rectangle` geeft geen string terug"
 
-@t.passed(has_classes)
+@passed(has_classes)
 def test_shape_methods():
     """De klasse `Shape` heeft implementaties van alle vergelijkings-operators"""
     Shape = getClass("Shape")
@@ -102,8 +102,8 @@ def test_shape_methods():
     assert "def __gt__" in static.getSource(), "__le__ moet gedefinieerd zijn in Shape"
     assert "def __ge__" in static.getSource(), "__le__ moet gedefinieerd zijn in Shape"
     
-@t.passed(test_circle_methods)
-@t.passed(test_rectangle_methods)
+@passed(test_circle_methods)
+@passed(test_rectangle_methods)
 def test_interaction():
     """De klassen `Circle` en `Rectangle` functioneren samen zoals beschreven in de opdracht"""
     Circle = getClass("Circle")
