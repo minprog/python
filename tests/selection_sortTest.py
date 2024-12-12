@@ -14,5 +14,5 @@ def test_selection_sort(test):
     """functie `selection_sort` werkt correct"""
     assert getFunction("selection_sort")([1,2,3]) == [1,2,3]
     assert getFunction("selection_sort")([3,2,1]) == [1,2,3]
+    assert getFunction("selection_sort")([1,3,2,4]) == [1,2,3,4]
     assert getFunction("selection_sort")([]) == []
-    assert getFunction("selection_sort")([[1],[3],[2]]) == [[1],[2],[3]]
