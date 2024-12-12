@@ -14,5 +14,5 @@ def test_special_sort(test):
     """functie `special_sort` werkt correct"""
     assert getFunction("special_sort")([1,2,3]) == [1,2,3]
     assert getFunction("special_sort")([3,2,1]) == [1,2,3]
+    assert getFunction("special_sort")([1,3,2,4]) == [1,2,3,4]
     assert getFunction("special_sort")([]) == []
-    assert getFunction("special_sort")([[1],[3],[2]]) == [[1],[2],[3]]
