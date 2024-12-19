@@ -254,7 +254,6 @@ def simulate_medicine_fluctuations(test):
         viruses = ["GGGG", "AAAA", "TTTT", "GGGG", "ATGC"] * 20
 
         x = simulate(viruses, 0, 0, 0, 100, 500)
-        print(x)
 
         for pop_size in simulate(viruses, 0, 0, 0, 100, 500):
             if pop_size != 100:
