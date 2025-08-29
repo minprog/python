@@ -7,7 +7,7 @@ def has_functions():
     """functie `is_schrikkel` is aanwezig"""
     assert defines_function("is_schrikkel")
 
-@t.passed(has_functions)
+@t.passed(doctest_ok)
 def test_weeks_elapsed(test):
     """functie `is_schrikkel` werkt correct"""
     assert getFunction("is_schrikkel")(2001) == False
@@ -17,7 +17,7 @@ def test_weeks_elapsed(test):
     assert getFunction("is_schrikkel")(2100) == False
     assert getFunction("is_schrikkel")(1900) == False
 
-@t.passed(has_functions)
+@t.passed(doctest_ok)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
     assert outputOf(stdinArgs=[2001],
