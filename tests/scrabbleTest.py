@@ -78,7 +78,7 @@ def check_gelijkspel(test):
 
 @t.passed(doctest_ok)
 @t.test(50)
-def check_gelijkspel(test):
+def check_gelijkspel2(test):
     """speler 1 met 'Hardly?' speelt gelijk met speler 2 met 'Hardly!'"""
     targets = ["Gelijkspel!", "It's a tie!"]
 
