@@ -100,7 +100,9 @@ def doctest_ok(test):
         test_stats_rex = re.compile('(\d*) tests in (\d*) items')
         test_pass_rex = re.compile('(\d*) passed and (\d*) failed')
         test_stats = test_stats_rex.search(p.stdout.splitlines()[-3])
+        if not test_stats: return False, p.stdout
         test_pass = test_pass_rex.search(p.stdout.splitlines()[-2])
+        if not test_pass: return False, p.stdout
         n_tests = int(test_stats.group(1))
         n_items = int(test_stats.group(2))-1
         n_tested = n_items-n_functions_not_returning
