@@ -40,7 +40,7 @@ def require_doctests_for_all_functions(test):
         if "Traceback" in p.stderr:
             return False, p.stderr.splitlines()[-1]
         test_stats_rex = re.compile(r'(\d*) tests in (\d*) items')
-        test_pass_rex = re.compile(r'(\d*) passed and (\d*) failed')
+        test_pass_rex = re.compile(r'(\d*) passed')
         test_stats = test_stats_rex.search(p.stdout.splitlines()[-3])
         test_pass = test_pass_rex.search(p.stdout.splitlines()[-2])
 
@@ -53,11 +53,12 @@ def require_doctests_for_all_functions(test):
             n_tested_per_function = n_tests // n_items
         else:
             n_tested_per_function = 0
+        
         # number of doctests succeeded in total
         n_pass  = int(test_pass.group(1))
 
         if n_tested_per_function < 2:
-            return False, f"{n_tests} {pl(n_tests, 'voorbeeld')} bij {n_tested} {pl(n_tested, 'functie')} is niet genoeg"
+            return False, f"{n_tests} {pl(n_tests, 'voorbeeld')} bij {n_items} {pl(n_items, 'functie')} is niet genoeg"
         elif n_pass < n_tests:
             return False, f"{n_pass} van {n_tests} {pl(n_tests, 'voorbeeld')} {pl(n_pass, 'slaagt')}"
         return True
