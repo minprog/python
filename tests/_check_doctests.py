@@ -39,7 +39,7 @@ def require_doctests_for_all_functions(test):
         p = subprocess.run([sys.executable or 'python3', '-m', 'doctest', '-v', test.fileName], capture_output=True, universal_newlines=True)
         if "Traceback" in p.stderr:
             return False, p.stderr.splitlines()[-1]
-        test_stats_rex = re.compile(r'(\d*) tests in (\d*) items')
+        test_stats_rex = re.compile(r'(\d*) test?s in (\d*) items')
         test_pass_rex = re.compile(r'(\d*) passed')
         test_stats = test_stats_rex.search(p.stdout.splitlines()[-3])
         test_pass = test_pass_rex.search(p.stdout.splitlines()[-2])
@@ -53,7 +53,7 @@ def require_doctests_for_all_functions(test):
             n_tested_per_function = n_tests // n_items
         else:
             n_tested_per_function = 0
-        
+
         # number of doctests succeeded in total
         n_pass  = int(test_pass.group(1))
 
