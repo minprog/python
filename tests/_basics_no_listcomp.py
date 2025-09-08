@@ -97,13 +97,13 @@ def doctest_ok(test):
         p = subprocess.run([sys.executable or 'python3', '-m', 'doctest', '-v', test.fileName], capture_output=True, universal_newlines=True)
         if "Traceback" in p.stderr:
             return False, p.stderr.splitlines()[-1]
-        test_stats_rex = re.compile('(\d*) tests in (\d*) items')
-        test_pass_rex = re.compile('(\d*) passed and (\d*) failed')
+        test_stats_rex = re.compile(r'(\d*) tests in (\d*) items')
+        test_pass_rex = re.compile(r'(\d*) passed and (\d*) failed')
         test_stats = test_stats_rex.search(p.stdout.splitlines()[-3])
         # if not test_stats: return False, p.stdout
         test_pass = test_pass_rex.search(p.stdout.splitlines()[-2])
         if not test_pass:
-            test_pass_rex = re.compile('(\d*) passed.')
+            test_pass_rex = re.compile(r'(\d*) passed.')
             test_pass = test_pass_rex.search(p.stdout.splitlines()[-2])
         n_tests = int(test_stats.group(1))
         n_items = int(test_stats.group(2))-1
