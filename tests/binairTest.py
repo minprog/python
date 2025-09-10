@@ -1,10 +1,10 @@
 from checkpy import *
 from _static_analysis import *
 
-from _basics_no_listcomp import *
-from _check_doctests import require_doctests_for_all_functions
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest_all
+forbidden_constructs.disallow_all()
 
-@t.passed(doctest_ok)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """functie `convert` is aanwezig"""
     assert defines_function("convert")

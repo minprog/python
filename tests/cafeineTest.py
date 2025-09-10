@@ -1,11 +1,20 @@
-import checkpy.tests as t
+from checkpy import *
+from _static_analysis import *
+
+# TODO modernize
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
-from _basics_no_listcomp import *
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+forbidden_constructs.disallow_all()
 
-@t.passed(doctest_ok)
-@t.test(10)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
+def has_functions():
+    """functie `calculate_cafeine` is aanwezig"""
+    assert defines_function("calculate_cafeine")
+
+@passed(has_functions)
+@test(10)
 def calculatesZeroCaffeine(test):
     """print 'Je krijgt 0 mg cafeine binnen.' bij [0, 0, 0, 0] als invoer"""
     args = [0, 0, 0, 0]
@@ -16,8 +25,8 @@ def calculatesZeroCaffeine(test):
         return asserts.contains(output.strip(), target)
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def calculatesCoffee(test):
     """print 'Je krijgt 90 mg cafeine binnen.' bij [1, 0, 0, 0] als invoer"""
     args = [1, 0, 0, 0]
@@ -28,8 +37,8 @@ def calculatesCoffee(test):
         return asserts.contains(output.strip(), target)
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def calculatesTea(test):
     """print 'Je krijgt 45 mg cafeine binnen.' bij [0, 1, 0, 0] als invoer"""
     args = [0, 1, 0, 0]
@@ -40,8 +49,8 @@ def calculatesTea(test):
         return asserts.contains(output.strip(), target)
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def calculatesEnergy(test):
     """print 'Je krijgt 80 mg cafeine binnen.' bij [0, 0, 1, 0] als invoer"""
     args = [0, 0, 1, 0]
@@ -52,8 +61,8 @@ def calculatesEnergy(test):
         return asserts.contains(output.strip(), target)
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def calculatesCola(test):
     """print 'Je krijgt 40 mg cafeine binnen.' bij [0, 0, 0, 1] als invoer"""
     args = [0, 0, 0, 1]
@@ -64,8 +73,8 @@ def calculatesCola(test):
         return asserts.contains(output.strip(), target)
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(30)
+@passed(has_functions)
+@test(30)
 def calculatesSomeCafeine(test):
     """print 'Je krijgt 580 mg cafeine binnen.' bij [1, 2, 3, 4] als invoer"""
     args = [1, 2, 3, 4]

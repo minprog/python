@@ -1,8 +1,10 @@
 from checkpy import *
-from _basics_no_listcomp import *
 from _static_analysis import *
 
-@t.passed(doctest_ok)
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+forbidden_constructs.disallow_all()
+
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `hoeveelheid_water` is aanwezig"""
     assert defines_function("hoeveelheid_water")

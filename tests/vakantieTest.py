@@ -1,17 +1,26 @@
-import checkpy.tests as t
+from checkpy import *
+from _static_analysis import *
+
+# TODO modernize
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
-from _basics_no_listcomp import *
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+forbidden_constructs.disallow_all()
 
-@t.passed(doctest_ok)
-@t.test(10)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
+def has_functions():
+    """functie `travel_costs` is aanwezig"""
+    assert defines_function("travel_costs")
+
+@passed(has_functions)
+@test(10)
 def calculatesTravelCostsWithHint(test):
     """functie 'travel_costs' berekent correct de vervoerkosten"""
     def testMethod():
         travelCosts = lib.getFunction("travel_costs", test.fileName, stdinArgs=[1000, 0])(1000)
         if travelCosts == 130:
-            return (False, 
+            return (False,
                     "vergeet niet om de kosten voor zowel heen als terug te berekenen"
             )
         elif travelCosts == 260:
@@ -20,8 +29,8 @@ def calculatesTravelCostsWithHint(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def calculatesZeroCosts(test):
     """print correct 'Jouw vakantie kost: 0' bij [0, 0] als invoer"""
     target = "0"
@@ -31,8 +40,8 @@ def calculatesZeroCosts(test):
         return asserts.contains(output.strip(), target)
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def calculatesTravelCosts(test):
     """print correct 'Jouw vakantie kost: 260' bij [1000, 0] als invoer"""
     target = "260"
@@ -42,8 +51,8 @@ def calculatesTravelCosts(test):
         return asserts.contains(output.strip(), target)
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(30)
+@passed(has_functions)
+@test(30)
 def calculatesSleepingCosts(test):
     """print correct 'Jouw vakantie kost: 600' bij [0, 10] als invoer"""
     target = "600"
@@ -53,8 +62,8 @@ def calculatesSleepingCosts(test):
         return asserts.contains(output.strip(), target)
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(40)
+@passed(has_functions)
+@test(40)
 def calculatesCosts(test):
     """print correct 'Jouw vakantie kost: 589' bij [650, 7] als invoer"""
     target = "589"
@@ -64,8 +73,8 @@ def calculatesCosts(test):
         return asserts.contains(output.strip(), target)
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(50)
+@passed(has_functions)
+@test(50)
 def calculatesCostsAndRoundsCorrectly(test):
     """print correct 'Jouw vakantie kost: 371' bij [1425, 0] als invoer"""
     target = "371"

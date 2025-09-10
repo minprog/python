@@ -1,10 +1,10 @@
 from checkpy import *
 from _static_analysis import *
 
-from _python_checks import checkstyle, forbidden_constructs, mypy_strict, check_doctests
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest_all
 forbidden_constructs.disallow_all()
 
-@passed(checkstyle, forbidden_constructs, mypy_strict, check_doctests)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 @test()
 def has_functions():
     """functie `is_acidic` is aanwezig"""

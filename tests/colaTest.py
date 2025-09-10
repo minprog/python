@@ -1,20 +1,19 @@
-import checkpy.tests as t
+from checkpy import *
+from _static_analysis import *
+
+# TODO modernize
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
-from _basics_no_listcomp import *
-from _static_analysis import *
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+forbidden_constructs.disallow_all()
 
-# special check in has_functions because of older assignment version
-from checkpy import static
-
-@t.passed(doctest_ok)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert defines_function("check_coin")
     assert defines_function("determine_due")
-    if "prompt_coin" in static.getFunctionDefinitions():
-        raise AssertionError("`prompt_coin` is aanwezig, maar dat staat niet in de opdracht")
+
     assert in_code(ast.While)
     assert not_in_code(ast.For)
     assert not_in_code(ast.Set)
@@ -23,8 +22,8 @@ def has_functions():
     assert not_in_code(ast.Dict)
     assert not_in_code(ast.In)
 
-@t.passed(doctest_ok)
-@t.test(10)
+@passed(has_functions)
+@test(10)
 def checks_coin(test):
     """functie `check_coin` werkt correct"""
     def testMethod():
@@ -35,8 +34,8 @@ def checks_coin(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def checks_due(test):
     """functie `determine_due` werkt correct"""
     def testMethod():
@@ -49,8 +48,8 @@ def checks_due(test):
             return False
     test.test = testMethod
 
-@t.passed(doctest_ok)
-@t.test(30)
+@passed(has_functions)
+@test(30)
 def checks_main(test):
     """wisselgeld van 10 cent wordt verkregen na invoeren van 25, 10, en dan 25 cent"""
     def testMethod():

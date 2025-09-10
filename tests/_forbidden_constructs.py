@@ -40,8 +40,8 @@ RULE_GROUPS: dict[str, dict[str, tuple[Callable[[], bool], str]]] = {
         "Set": (lambda: has_string("Set["), "gebruik set[...] i.p.v. Set[...]"),
     },
     "string_builtins": {
-        "stringmult": (lambda: not_has_stringmethods(), "gebruik geen string * getal"),
-        "stringmethods": (lambda: not_has_stringmult(), "gebruik geen string-methods"),
+        "stringmult": (lambda: not not_has_stringmult(), "gebruik geen string * getal"),
+        "stringmethods": (lambda: not not_has_stringmethods(), "gebruik geen string-methods"),
     },
     "list_builtins": {
         "min_max": (lambda: has_call("min", "max"), "gebruik geen min() of max()"),

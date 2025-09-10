@@ -1,8 +1,12 @@
-import checkpy.tests as t
+from checkpy import *
+from _static_analysis import *
+
+# TODO modernize
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
-from _basics import *
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+forbidden_constructs.disallow_all()
 
 """
 TODO:
@@ -10,7 +14,7 @@ TODO:
 - check programma overall (als niet goed geraden opnieuw prompten)
 """
 
-@t.passed(doctest_ok)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert defines_function("check_guess")
@@ -23,8 +27,8 @@ def has_functions():
     assert not_in_code(ast.Tuple)
     assert not_in_code(ast.Dict)
 
-@t.passed(has_functions)
-@t.test(10)
+@passed(has_functions)
+@test(10)
 def checks_check_guess(test):
     def testMethod():
         check_guess = lib.getFunction("check_guess", test.fileName)
@@ -34,10 +38,10 @@ def checks_check_guess(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "'check_guess' werkt correct"
+    test.description = lambda : "`check_guess` werkt correct"
 
-@t.passed(has_functions)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def checks_decide_number(test):
     def testMethod():
         decide_number = lib.getFunction("decide_number", test.fileName)
@@ -48,10 +52,10 @@ def checks_decide_number(test):
             return False
 
     test.test = testMethod
-    test.description = lambda : "'decide_number' werkt correct"
+    test.description = lambda : "`decide_number` werkt correct"
 
-@t.passed(has_functions)
-@t.test(30)
+@passed(has_functions)
+@test(30)
 def check_level1(test):
     targets = ["gefeliciteerd", "congratulations"]
     def testMethod():
@@ -62,8 +66,8 @@ def check_level1(test):
     test.test = testMethod
     test.description = lambda : "bij level 1 wordt het getal 1 herkend als winnaar"
 
-@t.passed(has_functions)
-@t.test(40)
+@passed(has_functions)
+@test(40)
 def check_overall(test):
     targets = ["gefeliciteerd", "congratulations"]
     def testMethod():

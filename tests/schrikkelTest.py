@@ -1,13 +1,15 @@
 from checkpy import *
-from _basics_no_listcomp import *
 from _static_analysis import *
 
-@t.passed(doctest_ok)
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest_all
+forbidden_constructs.disallow_all()
+
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """functie `is_schrikkel` is aanwezig"""
     assert defines_function("is_schrikkel")
 
-@t.passed(doctest_ok)
+@passed(has_functions)
 def test_weeks_elapsed(test):
     """functie `is_schrikkel` werkt correct"""
     assert getFunction("is_schrikkel")(2001) == False
@@ -17,7 +19,7 @@ def test_weeks_elapsed(test):
     assert getFunction("is_schrikkel")(2100) == False
     assert getFunction("is_schrikkel")(1900) == False
 
-@t.passed(doctest_ok)
+@passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
     assert outputOf(stdinArgs=[2001],
