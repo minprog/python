@@ -1,10 +1,14 @@
-import checkpy.tests as t
+from checkpy import *
+from _static_analysis import *
+
+# TODO modernize
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
-from _basics_no_listcomp import *
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+forbidden_constructs.disallow_all()
 
-@t.passed(doctest_ok)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert defines_function("calculate_years")
@@ -17,8 +21,8 @@ def has_functions():
     assert not_in_code(ast.Dict)
 
 
-@t.passed(has_functions)
-@t.test(10)
+@passed(has_functions)
+@test(10)
 def checks_calculate_years(test):
     """functie 'calculate_years' werkt correct"""
     def testMethod():
@@ -31,8 +35,8 @@ def checks_calculate_years(test):
             return False
     test.test = testMethod
 
-@t.passed(has_functions)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def check_overall2(test):
     """kan overweg met foute invoer"""
     def testMethod():
