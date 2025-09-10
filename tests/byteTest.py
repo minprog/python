@@ -4,9 +4,6 @@ from _static_analysis import *
 from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
 
-# from _basics_no_listcomp import *
-# from _check_doctests import require_doctests_for_all_functions
-
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `print_bits` is aanwezig"""
