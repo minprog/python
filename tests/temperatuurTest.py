@@ -5,10 +5,10 @@ from _static_analysis import *
 import checkpy.lib as lib
 import checkpy.assertlib as asserts
 
-from _python_checks import forbidden_constructs, mypy_strict, doctest
+from _python_checks import forbidden_constructs, mypy_strict, doctest_all
 forbidden_constructs.disallow_all()
 
-@passed(forbidden_constructs, mypy_strict, doctest)
+@passed(forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert not_in_code(ast.Set)

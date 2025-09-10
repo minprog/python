@@ -7,10 +7,10 @@ import checkpy.assertlib as assertlib
 
 import re
 
-from _python_checks import forbidden_constructs, mypy_strict, doctest
+from _python_checks import forbidden_constructs, mypy_strict, doctest_all
 forbidden_constructs.disallow_all()
 
-@passed(forbidden_constructs, mypy_strict, doctest)
+@passed(forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert in_code(ast.While)
