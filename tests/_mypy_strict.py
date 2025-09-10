@@ -1,18 +1,14 @@
 import checkpy.tests as t
-import checkpy.lib as lib
-import checkpy.assertlib as assertlib
 
 import subprocess
 
-@t.test(1000)
+@t.test()
 def mypy_ok(test):
+    """type hints zijn ingevuld en consistent bevonden"""
     def testMethod():
         p = subprocess.run(['mypy', '--strict', '--ignore-missing-imports', '--disable-error-code=name-defined', test.fileName], capture_output=True, universal_newlines=True)
         return p.returncode == 0, p.stdout
-
-    def report(output):
-        return 'line ' + '\n  - line '.join([':'.join(i.split(':')[1:]) for i in output.splitlines()[:-1]])
-
-    test.description = lambda: "types are specified and correctly used"
     test.test = testMethod
+    def report(output):
+        return '- line ' + '\n- line '.join([':'.join(i.split(':')[1:])[:60] for i in output.splitlines()[:-1]])
     test.fail = report

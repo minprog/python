@@ -1,19 +1,15 @@
 from checkpy import *
-from _basics_no_listcomp import *
 from _static_analysis import *
 
-@t.passed(doctest_ok)
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, check_doctests
+forbidden_constructs.disallow_all()
+
+@passed(checkstyle, forbidden_constructs, mypy_strict, check_doctests)
 def has_functions():
     """functie `compare` is aanwezig"""
     assert defines_function("compare")
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.List)
-    assert not_in_code(ast.Tuple)
-    assert not_in_code(ast.Dict)
-    assert not_has_stringmult()
-    assert not_has_stringmethods()
 
-@t.passed(has_functions)
+@passed(has_functions)
 def test_comes_before(test):
     """functie `compare` werkt correct"""
     assert getFunction("compare")('Taylor', 'Lana') == 1
@@ -21,7 +17,7 @@ def test_comes_before(test):
     assert getFunction("compare")('Daantje', 'Daan') == 1
     assert getFunction("compare")('amanda', 'Amanda') == 0, "de functie moet 0 geven als de woorden gelijk zijn"
 
-@t.passed(has_functions)
+@passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
     assert outputOf(stdinArgs=['Taylor', 'Lana'], overwriteAttributes=[("__name__", "__main__")]) == "Lana first\n"
