@@ -1,10 +1,10 @@
-import checkpy.tests as t
-import checkpy.lib as lib
-import checkpy.assertlib as asserts
+from checkpy import *
+from _static_analysis import *
 
-from _basics_no_listcomp import *
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+forbidden_constructs.disallow_all()
 
-@t.passed(doctest_ok)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `meal` is aanwezig"""
     assert defines_function("meal")
@@ -15,12 +15,12 @@ def has_functions():
     assert not_has_stringmult()
     assert not_has_stringmethods()
 
-@t.passed(has_functions)
-@t.test(8)
+@passed(has_functions)
+@test(8)
 def correct_meal_if_meal(test):
     """functie 'meal' geeft de juiste maaltijd voor elke tijd"""
     def testMethod():
-        f = lib.getFunction("meal", test.fileName)
+        f = getFunction("meal", test.fileName)
         return (
             f('7:30') == 'ontbijt' and
             f('7:31') == 'ontbijt' and
@@ -31,12 +31,12 @@ def correct_meal_if_meal(test):
         )
     test.test = testMethod
 
-@t.passed(has_functions)
-@t.test(9)
+@passed(has_functions)
+@test(9)
 def correct_none_if_no_meal(test):
     """functie 'meal' geeft None als er geen maaltijd van toepassing is"""
     def testMethod():
-        f = lib.getFunction("meal", test.fileName)
+        f = getFunction("meal", test.fileName)
         return (
             f('6:30') is None and
             f('8:01') is None and
@@ -47,69 +47,50 @@ def correct_none_if_no_meal(test):
         )
     test.test = testMethod
 
-@t.passed(has_functions)
-@t.test(10)
+@passed(has_functions)
+@test(10)
 def checks_breakfast(test):
     """bepaalt correct de tijd voor ontbijt"""
     correct_meal_descriptions = ["ontbijt", "breakfast"]
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=["7:25"], overwriteAttributes = [("__name__", "__main__")])
-        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
-            return False
 
-        output = lib.outputOf(test.fileName, stdinArgs=["8:00"], overwriteAttributes = [("__name__", "__main__")])
-        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
-            return False
+    output = run("7:25")
+    assert any([meal in output for meal in correct_meal_descriptions])
 
-        output = lib.outputOf(test.fileName, stdinArgs=["8:01"], overwriteAttributes = [("__name__", "__main__")])
-        if any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
-            return False
+    output = run("8:00")
+    assert any([meal in output for meal in correct_meal_descriptions])
 
-        return True
-    test.test = testMethod
+    output = run("8:01")
+    assert not any([meal in output for meal in correct_meal_descriptions])
 
-@t.passed(has_functions)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def checks_lunch(test):
     """bepaalt correct de tijd voor lunch"""
     correct_meal_descriptions = ["lunch"]
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=["13:00"], overwriteAttributes = [("__name__", "__main__")])
-        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
-            return False
 
-        output = lib.outputOf(test.fileName, stdinArgs=["12:00"], overwriteAttributes = [("__name__", "__main__")])
-        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
-            return False
+    output = run("13:00")
+    assert any([meal in output for meal in correct_meal_descriptions])
 
-        output = lib.outputOf(test.fileName, stdinArgs=["13:40"], overwriteAttributes = [("__name__", "__main__")])
-        if any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
-            return False
+    output = run("12:00")
+    assert any([meal in output for meal in correct_meal_descriptions])
 
-        return True
-    test.test = testMethod
+    output = run("13:40")
+    assert not any([meal in output for meal in correct_meal_descriptions])
 
-@t.passed(has_functions)
-@t.test(30)
+@passed(has_functions)
+@test(30)
 def checks_dinner(test):
     """bepaalt correct de tijd voor avondeten"""
     correct_meal_descriptions = ["avondeten", "dinner"]
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=["18:53"], overwriteAttributes = [("__name__", "__main__")])
-        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
-            return False
 
-        output = lib.outputOf(test.fileName, stdinArgs=["18:00"], overwriteAttributes = [("__name__", "__main__")])
-        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
-            return False
+    output = run("18:53")
+    assert any([meal in output for meal in correct_meal_descriptions])
 
-        output = lib.outputOf(test.fileName, stdinArgs=["19:00"], overwriteAttributes = [("__name__", "__main__")])
-        if not any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
-            return False
+    output = run("18:00")
+    assert any([meal in output for meal in correct_meal_descriptions])
 
-        output = lib.outputOf(test.fileName, stdinArgs=["19:59"], overwriteAttributes = [("__name__", "__main__")])
-        if any([asserts.contains(output, meal) for meal in correct_meal_descriptions]):
-            return False
+    output = run("19:00")
+    assert any([meal in output for meal in correct_meal_descriptions])
 
-        return True
-    test.test = testMethod
+    output = run("19:59")
+    assert not any([meal in output for meal in correct_meal_descriptions])

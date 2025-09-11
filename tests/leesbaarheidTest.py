@@ -1,10 +1,10 @@
 from checkpy import *
+from _static_analysis import *
 
-import checkpy.assertlib as asserts
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+forbidden_constructs.disallow_all()
 
-from _basics_no_listcomp import *
-
-@t.passed(doctest_ok)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functies `coleman_liau` en `calculate_grade` zijn aanwezig"""
     assert defines_function("coleman_liau")
@@ -17,8 +17,8 @@ def has_functions():
     assert not_has_stringmult()
     assert not_has_stringmethods()
 
-@t.passed(has_functions)
-@t.test(10)
+@passed(has_functions)
+@test(10)
 def checks_coleman_liau(test):
     """functie `coleman_liau` werkt correct"""
     def testMethod():
@@ -29,8 +29,8 @@ def checks_coleman_liau(test):
             return False
     test.test = testMethod
 
-@t.passed(has_functions)
-@t.test(20)
+@passed(has_functions)
+@test(20)
 def checks_calculate_grade(test):
     """functie `calculate_grade` werkt correct"""
     def testMethod():
@@ -41,16 +41,16 @@ def checks_calculate_grade(test):
             return False
     test.test = testMethod
 
-@t.passed(has_functions)
-@t.test(30)
+@passed(has_functions)
+@test(30)
 def checks_tekst1(test):
     """geeft Grade 7 voor "In my younger and more..." """
     output = outputOf(test.fileName, stdinArgs=["In my younger and more vulnerable years my father gave me some advice that I've been turning over in my mind ever since."],
         overwriteAttributes = [("__name__", "__main__")])
     assert output.strip() == "Grade 7", "zorg dat de output exact zo is als in de voorbeelden"
 
-@t.passed(has_functions)
-@t.test(40)
+@passed(has_functions)
+@test(40)
 def checks_tekst2(test):
     """geeft Grade 10 voor "It was a bright cold day..." """
     output = outputOf(test.fileName, stdinArgs=["It was a bright cold day in April, and the clocks were striking thirteen. Winston Smith, his chin nuzzled into his breast in an effort to escape the vile wind, slipped quickly through the glass doors of Victory Mansions, though not quickly enough to prevent a swirl of gritty dust from entering along with him."],

@@ -94,3 +94,12 @@ def has_import(*banned_imports) -> bool:
 
 def has_generators() -> bool:
     return static.getAstNodes(ast.ListComp, ast.DictComp, ast.SetComp, ast.GeneratorExp)
+
+def assert_equal(actual, expected) -> bool:
+    if actual != expected:
+        raise AssertionError
+    else:
+        return True
+
+def run(*args) -> str:
+    return outputOf(stdinArgs=args, overwriteAttributes = [("__name__", "__main__")])
