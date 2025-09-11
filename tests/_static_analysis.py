@@ -97,9 +97,18 @@ def has_generators() -> bool:
 
 def assert_equal(actual, expected) -> bool:
     if actual != expected:
-        raise AssertionError
+        raise AssertionError(f"verwachtte {expected.__repr__()} maar kreeg {actual.__repr__()}")
     else:
         return True
+
+def assert_call(expected, f, *args):
+    actual = f(*args)
+    if (
+        (expected is None and actual is not None) or
+        actual != expected
+    ):
+        raise AssertionError(f"{f}({','.join([arg.__repr__() for arg in args])}): "
+            f"verwachtte {expected.__repr__()} maar kreeg {actual.__repr__()}")
 
 def run(*args) -> str:
     return outputOf(stdinArgs=args, overwriteAttributes = [("__name__", "__main__")])
