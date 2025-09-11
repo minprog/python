@@ -25,6 +25,7 @@ def checks_calculate_years(test):
     assert_return( 20, calculate_years, 20, 100)
     assert_return(115, calculate_years, 100, 1000000)
     assert_return( 32, calculate_years, 50, 600)
+    assert_return(  8, calculate_years, 9, 18)
 
 @passed(has_functions)
 @test(20)
