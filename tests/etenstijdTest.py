@@ -20,24 +20,24 @@ def has_functions():
 def correct_meal_if_meal(test):
     """functie 'meal' geeft de juiste maaltijd voor elke tijd"""
     f = getFunction("meal", test.fileName)
-    assert_call( 'ontbijt'  ,   f, '7:30' )
-    assert_call( 'ontbijt'  ,   f, '7:31' )
-    assert_call( 'ontbijt'  ,   f, '07:31')
-    assert_call( 'avondeten',     f, '18:30')
-    assert_call( 'lunch'    , f, '13:00')
-    assert_call( 'lunch'    , f, '12:00')
+    assert_return('ontbijt',   f,  '7:30')
+    assert_return('ontbijt',   f,  '7:31')
+    assert_return('ontbijt',   f, '07:31')
+    assert_return('avondeten', f, '18:30')
+    assert_return('lunch',     f, '13:00')
+    assert_return('lunch',     f, '12:00')
 
 @passed(has_functions)
 @test(9)
 def correct_none_if_no_meal(test):
     """functie 'meal' geeft None als er geen maaltijd van toepassing is"""
     f = getFunction("meal", test.fileName)
-    assert_call(None, f, '6:30')
-    assert_call(None, f, '8:01')
-    assert_call(None, f, '08:31')
-    assert_call(None, f, '14:01')
-    assert_call(None, f, '13:01')
-    assert_call(None, f, '17:59')
+    assert_return(None, f,  '6:30')
+    assert_return(None, f,  '8:01')
+    assert_return(None, f, '08:31')
+    assert_return(None, f, '14:01')
+    assert_return(None, f, '13:01')
+    assert_return(None, f, '17:59')
 
 @passed(has_functions)
 @test(10)

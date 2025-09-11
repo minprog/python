@@ -101,7 +101,7 @@ def assert_equal(actual, expected) -> bool:
     else:
         return True
 
-def assert_call(expected, f, *args):
+def assert_return(expected, f, *args):
     actual = f(*args)
     if (
         (expected is None and actual is not None) or
