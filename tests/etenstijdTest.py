@@ -18,7 +18,7 @@ def has_functions():
 @passed(has_functions)
 @test(8)
 def correct_meal_if_meal(test):
-    """functie 'meal' geeft de juiste maaltijd voor elke tijd"""
+    """functie `meal` geeft de juiste maaltijd voor elke tijd"""
     f = getFunction("meal", test.fileName)
     assert_return('ontbijt',   f,  '7:30')
     assert_return('ontbijt',   f,  '7:31')
@@ -30,7 +30,7 @@ def correct_meal_if_meal(test):
 @passed(has_functions)
 @test(9)
 def correct_none_if_no_meal(test):
-    """functie 'meal' geeft None als er geen maaltijd van toepassing is"""
+    """functie `meal` geeft None als er geen maaltijd van toepassing is"""
     f = getFunction("meal", test.fileName)
     assert_return(None, f,  '6:30')
     assert_return(None, f,  '8:01')
@@ -42,7 +42,7 @@ def correct_none_if_no_meal(test):
 @passed(has_functions)
 @test(10)
 def checks_breakfast(test):
-    """bepaalt correct de tijd voor ontbijt"""
+    """programma bepaalt correct de tijd voor ontbijt"""
     correct_meal_descriptions = ["ontbijt", "breakfast"]
 
     output = run("7:25")
@@ -57,7 +57,7 @@ def checks_breakfast(test):
 @passed(has_functions)
 @test(20)
 def checks_lunch(test):
-    """bepaalt correct de tijd voor lunch"""
+    """programma bepaalt correct de tijd voor lunch"""
     correct_meal_descriptions = ["lunch"]
 
     output = run("13:00")
@@ -72,7 +72,7 @@ def checks_lunch(test):
 @passed(has_functions)
 @test(30)
 def checks_dinner(test):
-    """bepaalt correct de tijd voor avondeten"""
+    """programma bepaalt correct de tijd voor avondeten"""
     correct_meal_descriptions = ["avondeten", "dinner"]
 
     output = run("18:53")

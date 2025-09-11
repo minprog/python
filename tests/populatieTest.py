@@ -1,10 +1,6 @@
 from checkpy import *
 from _static_analysis import *
 
-# TODO modernize
-import checkpy.lib as lib
-import checkpy.assertlib as asserts
-
 from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
 
@@ -20,27 +16,20 @@ def has_functions():
     assert not_in_code(ast.Tuple)
     assert not_in_code(ast.Dict)
 
-
 @passed(has_functions)
 @test(10)
 def checks_calculate_years(test):
-    """functie 'calculate_years' werkt correct"""
-    def testMethod():
-        calculate_years = lib.getFunction("calculate_years", test.fileName)
-        if (calculate_years(1200, 1300) == 1 and calculate_years(20, 100) == 20
-            and calculate_years(100, 1000000) == 115 and calculate_years(50, 600) == 32):
-            return True
-        else:
-
-            return False
-    test.test = testMethod
+    """functie `calculate_years` werkt correct"""
+    calculate_years = getFunction("calculate_years", test.fileName)
+    assert_return(  1, calculate_years, 1200, 1300)
+    assert_return( 20, calculate_years, 20, 100)
+    assert_return(115, calculate_years, 100, 1000000)
+    assert_return( 32, calculate_years, 50, 600)
 
 @passed(has_functions)
 @test(20)
 def check_overall2(test):
     """kan overweg met foute invoer"""
-    def testMethod():
-        output = lib.outputOf(test.fileName, stdinArgs=[6, 9, 5, -6, 18],
-            overwriteAttributes = [("__name__", "__main__")])
-        return asserts.contains(output.strip(), "8")
-    test.test = testMethod
+    output = run(6, 9, 5, -6, 18)
+    # TODO geeft assert False indien fout
+    assert output.strip().endswith("8")
