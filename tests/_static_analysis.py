@@ -233,7 +233,7 @@ def assert_output(actual, expected, expected_display=None):
     else:
         match = (actual == expected)
 
-    expected_str = expected_display or repr(expected)
+    expected_str = expected_display or expected
 
     if not match:
         raise AssertionError(

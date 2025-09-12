@@ -33,7 +33,7 @@ def exactMario0(test):
 def exactMario3(test):
     """print een welgevormde pyramide van 3 hoog"""
     r = re.compile(
-      ".*"
+      r".*"
       "(  ?  ?# ?#)[ ]*(\n)"
       "(  ?# ?# ?#)[ ]*(\n)"
       "(# ?# ?# ?#)[ ]*"
@@ -44,7 +44,7 @@ def exactMario3(test):
 @test(30)
 def exactMario23(test):
     """print een welgevormde pyramide van 23 hoog"""
-    r = re.compile(".*"
+    r = re.compile(r".*"
       "(                                            # #)[ ]*(\n)"
       "(                                          # # #)[ ]*(\n)"
       "(                                        # # # #)[ ]*(\n)"
