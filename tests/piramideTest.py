@@ -26,23 +26,19 @@ def has_functions():
 @test(10)
 def exactMario0(test):
     """print een welgevormde pyramide van 1 hoog"""
-    r = re.compile(".*(# #)[ ]*(\n)")
-    o = lib.outputOf(_fileName, stdinArgs=[1], overwriteAttributes = [("__name__", "__main__")])
-    if not r.match(o):
-        raise AssertionError("redenerend uit de opgave is 1-hoog gelijk aan '# #' op één regel")
+    assert_output(run(1), "(# ?#)[ ]*(\n)", "##\n")
 
 @passed(has_functions)
 @test(20)
 def exactMario3(test):
     """print een welgevormde pyramide van 3 hoog"""
-    r = re.compile(".*"
-      "(    # #)[ ]*(\n)"
-      "(  # # #)[ ]*(\n)"
-      "(# # # #)[ ]*"
+    r = re.compile(
+      ".*"
+      "(  ?  ?# ?#)[ ]*(\n)"
+      "(  ?# ?# ?#)[ ]*(\n)"
+      "(# ?# ?# ?#)[ ]*"
       ".*", re.MULTILINE)
-    o = lib.outputOf(_fileName, stdinArgs=[3], overwriteAttributes = [("__name__", "__main__")])
-    if not r.match(o):
-        raise AssertionError("de piramide is niet exact gelijk aan het voorbeeld uit de opgave")
+    assert_output(run(3), r, "  ##\n ###\n####\n")
 
 @passed(has_functions)
 @test(30)
@@ -73,12 +69,14 @@ def exactMario23(test):
       "(  # # # # # # # # # # # # # # # # # # # # # # #)[ ]*(\n)"
       "(# # # # # # # # # # # # # # # # # # # # # # # #)[ ]*"
       ".*", re.MULTILINE)
-    o = lib.outputOf(_fileName, stdinArgs=[23], overwriteAttributes = [("__name__", "__main__")])
+    o = run(23)
     if not r.match(o):
-        raise AssertionError("de piramide is niet wat we verwacht hadden (fix eerst de kleinere)")
+        raise AssertionError(
+            "gegeven input: 23 ⏎\n"
+            "de piramide is niet wat we verwacht hadden (fix eerst de kleinere)")
 
 @passed(has_functions)
 @test(40)
 def handlesWrongInput(test):
     """handelt verkeerde input netjes af"""
-    assert_output(run(-100, 100, 24, 1), ".*(# #)[ ]*(\n)", "# #")
+    assert_output(run(-100, 100, 24, 1), ".*(# ?#)[ ]*(\n)", "##\n")

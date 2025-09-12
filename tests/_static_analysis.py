@@ -221,23 +221,25 @@ def assert_output(actual, expected, expected_display=None):
     - If expected_display is given: interpret expected as a regex pattern string,
       and expected_display as the value to show in error messages.
     """
-    # Regex mode (third param given)
-    if expected_display is not None:
-        if not re.fullmatch(expected, str(actual)):
-            raise AssertionError(
-                f"gegeven input: {' ⏎ '.join(actual.metadata['stdin'])} ⏎\n"
-                f"verwachte output is {expected_display.__repr__()} "
-                f"maar kreeg {actual.__repr__()}"
-            )
+    actual_str = str(actual)
+    stdin_str = ' ⏎ '.join(actual.metadata['stdin'])
 
-    # Equality mode
+    # Normalize expected into string form
+    if isinstance(expected, re.Pattern):
+        match = expected.match(actual_str)
+        expected = expected.pattern
+    elif expected_display is not None:
+        match = re.fullmatch(expected, actual_str)
     else:
-        if actual != expected:
-            raise AssertionError(
-                f"gegeven input: {' ⏎ '.join(actual.metadata['stdin'])} ⏎\n"
-                f"verwachte output is {expected.__repr__()} "
-                f"maar kreeg {actual.__repr__()}"
-            )
+        match = (actual == expected)
+
+    expected_str = expected_display or repr(expected)
+
+    if not match:
+        raise AssertionError(
+            f"gegeven input: {stdin_str} ⏎\n"
+            f"verwachte output is {expected_str!r} maar kreeg {actual!r}"
+        )
 
     return True
 
