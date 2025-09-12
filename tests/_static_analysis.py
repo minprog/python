@@ -268,3 +268,9 @@ class PrettyCallable:
 def get_function(name):
     f = getFunction(name)
     return PrettyCallable(f, expected_name=name)
+
+def assert_no_input_output(f):
+    if 'print' in f._function.__code__.co_names or 'input' in f._function.__code__.co_names:
+        raise AssertionError(
+            "deze functie zou geen print of input moeten hebben:\n"
+            "meestal moet dat in de if-name-is-main gebeuren")
