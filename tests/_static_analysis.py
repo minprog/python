@@ -236,10 +236,19 @@ def assert_output(actual, expected, expected_display=None):
     expected_str = expected_display or expected
 
     if not match:
-        raise AssertionError(
-            f"gegeven input: {stdin_str} ⏎\n"
-            f"verwachte output is {expected_str!r} maar kreeg {actual!r}"
-        )
+        if len(expected_str) + len (actual) > 40:
+            raise AssertionError(
+                f"gegeven input: {stdin_str} ⏎\n"
+                f"verwachte output is:\n"
+                f"  {expected_str!r}\n"
+                f"maar kreeg:\n"
+                f"  {actual!r}"
+            )
+        else:
+            raise AssertionError(
+                f"gegeven input: {stdin_str} ⏎\n"
+                f"verwachte output is {expected_str!r} maar kreeg {actual!r}"
+            )
 
     return True
 
