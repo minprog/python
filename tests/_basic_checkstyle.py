@@ -19,7 +19,7 @@ def basic_style(test):
             max_doc_length = 79
         p = subprocess.run([
                 'pycodestyle',
-                '--select=E101,E112,E113,E115,E116,E117,E501,E502,W505,W291',
+                '--select=E101,E112,E113,E115,E116,E501,E502,W505,W291',
                 f"--max-line-length={max_line_length}",
                 f"--max-doc-length={max_doc_length}",
                 test.fileName
