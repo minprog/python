@@ -12,12 +12,14 @@ def has_functions():
 @passed(has_functions)
 def test_hoeveelheid_water(test):
     """functie `hoeveelheid_water` werkt correct"""
-    assert getFunction("hoeveelheid_water")(1) == 12
-    assert getFunction("hoeveelheid_water")(10) == 120
-    assert getFunction("hoeveelheid_water")(20) == 240
-    assert getFunction("hoeveelheid_water")(0) == 0
+    hoeveelheid_water = getFunction("hoeveelheid_water")
+    assert_no_input_output(hoeveelheid_water)
+    assert_return(12, hoeveelheid_water, 1)
+    assert_return(120, hoeveelheid_water, 10)
+    assert_return(240, hoeveelheid_water, 20)
+    assert_return(0, hoeveelheid_water, 0)
 
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer (21 minuten)"""
-    assert outputOf(stdinArgs=[21], overwriteAttributes=[("__name__", "__main__")]) == "252\n"
+    assert_output(run(21).number(), "252")
