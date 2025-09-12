@@ -44,6 +44,6 @@ def checks_due(test):
 @passed(has_functions)
 @test(30)
 def checks_main(test):
-    """runtest: wisselgeld van 10 cent na invoeren van 25, 10, en dan 25 cent"""
+    """run: invoeren van 25, 10, en dan 25 cent geeft wisselgeld van 10 cent"""
     output = run(25, 10, 25)
     assert_output(output.strip()[-2:].number(), "10")
