@@ -8,8 +8,6 @@ import checkpy.assertlib as assertlib
 from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
 
-# TODO getal 18 mag niet voorkomen in de code
-
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
@@ -38,15 +36,15 @@ def exactChange9999(test):
     """9999$ aan wisselgeld staat gelijk aan 39996 munten"""
     assert_output(run(9999).number(), "39996")
     if has_string("39996"):
-        raise AssertionError("het getal 39996 moet berekend worden maar staat in de code")
+        raise AssertionError("de uitkomst 39996 moet berekend worden maar staat in de code")
 
 @passed(has_functions)
 @test(40)
 def exactChange402(test):
     """4.02$ aan wisselgeld staat gelijk aan 18 munten"""
     assert_output(run(4.02).number(), "18")
-    if has_string("39996"):
-        raise AssertionError("het getal 4.02 moet berekend worden maar staat in de code")
+    if has_string("18"):
+        raise AssertionError("de uitkomst 18 moet berekend worden maar staat in de code")
 
 @passed(has_functions)
 @test(50)
