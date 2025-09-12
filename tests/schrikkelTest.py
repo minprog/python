@@ -12,12 +12,14 @@ def has_functions():
 @passed(has_functions)
 def test_weeks_elapsed(test):
     """functie `is_schrikkel` werkt correct"""
-    assert getFunction("is_schrikkel")(2001) == False
-    assert getFunction("is_schrikkel")(2000) == True
-    assert getFunction("is_schrikkel")(1463) == False
-    assert getFunction("is_schrikkel")(2020) == True
-    assert getFunction("is_schrikkel")(2100) == False
-    assert getFunction("is_schrikkel")(1900) == False
+    is_schrikkel = getFunction("is_schrikkel")
+    assert_no_input_output(is_schrikkel)
+    assert_return(False, is_schrikkel, 2001)
+    assert_return(True, is_schrikkel, 2000)
+    assert_return(False, is_schrikkel, 1463)
+    assert_return(True, is_schrikkel, 2020)
+    assert_return(False, is_schrikkel, 2100)
+    assert_return(False, is_schrikkel, 1900)
 
 @passed(has_functions)
 def test_program(test):
