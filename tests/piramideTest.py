@@ -28,7 +28,8 @@ def exactMario0(test):
     """print een welgevormde pyramide van 1 hoog"""
     r = re.compile(".*(# #)[ ]*(\n)")
     o = lib.outputOf(_fileName, stdinArgs=[1], overwriteAttributes = [("__name__", "__main__")])
-    assert r.match(o), "redenerend uit de opgave is 1-hoog gelijk aan '# #' op één regel"
+    if not r.match(o):
+        raise AssertionError("redenerend uit de opgave is 1-hoog gelijk aan '# #' op één regel")
 
 @passed(has_functions)
 @test(20)
@@ -40,7 +41,8 @@ def exactMario3(test):
       "(# # # #)[ ]*"
       ".*", re.MULTILINE)
     o = lib.outputOf(_fileName, stdinArgs=[3], overwriteAttributes = [("__name__", "__main__")])
-    assert r.match(o)
+    if not r.match(o):
+        raise AssertionError("de piramide is niet exact gelijk aan het voorbeeld uit de opgave")
 
 @passed(has_functions)
 @test(30)
@@ -72,12 +74,11 @@ def exactMario23(test):
       "(# # # # # # # # # # # # # # # # # # # # # # # #)[ ]*"
       ".*", re.MULTILINE)
     o = lib.outputOf(_fileName, stdinArgs=[23], overwriteAttributes = [("__name__", "__main__")])
-    assert r.match(o)
+    if not r.match(o):
+        raise AssertionError("de piramide is niet wat we verwacht hadden (fix eerst de kleinere)")
 
 @passed(has_functions)
 @test(40)
 def handlesWrongInput(test):
     """handelt verkeerde input netjes af"""
-    r = re.compile(".*(# #)[ ]*(\n)")
-    o = lib.outputOf(_fileName, stdinArgs=[-100, 100, 24, 1], overwriteAttributes = [("__name__", "__main__")])
-    assert r.match(o)
+    assert_output(run(-100, 100, 24, 1), ".*(# #)[ ]*(\n)", "# #")

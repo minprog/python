@@ -32,5 +32,4 @@ def checks_calculate_years(test):
 def check_overall2(test):
     """kan overweg met foute invoer"""
     output = run(6, 9, 5, -6, 18)
-    # TODO geeft assert False indien fout
-    assert output.strip().endswith("8")
+    assert_output(output.number(), "8")

@@ -11,14 +11,16 @@ def has_functions():
     assert defines_function("is_acidic")
 
 @passed(has_functions)
-def test_weeks_elapsed(test):
+def test_function(test):
     """functie `is_acidic` werkt correct"""
-    assert getFunction("is_acidic")(10.0) == False
-    assert getFunction("is_acidic")(5.0) == True
-    assert getFunction("is_acidic")(4.9) == True
-    assert getFunction("is_acidic")(7.1) == False
+    is_acidic = get_function("is_acidic")
+    assert is_acidic(10.0) == False
+    assert is_acidic(5.0) == True
+    assert is_acidic(4.9) == True
+    assert is_acidic(7.1) == False
 
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
-    assert outputOf(stdinArgs=[3], overwriteAttributes=[("__name__", "__main__")]) == "Het is een zuur\n"
+    assert_output(run(3), "Het is een zuur\n")
+    assert_output(run(8), "Het is een base\n")

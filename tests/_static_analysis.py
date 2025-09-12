@@ -107,8 +107,154 @@ def assert_return(expected, f, *args):
         (expected is None and actual is not None) or
         actual != expected
     ):
-        raise AssertionError(f"{f}({','.join([arg.__repr__() for arg in args])}): "
+        raise AssertionError(f"{f}({', '.join([arg.__repr__() for arg in args])}): "
             f"verwachtte {expected.__repr__()} maar kreeg {actual.__repr__()}")
 
-def run(*args) -> str:
-    return outputOf(stdinArgs=args, overwriteAttributes = [("__name__", "__main__")])
+import re
+from typing import Any, Iterable
+
+class RunResult(str):
+    def __new__(cls, value: str, **metadata: Any):
+        obj = super().__new__(cls, value)
+        obj._metadata = dict(metadata)
+        return obj
+
+    @property
+    def metadata(self) -> dict:
+        return self._metadata
+
+    # --- utilities ---------------------------------------------------------
+    def with_meta(self, **extra) -> "RunResult":
+        """Return a copy with updated/merged metadata."""
+        return RunResult(self, **{**self._metadata, **extra})
+
+    def _wrap(self, value, **extra):
+        """
+        Re-wrap string-like results as RunResult, preserving/merging metadata.
+        Recurses into tuples/lists and wraps any str elements.
+        """
+        meta = {**self._metadata, **extra}
+        if isinstance(value, str):
+            return RunResult(value, **meta)
+        if isinstance(value, tuple):
+            return tuple(self._wrap(v, **extra) for v in value)
+        if isinstance(value, list):
+            return [self._wrap(v, **extra) for v in value]
+        return value  # e.g., ints, floats, bytes, None, etc.
+
+    # --- custom helpers ----------------------------------------------------
+    def number(self, index: int = 0, pattern: str = r"[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?") -> "RunResult":
+        """
+        Extract the Nth number substring as a RunResult (preserving metadata).
+        Raises ValueError if no such number exists.
+        """
+        matches = re.findall(pattern, self)
+        if index < 0:
+            index += len(matches)
+        if not (0 <= index < len(matches)):
+            # raise ValueError("No matching number found at that index.")
+            return self._wrap('')
+        return self._wrap(matches[index])
+
+    # --- operations that should obviously preserve subclass ----------------
+    def __getitem__(self, key):
+        # slicing or single-char access
+        return self._wrap(super().__getitem__(key))
+
+    def strip(self, chars: str | None = None) -> "RunResult":
+        return self._wrap(super().strip(chars))
+
+    def lstrip(self, chars: str | None = None) -> "RunResult":
+        return self._wrap(super().lstrip(chars))
+
+    def rstrip(self, chars: str | None = None) -> "RunResult":
+        return self._wrap(super().rstrip(chars))
+
+    def __add__(self, other):
+        return self._wrap(super().__add__(other))
+
+    def __radd__(self, other):
+        return self._wrap(str(other) + str(self))
+
+    def __mul__(self, n: int):
+        return self._wrap(super().__mul__(n))
+
+    def __rmul__(self, n: int):
+        return self._wrap(super().__rmul__(n))
+
+    # --- dynamic wrapping for most other str methods -----------------------
+    def __getattr__(self, name: str):
+        """
+        For str methods not explicitly overridden, fetch the corresponding
+        function from str and wrap its output if it returns strings/collections.
+        """
+        attr = getattr(str, name, None)
+        if callable(attr):
+            def method(*args, **kwargs):
+                result = attr(self, *args, **kwargs)
+                return self._wrap(result)
+            return method
+        raise AttributeError(name)
+
+def run(*stdin) -> str:
+    stdin = [str(a) for a in stdin]
+    return RunResult(
+        outputOf(stdinArgs=stdin, overwriteAttributes = [("__name__", "__main__")]),
+        stdin=stdin
+    )
+
+import re
+
+def assert_output(actual, expected, expected_display=None):
+    """
+    Compare actual and expected output.
+
+    - If expected_display is None: do direct equality check with expected.
+    - If expected_display is given: interpret expected as a regex pattern string,
+      and expected_display as the value to show in error messages.
+    """
+    # Regex mode (third param given)
+    if expected_display is not None:
+        if not re.fullmatch(expected, str(actual)):
+            raise AssertionError(
+                f"gegeven input: {' ⏎ '.join(actual.metadata['stdin'])} ⏎\n"
+                f"verwachte output is {expected_display.__repr__()} "
+                f"maar kreeg {actual.__repr__()}"
+            )
+
+    # Equality mode
+    else:
+        if actual != expected:
+            raise AssertionError(
+                f"gegeven input: {' ⏎ '.join(actual.metadata['stdin'])} ⏎\n"
+                f"verwachte output is {expected.__repr__()} "
+                f"maar kreeg {actual.__repr__()}"
+            )
+
+    return True
+
+import functools
+
+class PrettyCallable:
+    def __init__(self, func, expected_name):
+        self._func = func
+        self._expected_name = expected_name
+        self._last_result = None
+        functools.update_wrapper(self, func)
+
+    def __call__(self, *args, **kwargs):
+        result = self._func(*args, **kwargs)
+        self._last_result = result
+        return result
+
+    def __repr__(self):
+        if self._last_result is not None:
+            return f": got {self._last_result!r} but expected {self._expected_name}"
+        else:
+            return f"<call {self._func.__name__}>"
+
+    __str__ = __repr__
+
+def get_function(name):
+    f = getFunction(name)
+    return PrettyCallable(f, expected_name=name)
