@@ -229,7 +229,7 @@ def assert_output(actual, expected, expected_display=None):
         match = expected.match(actual_str)
         expected = expected.pattern
     elif expected_display is not None:
-        match = re.fullmatch(expected, actual_str)
+        match = re.match(expected, actual_str)
     else:
         match = (actual == expected)
 

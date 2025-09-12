@@ -22,9 +22,5 @@ def test_weeks_elapsed(test):
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
-    assert outputOf(stdinArgs=[2001],
-        overwriteAttributes=[("__name__", "__main__")]
-    ) == "2001 is geen schrikkeljaar\n"
-    assert outputOf(stdinArgs=[2000],
-        overwriteAttributes=[("__name__", "__main__")]
-    ) == "2000 is een schrikkeljaar\n"
+    assert_output(run(2001), "2001 is geen schrikkeljaar\n")
+    assert_output(run(2000), "2000 is een schrikkeljaar\n")
