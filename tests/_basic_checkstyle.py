@@ -26,7 +26,7 @@ def basic_style(test):
             ], capture_output=True, universal_newlines=True)
         if p.returncode != 0:
             if "E1" in p.stdout:
-                test.fail = lambda info : f"let op juiste indentatie"
+                test.fail = lambda info : f"let op juiste indentatie!\nheb je misschien op één plek te veel of te weinig\nspaties aan het begin van de regel? (meestal 0, 4, 8, ...)"
                 return False, p.stdout
             if "E501" in p.stdout or "W505" in p.stdout:
                 test.fail = lambda info : f"regel(s) te lang, code max {max_line_length} tekens, comments max {max_doc_length} tekens"
