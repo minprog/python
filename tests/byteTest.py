@@ -8,6 +8,8 @@ forbidden_constructs.disallow_all()
 def has_functions():
     """functie `print_bits` is aanwezig"""
     assert defines_function("print_bits")
+    assert not_in_code(ast.For)
+    assert not_in_code(ast.While)
 
 # @passed(has_functions)
 # def test_print_bits(test):
@@ -20,14 +22,14 @@ def has_functions():
 @passed(has_functions)
 def test_program_50(test):
     """het programma werkt correct met invoer 50"""
-    assert outputOf(stdinArgs=[50], overwriteAttributes=[("__name__", "__main__")]) == "0\n0\n1\n1\n0\n0\n1\n0\n"
+    assert_output(run(50), "0\n0\n1\n1\n0\n0\n1\n0\n")
 
 @passed(has_functions)
 def test_program_1(test):
     """het programma werkt correct met invoer 1"""
-    assert outputOf(stdinArgs=[1], overwriteAttributes=[("__name__", "__main__")]) == "0\n0\n0\n0\n0\n0\n0\n1\n"
+    assert_output(run(1), "0\n0\n0\n0\n0\n0\n0\n1\n")
 
 @passed(has_functions)
 def test_program_128(test):
     """het programma werkt correct met invoer 128"""
-    assert outputOf(stdinArgs=[128], overwriteAttributes=[("__name__", "__main__")]) == "1\n0\n0\n0\n0\n0\n0\n0\n"
+    assert_output(run(128), "1\n0\n0\n0\n0\n0\n0\n0\n")

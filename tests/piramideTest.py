@@ -1,10 +1,6 @@
 from checkpy import *
 from _static_analysis import *
 
-# TODO modernize
-import checkpy.lib as lib
-import checkpy.assertlib as assertlib
-
 import re
 
 from _python_checks import forbidden_constructs, mypy_strict, doctest_all

@@ -4,6 +4,8 @@ import checkpy.assertlib as asserts
 
 from _basics_no_listcomp import *
 
+# TODO modernize
+
 @t.passed(doctest_ok)
 @t.test(10)
 def check_is_same_rectangle(test):
