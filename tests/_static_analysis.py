@@ -196,10 +196,18 @@ class RunResult(str):
             return method
         raise AttributeError(name)
 
+from checkpy.entities import exception
+
 def run(*stdin) -> str:
     stdin = [str(a) for a in stdin]
+    try:
+        output = outputOf(stdinArgs=stdin, overwriteAttributes = [("__name__", "__main__")])
+    except exception.InputError:
+        raise AssertionError(
+            f"gegeven input: {' ⏎ '.join(stdin)} ⏎\n"
+            "het programma bleef hierna toch nog om input vragen")
     return RunResult(
-        outputOf(stdinArgs=stdin, overwriteAttributes = [("__name__", "__main__")]),
+        output,
         stdin=stdin
     )
 
