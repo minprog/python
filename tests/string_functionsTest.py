@@ -4,7 +4,7 @@ from _static_analysis import *
 from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
 
-@passed(doctest_ok)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert defines_function("count_occurrences")
