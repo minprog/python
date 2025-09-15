@@ -1,29 +1,68 @@
 from checkpy import *
-from _basics_no_listcomp import *
 from _static_analysis import *
 
-import ast
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+forbidden_constructs.disallow_all()
 
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("repeat")
-    assert defines_function("total_length")
-    assert not_in_code(ast.If)
-    assert not_in_code(ast.While)
-    assert not_in_code(ast.For)
+    assert defines_function("count_occurrences")
+    assert defines_function("has_O")
+    assert defines_function("find")
+    assert defines_function("has_up_and_down")
 
 @t.passed(has_functions)
-def test_repeat(test):
-    """functie `repeat` werkt correct"""
-    assert getFunction("repeat")('yes', 4) == 'yesyesyesyes'
-    assert getFunction("repeat")('no', 0) == ''
-    assert getFunction("repeat")('no', -2) == ''
-    assert getFunction("repeat")('yesno', 3) == 'yesnoyesnoyesno'
+def test_count_occ(test):
+    """functie `count_occurrences` werkt correct"""
+    coin = getFunction("count_occurrences", test.fileName)
+    assert_return(0, count_occurrences, 'lllll', 'a')
+    assert_return(1, count_occurrences, 'no', 'n')
+    assert_return(1, count_occurrences, 'no', 'o')
+    assert_return(3, count_occurrences, 'nanana', 'n')
+    assert_return(0, count_occurrences, '', 'n')
 
 @t.passed(has_functions)
-def test_total_length(test):
-    """functie `total_length` werkt correct"""
-    assert getFunction("total_length")('yes', 'no') == 5
-    assert getFunction("total_length")('', '') == 0
-    assert getFunction("total_length")('', 'yes') == 3
+def test_has_o(test):
+    """functie `has_O` werkt correct"""
+    has_O = getFunction("has_O", test.fileName)
+    assert_return(False, has_O, '')
+    assert_return(False, has_O, 'other')
+    assert_return(False, has_O, 'nm')
+    assert_return(False, has_O, 'l')
+    assert_return(True, has_O, 'O')
+    assert_return(True, has_O, 'Other')
+    assert_return(True, has_O, 'lO')
+    assert_return(True, has_O, 'kOm')
+    assert_return(True, has_O, 'kOO')
+
+@t.passed(has_functions)
+def test_find(test):
+    """functie `find` werkt correct"""
+    find = getFunction("find", test.fileName)
+    assert_return(False, find, '')
+    assert_return(False, find, 'other')
+    assert_return(False, find, 'nm')
+    assert_return(False, find, 'l')
+    assert_return(True, find, 'O')
+    assert_return(True, find, 'Other')
+    assert_return(True, find, 'lO')
+    assert_return(True, find, 'kOm')
+    assert_return(True, find, 'kOO')
+
+@t.passed(has_functions)
+def test_has_up_and_down(test):
+    """functie `has_up_and_down` werkt correct"""
+    find = getFunction("has_up_and_down", test.fileName)
+    assert_return(False, has_up_and_down, '')
+    assert_return(False, has_up_and_down, 'other')
+    assert_return(False, has_up_and_down, 'nm')
+    assert_return(False, has_up_and_down, 'l')
+    assert_return(False, has_up_and_down, 'O')
+    assert_return(True, has_up_and_down, 'Other')
+    assert_return(True, has_up_and_down, 'lO')
+    assert_return(True, has_up_and_down, 'kOm')
+    assert_return(True, has_up_and_down, 'kOO')
+    assert_return(True, has_up_and_down, 'OO')
+    assert_return(True, has_up_and_down, 'OmO')
+    assert_return(True, has_up_and_down, 'OOm')
