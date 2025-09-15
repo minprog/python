@@ -4,7 +4,7 @@ from _static_analysis import *
 from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
 
-@t.passed(doctest_ok)
+@passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert defines_function("count_occurrences")
@@ -12,7 +12,7 @@ def has_functions():
     assert defines_function("find")
     assert defines_function("has_up_and_down")
 
-@t.passed(has_functions)
+@passed(has_functions)
 def test_count_occ(test):
     """functie `count_occurrences` werkt correct"""
     coin = getFunction("count_occurrences", test.fileName)
@@ -22,7 +22,7 @@ def test_count_occ(test):
     assert_return(3, count_occurrences, 'nanana', 'n')
     assert_return(0, count_occurrences, '', 'n')
 
-@t.passed(has_functions)
+@passed(has_functions)
 def test_has_o(test):
     """functie `has_O` werkt correct"""
     has_O = getFunction("has_O", test.fileName)
@@ -36,7 +36,7 @@ def test_has_o(test):
     assert_return(True, has_O, 'kOm')
     assert_return(True, has_O, 'kOO')
 
-@t.passed(has_functions)
+@passed(has_functions)
 def test_find(test):
     """functie `find` werkt correct"""
     find = getFunction("find", test.fileName)
@@ -50,7 +50,7 @@ def test_find(test):
     assert_return(True, find, 'kOm')
     assert_return(True, find, 'kOO')
 
-@t.passed(has_functions)
+@passed(has_functions)
 def test_has_up_and_down(test):
     """functie `has_up_and_down` werkt correct"""
     find = getFunction("has_up_and_down", test.fileName)
