@@ -13,11 +13,11 @@ def has_functions():
 @passed(has_functions)
 def test_function(test):
     """functie `is_acidic` werkt correct"""
-    is_acidic = get_function("is_acidic")
-    assert is_acidic(10.0) == False
-    assert is_acidic(5.0) == True
-    assert is_acidic(4.9) == True
-    assert is_acidic(7.1) == False
+    is_acidic = getFunction("is_acidic")
+    assert_return(False, is_acidic, 10.0)
+    assert_return(True, is_acidic, 5.0)
+    assert_return(True, is_acidic, 4.9)
+    assert_return(False, is_acidic, 7.1)
 
 @passed(has_functions)
 def test_program(test):
