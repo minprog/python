@@ -12,11 +12,12 @@ def has_functions():
 @passed(has_functions)
 def test_comes_before(test):
     """functie `compare` werkt correct"""
-    compare = get_function("compare")
-    assert compare('Taylor', 'Lana') == 1
-    assert compare('shark', 'sWoRd') == -1
-    assert compare('Daantje', 'Daan') == 1
-    assert compare('amanda', 'Amanda') == 0, "de functie moet 0 geven als de woorden gelijk zijn"
+    compare = getFunction("compare")
+    assert_return(1, compare, 'Taylor', 'Lana')
+    assert_return(-1, compare, 'shark', 'sWoRd')
+    assert_return(1, compare, 'Daantje', 'Daan')
+    if compare('amanda', 'Amanda') != 0:
+        raise AssertionError("de functie moet 0 geven als de woorden gelijk zijn")
 
 @passed(has_functions)
 def test_program(test):
