@@ -50,5 +50,8 @@ def test_selection_sort(test):
     result = getFunction("selection_sort")(to_sort)
     if not is_subsequence(expected_steps, result.history):
         raise AssertionError(
+            f"er gaat minstens één sorteer-stap niet zoals verwacht!\n"
             f"getest met selection_sort({test})\n"
-            f"na de eerste sorteer-stap zou het {expected_steps[0]} moeten zijn")
+            f"na de eerste stap zou de lijst dit moeten bevatten:\n"
+            f"{expected_steps[0]}\n"
+            f"de implementatie gaat mis bij deze en/of latere stappen")
