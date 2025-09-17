@@ -37,7 +37,7 @@ def not_has_stringmethods() -> bool:
     tree = ast.parse(static.getSource())
     for n in ast.walk(tree):
         if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute):
-            if n.func.attr in ['replace', 'find']:
+            if n.func.attr in ['replace', 'find', 'index']:
                 raise AssertionError(f"string-methods zoals {n.func.attr}() mogen niet gebruikt worden")
     return True
 

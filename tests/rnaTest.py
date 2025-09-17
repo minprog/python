@@ -1,11 +1,10 @@
-import checkpy.tests as t
-import checkpy.lib as lib
-import checkpy.assertlib as asserts
-
-from _basics_no_listcomp import *
+from checkpy import *
 from _static_analysis import *
 
-@t.passed(doctest_ok)
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+forbidden_constructs.disallow_all()
+
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `check_input` enz. zijn aanwezig"""
     assert defines_function("check_input")
@@ -17,31 +16,25 @@ def has_functions():
     assert not_has_stringmult()
     assert not_has_stringmethods()
 
-@t.passed(has_functions)
-@t.test(10)
-def checks_input(test):
+@passed(has_functions)
+def test_function(test):
     """functie `check_input` werkt correct"""
-    def testMethod():
-        input_dna = lib.getFunction("check_input", test.fileName)
-        if (
-            input_dna("ATGC")
-            and input_dna("agtc")
-            and not input_dna("AUGA")
-            and not input_dna("123")
-        ):
-            return True
-        else:
-            return False
-    test.test = testMethod
+    check_input = getFunction("check_input")
+    assert_return(True , check_input, "ATGC")
+    assert_return(True , check_input, "agtc")
+    assert_return(False, check_input, "AUGA")
+    assert_return(False, check_input, "123")
 
-@t.passed(has_functions)
-@t.test(20)
-def checks_convert_dna(test):
+@passed(has_functions)
+def test_function2(test):
     """functie `transcribe_dna_to_rna` werkt correct met elke combinatie van uppercase/lowercase"""
-    def testMethod():
-        if has_string(".index"):
-            return False, "gebruik geen .index() voor deze opdracht"
+    transcribe_dna_to_rna = getFunction("transcribe_dna_to_rna")
+    assert_return("UACG", transcribe_dna_to_rna, "ATGC")
+    assert_return("UUACG", transcribe_dna_to_rna, "aatgc")
 
-        convert = lib.getFunction("transcribe_dna_to_rna", test.fileName)
-        return (convert("ATGC") == "UACG" and convert("aatgc") == "UUACG")
-    test.test = testMethod
+@passed(has_functions)
+def test_program(test):
+    """het programma werkt correct met invoer en uitvoer"""
+    assert_output(run('ATGC'), "RNA: UACG\n")
+    assert_output(run('atGcAgtAttGCA'), "RNA: UACGUCAUAACGU\n")
+    assert_output(run('hello'), "That is not a valid DNA string\n")

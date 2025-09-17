@@ -5,7 +5,6 @@ from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctes
 forbidden_constructs.disallow_all()
 
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
-@test()
 def has_functions():
     """functie `is_acidic` is aanwezig"""
     assert defines_function("is_acidic")
