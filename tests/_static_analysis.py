@@ -86,9 +86,8 @@ def has_import(*banned_imports) -> bool:
 
     imports_from: list[ast.ImportFrom] = static.getAstNodes(ast.ImportFrom)
     for imp in imports_from:
-        for name in imp.names:
-            if name in banned_imports:
-                return True
+        if imp.module in banned_imports:
+            return True
 
     return False
 

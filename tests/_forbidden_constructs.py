@@ -56,6 +56,7 @@ RULE_GROUPS: dict[str, dict[str, tuple[Callable[[], bool], str]]] = {
     },
     "stdlib_restrictions": {
         "import_math": (lambda: has_import("math"), "gebruik geen import math"),
+        "import_decimal": (lambda: has_import("decimal"), "gebruik geen import decimal"),
     },
 }
 
@@ -114,24 +115,18 @@ def disallow_all() -> None:
 @t.test()
 def check_forbidden_constructs(test):
     """check op verboden constructies"""
-    def testMethod():
-        if ACTIVE_RULES is None:
-            raise RuntimeError(
-                "forbidden_construct_checker.disallow(...) moet worden "
-                "aangeroepen voordat check_forbidden_constructs kan draaien"
-            )
+    if ACTIVE_RULES is None:
+        raise RuntimeError(
+            "forbidden_construct_checker.disallow(...) moet worden "
+            "aangeroepen voordat check_forbidden_constructs kan draaien"
+        )
 
-        if (lineno := has_syntax_error()):
-            return False, f"de code bevat een syntax error op regel {lineno}"
+    if (lineno := has_syntax_error()):
+        raise AssertionError(f"de code bevat een syntax error op regel {lineno}")
 
-        for key, (check_fn, message) in ACTIVE_RULES.items():
-            if check_fn():
-                return False, message
-
-        return True
-
-    test.test = testMethod
-
+    for key, (check_fn, message) in ACTIVE_RULES.items():
+        if check_fn():
+            raise AssertionError(message)
 
 # Expose as methods on the test function
 check_forbidden_constructs.disallow = disallow
