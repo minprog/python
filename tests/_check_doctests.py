@@ -28,7 +28,7 @@ def require_doctests_for_all_functions(test):
         # retrieve functions from source
         with open(test.fileName, 'r') as source_file:
             source = source_file.read()
-            functions = re.findall(r'def\s+(\w+)\(([^\)]*)\)[^-]+(->\s*([\w\[,\] _]+))?:', source)
+            functions = re.findall(r'def\s+(\w+)\s*\(([^\)]*)\)[^-]+(->\s*([\w\[,\] _]+))?:', source)
             n_functions = len(functions)
 
         # bail out if no functions at all

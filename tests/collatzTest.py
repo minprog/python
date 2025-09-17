@@ -1,10 +1,10 @@
 from checkpy import *
 from _static_analysis import *
 
-from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest_all
 forbidden_constructs.disallow_all()
 
-@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert defines_function("print_collatz")
