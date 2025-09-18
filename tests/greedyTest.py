@@ -36,7 +36,8 @@ def exactChange9999(test):
     """9999$ aan wisselgeld staat gelijk aan 39996 munten"""
     assert_output(run(9999).number(), "39996")
     if has_string("39996"):
-        raise AssertionError("de uitkomst 39996 moet berekend worden maar staat in de code")
+        raise AssertionError("de uitkomst 39996 moet berekend worden maar staat in de code\n"
+            "mocht je deze in de doctests hebben staan, kies dan een ander voorbeeld")
 
 @passed(has_functions)
 @test(40)
@@ -44,7 +45,8 @@ def exactChange402(test):
     """4.02$ aan wisselgeld staat gelijk aan 18 munten"""
     assert_output(run(4.02).number(), "18")
     if has_string("18"):
-        raise AssertionError("de uitkomst 18 moet berekend worden maar staat in de code")
+        raise AssertionError("de uitkomst 18 moet berekend worden maar staat in de code\n")
+            "mocht je deze in de doctests hebben staan, kies dan een ander voorbeeld")
 
 @passed(has_functions)
 @test(50)
