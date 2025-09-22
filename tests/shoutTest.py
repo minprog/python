@@ -19,12 +19,12 @@ def has_functions():
 def test_function(test):
     """functie `shout` werkt correct"""
     shout = getFunction("shout")
-    assert_return("Who the hell put the muffins the freezer?",
-        shout, "WHO THE HELL PUT THE MUFFINS THE FREEZER?")
+    assert_return("WHO THE HELL PUT THE MUFFINS THE FREEZER?",
+        shout, "Who the hell put the muffins the freezer?")
     assert_return("",
         shout, "")
-    assert_return("let it all out...",
-        shout, "LET IT ALL OUT...")
+    assert_return("LET IT ALL OUT...",
+        shout, "")
 
 @passed(has_functions)
 def test_program(test):
