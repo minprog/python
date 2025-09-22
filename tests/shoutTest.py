@@ -24,7 +24,7 @@ def test_function(test):
     assert_return("",
         shout, "")
     assert_return("LET IT ALL OUT...",
-        shout, "")
+        shout, "let it all out...")
 
 @passed(has_functions)
 def test_program(test):
