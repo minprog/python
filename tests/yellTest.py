@@ -25,10 +25,10 @@ def test_function(test):
         yell, "Who the hell put the muffins the freezer?")
     assert_return("Cringe?? CRINGE!!",
         yell, "Cringe? CRINGE!")
-    assert_return("OK!",
-        yell, "OK!!")
-    assert_return("?!",
-        yell, "??!!")
+    assert_return("OK!!",
+        yell, "OK!")
+    assert_return("??!!",
+        yell, "?!")
 
 @passed(has_functions)
 def test_program(test):
