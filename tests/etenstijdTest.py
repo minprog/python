@@ -40,49 +40,26 @@ def correct_none_if_no_meal(test):
     assert_return(None, f, '17:59')
 
 @passed(has_functions)
-@test(10)
 def checks_breakfast(test):
     """programma bepaalt correct de tijd voor ontbijt"""
     correct_meal_descriptions = ["ontbijt", "breakfast"]
-
-    output = run("7:25")
-    assert any([meal in output for meal in correct_meal_descriptions])
-
-    output = run("8:00")
-    assert any([meal in output for meal in correct_meal_descriptions])
-
-    output = run("8:01")
-    assert not any([meal in output for meal in correct_meal_descriptions])
+    output = run("7:25"); assert_any(output, correct_meal_descriptions)
+    output = run("8:00"); assert_any(output, correct_meal_descriptions)
+    output = run("8:01"); assert_none(output, correct_meal_descriptions)
 
 @passed(has_functions)
-@test(20)
 def checks_lunch(test):
     """programma bepaalt correct de tijd voor lunch"""
     correct_meal_descriptions = ["lunch"]
-
-    output = run("13:00")
-    assert any([meal in output for meal in correct_meal_descriptions])
-
-    output = run("12:00")
-    assert any([meal in output for meal in correct_meal_descriptions])
-
-    output = run("13:40")
-    assert not any([meal in output for meal in correct_meal_descriptions])
+    output = run("13:00"); assert_any(output, correct_meal_descriptions)
+    output = run("12:00"); assert_any(output, correct_meal_descriptions)
+    output = run("13:40"); assert_none(output, correct_meal_descriptions)
 
 @passed(has_functions)
-@test(30)
 def checks_dinner(test):
     """programma bepaalt correct de tijd voor avondeten"""
     correct_meal_descriptions = ["avondeten", "dinner"]
-
-    output = run("18:53")
-    assert any([meal in output for meal in correct_meal_descriptions])
-
-    output = run("18:00")
-    assert any([meal in output for meal in correct_meal_descriptions])
-
-    output = run("19:00")
-    assert any([meal in output for meal in correct_meal_descriptions])
-
-    output = run("19:59")
-    assert not any([meal in output for meal in correct_meal_descriptions])
+    output = run("18:53"); assert_any(output, correct_meal_descriptions)
+    output = run("18:00"); assert_any(output, correct_meal_descriptions)
+    output = run("19:00"); assert_any(output, correct_meal_descriptions)
+    output = run("19:59"); assert_none(output, correct_meal_descriptions)

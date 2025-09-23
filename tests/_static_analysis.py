@@ -251,6 +251,24 @@ def assert_output(actual, expected, expected_display=None):
 
     return True
 
+def assert_any(actual, expected: list):
+    stdin_str = ' ⏎ '.join(actual.metadata['stdin'])
+    expected_options = ' of '.join(f"'{s}'" for s in expected)
+    if not any([potential in actual for potential in expected]):
+        raise AssertionError(
+          f"gegeven input: {stdin_str} ⏎\n"
+          f"verwachte output is {expected_options} maar kreeg {actual!r}"
+        )
+
+def assert_none(actual, expected: list):
+    stdin_str = ' ⏎ '.join(actual.metadata['stdin'])
+    expected_options = ' of '.join(f"'{s}'" for s in expected)
+    if any([potential in actual for potential in expected]):
+        raise AssertionError(
+          f"gegeven input: {stdin_str} ⏎\n"
+          f"verwachte output is alles behalve {expected_options} maar kreeg die toch"
+        )
+
 import functools
 
 class PrettyCallable:
