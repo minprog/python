@@ -10,13 +10,13 @@ from _static_analysis import *
 @t.test(9)
 def checks_content(test):
     """datastructuur `list[list[int]]` is toegepast"""
-    if not has_string("Board = list[list[int]]"):
+    if not string_in_module("Board = list[list[int]]"):
         return False, "Board = list[list[int]] niet gevonden"
-    if not has_string("def is_won(board: Board) -> bool:"):
+    if not string_in_module("def is_won(board: Board) -> bool:"):
         return False, "functie `is_won` moet een `board: Board`-parameter hebben"
-    if not has_string("def print_board(board: Board) -> None:"):
+    if not string_in_module("def print_board(board: Board) -> None:"):
         return False, "functie `print_board` moet een `board: Board`-parameter hebben"
-    if not has_string("def create_board() -> Board:"):
+    if not string_in_module("def create_board() -> Board:"):
         return False, "functie `create_board` moet een `Board` teruggeven"
 
 @t.passed(checks_content)

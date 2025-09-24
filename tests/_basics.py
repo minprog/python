@@ -9,27 +9,34 @@ import subprocess
 import re
 import os
 
+def module_has_syntax_error():
+    try:
+        compile(static.getSource(), "<your program>", "exec")
+    except SyntaxError as error:
+        return error.lineno
+    return False
+
 @t.test(1)
 def basic_style(test):
     """het bestand is in orde"""
     def testMethod():
-        if lineno := has_syntax_error():
+        if lineno := module_has_syntax_error():
             return False, f"de code bevat een syntax error op regel {lineno}"
-        if has_string("	"):
+        if string_in_module("	"):
             return False, "let op dat je geen tabs gebruikt"
-        if has_string("Optional"):
+        if string_in_module("Optional"):
             return False, "let op dat je niet Optional[...] gebruikt als type hint maar ... | None"
-        if has_string("List[", "Tuple[", "Dict[", "Set["):
+        if string_in_module("List[", "Tuple[", "Dict[", "Set["):
             return False, "let op dat je niet List[...] e.d. gebruikt als type hint maar list[...]"
-        # if has_call('min', 'max'):
+        # if call_in_module('min', 'max'):
         #     return False, "let op dat je geen min() of max() gebruikt"
-        # if has_call('sorted'):
+        # if call_in_module('sorted'):
         #     return False, "let op dat je geen sorted() gebruikt"
-        if has_call('map'):
+        if call_in_module('map'):
             return False, "let op dat je geen map() gebruikt"
-        if has_call('eval'):
+        if call_in_module('eval'):
             return False, "let op dat je geen eval() gebruikt"
-        # if has_import('math'):
+        # if import_in_module('math'):
         #     return False, "let op dat je geen import math gebruikt"
 
         # run pycodestyle for a couple of basic checks

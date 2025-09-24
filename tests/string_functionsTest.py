@@ -7,10 +7,10 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("count_occurrences")
-    assert defines_function("has_O")
-    assert defines_function("find")
-    assert defines_function("has_up_and_down")
+    assert function_defined_in_module("count_occurrences")
+    assert function_defined_in_module("has_O")
+    assert function_defined_in_module("find")
+    assert function_defined_in_module("has_up_and_down")
 
 @passed(has_functions)
 def test_count_occ(test):

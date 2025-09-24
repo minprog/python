@@ -7,13 +7,13 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `hoeveelheid_water` is aanwezig"""
-    assert defines_function("hoeveelheid_water")
+    assert function_defined_in_module("hoeveelheid_water")
 
 @passed(has_functions)
 def test_hoeveelheid_water(test):
     """functie `hoeveelheid_water` werkt correct"""
     hoeveelheid_water = get_function("hoeveelheid_water")
-    assert_no_input_output(hoeveelheid_water)
+    assert no_input_output_in_function(hoeveelheid_water)
     assert hoeveelheid_water(1) == 12
     assert hoeveelheid_water(10) == 120
     assert hoeveelheid_water(20) == 240

@@ -7,13 +7,13 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("get_positive_int")
-    assert defines_function("get_any_int_but_0")
-    assert defines_function("get_min_int")
-    assert defines_function("get_two_different_ints")
+    assert function_defined_in_module("get_positive_int")
+    assert function_defined_in_module("get_any_int_but_0")
+    assert function_defined_in_module("get_min_int")
+    assert function_defined_in_module("get_two_different_ints")
 
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.List)
-    # assert not_in_code(ast.Tuple) # return for get_two_different_ints is tuple
-    assert not_in_code(ast.Dict)
-    assert not_in_code(ast.In)
+    assert construct_not_in_ast(ast.Set)
+    assert construct_not_in_ast(ast.List)
+    # assert construct_not_in_ast(ast.Tuple) # return for get_two_different_ints is tuple
+    assert construct_not_in_ast(ast.Dict)
+    assert construct_not_in_ast(ast.In)

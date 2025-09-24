@@ -7,7 +7,7 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `check_answer` is aanwezig"""
-    assert defines_function("check_answer")
+    assert function_defined_in_module("check_answer")
 
 @passed(has_functions)
 @test(10)

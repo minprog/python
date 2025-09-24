@@ -7,15 +7,15 @@ import ast
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("number_of_Os")
-    assert defines_function("first_O")
-    assert defines_function("number_of_letters")
-    assert defines_function("where_letter")
-    assert defines_function("total_occurrences")
-    assert has_string(".count"), "gebruik de opgegeven methodes in je oplossing"
-    assert has_string(".find"), "gebruik de opgegeven methodes in je oplossing"
-    assert not_in_code(ast.While)
-    assert not_in_code(ast.For)
+    assert function_defined_in_module("number_of_Os")
+    assert function_defined_in_module("first_O")
+    assert function_defined_in_module("number_of_letters")
+    assert function_defined_in_module("where_letter")
+    assert function_defined_in_module("total_occurrences")
+    assert string_in_module(".count"), "gebruik de opgegeven methodes in je oplossing"
+    assert string_in_module(".find"), "gebruik de opgegeven methodes in je oplossing"
+    assert construct_not_in_ast(ast.While)
+    assert construct_not_in_ast(ast.For)
 
 @t.passed(has_functions)
 def test_number_of_Os(test):

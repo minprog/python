@@ -7,11 +7,11 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("print_collatz")
-    assert defines_function("collatz_length")
+    assert function_defined_in_module("print_collatz")
+    assert function_defined_in_module("collatz_length")
 
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.List)
-    assert not_in_code(ast.Tuple)
-    assert not_in_code(ast.Dict)
-    assert not_in_code(ast.In)
+    assert construct_not_in_ast(ast.Set)
+    assert construct_not_in_ast(ast.List)
+    assert construct_not_in_ast(ast.Tuple)
+    assert construct_not_in_ast(ast.Dict)
+    assert construct_not_in_ast(ast.In)

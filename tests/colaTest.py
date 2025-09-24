@@ -7,23 +7,23 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("check_coin")
-    assert defines_function("determine_due")
+    assert function_defined_in_module("check_coin")
+    assert function_defined_in_module("determine_due")
 
-    assert in_code(ast.While)
-    assert not_in_code(ast.For)
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.List)
-    assert not_in_code(ast.Tuple)
-    assert not_in_code(ast.Dict)
-    assert not_in_code(ast.In)
+    assert construct_in_ast(ast.While)
+    assert construct_not_in_ast(ast.For)
+    assert construct_not_in_ast(ast.Set)
+    assert construct_not_in_ast(ast.List)
+    assert construct_not_in_ast(ast.Tuple)
+    assert construct_not_in_ast(ast.Dict)
+    assert construct_not_in_ast(ast.In)
 
 @passed(has_functions)
 @test(10)
 def checks_coin(test):
     """functie `check_coin` werkt correct"""
     coin = get_function("check_coin")
-    assert_no_input_output(coin)
+    assert no_input_output_in_function(coin)
     assert coin(25) == True
     assert coin(10) == True
     assert coin(5) == True
@@ -36,7 +36,7 @@ def checks_coin(test):
 def checks_due(test):
     """functie `determine_due` werkt correct"""
     due = get_function("determine_due")
-    assert_no_input_output(due)
+    assert no_input_output_in_function(due)
     if due(50, 20) == 30:
         raise AssertionError("functie accepteert een munt van 20 cent, maar deze bestaat niet")
     assert due(50, 25) == 25

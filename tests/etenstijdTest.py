@@ -7,13 +7,13 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `meal` is aanwezig"""
-    assert defines_function("meal")
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.List)
-    # assert not_in_code(ast.Tuple) # wordt aangeraden in de opdracht ivm split
-    assert not_in_code(ast.Dict)
-    assert not_has_stringmult()
-    assert not_has_stringmethods()
+    assert function_defined_in_module("meal")
+    assert construct_not_in_ast(ast.Set)
+    assert construct_not_in_ast(ast.List)
+    # assert construct_not_in_ast(ast.Tuple) # wordt aangeraden in de opdracht ivm split
+    assert construct_not_in_ast(ast.Dict)
+    assert no_string_mult_used()
+    assert no_string_methods_used()
 
 @passed(has_functions)
 @test(8)
@@ -38,6 +38,24 @@ def correct_none_if_no_meal(test):
     assert f('14:01') == None
     assert f('13:01') == None
     assert f('17:59') == None
+
+def assert_any(actual, expected: list):
+    stdin_str = ' ⏎ '.join(actual.metadata['stdin'])
+    expected_options = ' of '.join(f"'{s}'" for s in expected)
+    if not any([potential in actual for potential in expected]):
+        raise AssertionError(
+          f"gegeven input: {stdin_str} ⏎\n"
+          f"verwachte output is {expected_options} maar kreeg {actual!r}"
+        )
+
+def assert_none(actual, expected: list):
+    stdin_str = ' ⏎ '.join(actual.metadata['stdin'])
+    expected_options = ' of '.join(f"'{s}'" for s in expected)
+    if any([potential in actual for potential in expected]):
+        raise AssertionError(
+          f"gegeven input: {stdin_str} ⏎\n"
+          f"verwachte output is alles behalve {expected_options} maar kreeg die toch"
+        )
 
 @passed(has_functions)
 def checks_breakfast(test):

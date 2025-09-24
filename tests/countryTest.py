@@ -41,5 +41,5 @@ def test_country(test):
         raise AssertionError("population_density geeft niet de juiste uitkomst")
     if usa.__str__() != 'United States of America has a population of 313914040 and is 9826675 square km.':
         raise AssertionError("het format van Country.__str__ is niet correct")
-    if has_call('isinstance'):
+    if call_in_module('isinstance'):
         raise AssertionError("let op dat je geen isinstance() gebruikt")

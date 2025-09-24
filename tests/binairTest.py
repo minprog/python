@@ -7,13 +7,13 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """functie `convert` is aanwezig"""
-    assert defines_function("convert")
+    assert function_defined_in_module("convert")
 
 @passed(has_functions)
 def test_convert(test):
     """functie `convert` werkt correct"""
     convert = get_function("convert")
-    assert_no_input_output(convert)
+    assert no_input_output_in_function(convert)
     assert convert(0, 1, 0, 0) == 4
     assert convert(1, 1, 1, 1) == 15
     assert convert(0, 1, 0, 1) == 5

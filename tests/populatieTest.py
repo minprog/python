@@ -7,14 +7,14 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("calculate_years")
+    assert function_defined_in_module("calculate_years")
 
-    assert in_code(ast.While)
-    assert not_in_code(ast.For)
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.List)
-    assert not_in_code(ast.Tuple)
-    assert not_in_code(ast.Dict)
+    assert construct_in_ast(ast.While)
+    assert construct_not_in_ast(ast.For)
+    assert construct_not_in_ast(ast.Set)
+    assert construct_not_in_ast(ast.List)
+    assert construct_not_in_ast(ast.Tuple)
+    assert construct_not_in_ast(ast.Dict)
 
 @passed(has_functions)
 @test(10)

@@ -7,13 +7,13 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `evaluate` is aanwezig"""
-    assert defines_function("evaluate")
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.List)
-    # assert not_in_code(ast.Tuple) # wordt aangeraden in de opdracht ivm split
-    assert not_in_code(ast.Dict)
-    assert not_has_stringmult()
-    assert not_has_stringmethods()
+    assert function_defined_in_module("evaluate")
+    assert construct_not_in_ast(ast.Set)
+    assert construct_not_in_ast(ast.List)
+    # assert construct_not_in_ast(ast.Tuple) # wordt aangeraden in de opdracht ivm split
+    assert construct_not_in_ast(ast.Dict)
+    assert no_string_mult_used()
+    assert no_string_methods_used()
 
 @passed(has_functions)
 @test(10)

@@ -5,14 +5,14 @@ from _static_analysis import *
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("four_random_letters")
-    assert defines_function("ten_odd_plus_five")
-    assert defines_function("password_numeric_analysis")
-    assert defines_function("numbers_list_from_password")
-    assert defines_function("numbers_from_password")
-    assert not_in_code(ast.If)
-    assert not_in_code(ast.While)
-    assert not_in_code(ast.For)
+    assert function_defined_in_module("four_random_letters")
+    assert function_defined_in_module("ten_odd_plus_five")
+    assert function_defined_in_module("password_numeric_analysis")
+    assert function_defined_in_module("numbers_list_from_password")
+    assert function_defined_in_module("numbers_from_password")
+    assert construct_not_in_ast(ast.If)
+    assert construct_not_in_ast(ast.While)
+    assert construct_not_in_ast(ast.For)
 
 @t.passed(has_functions)
 def test_four_random_letters(test):

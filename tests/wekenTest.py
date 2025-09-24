@@ -7,13 +7,13 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `weeks_elapsed` is aanwezig"""
-    assert defines_function("weeks_elapsed")
+    assert function_defined_in_module("weeks_elapsed")
 
 @passed(has_functions)
 def test_weeks_elapsed(test):
     """functie `weeks_elapsed` werkt correct"""
     weeks_elapsed = get_function('weeks_elapsed')
-    assert_no_input_output(weeks_elapsed)
+    assert no_input_output_in_function(weeks_elapsed)
     assert weeks_elapsed(3, 20) == 2
     assert weeks_elapsed(20, 3) == 2
     assert weeks_elapsed(1, 1) == 0

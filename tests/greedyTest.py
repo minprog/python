@@ -11,12 +11,12 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert not_in_code(ast.List)
-    assert not_in_code(ast.For) # for-loop makes no sense here
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.Tuple)
-    assert not_in_code(ast.Dict)
-    assert not_in_code(ast.In)
+    assert construct_not_in_ast(ast.List)
+    assert construct_not_in_ast(ast.For) # for-loop makes no sense here
+    assert construct_not_in_ast(ast.Set)
+    assert construct_not_in_ast(ast.Tuple)
+    assert construct_not_in_ast(ast.Dict)
+    assert construct_not_in_ast(ast.In)
 
 @passed(has_functions)
 @test(10)
@@ -35,7 +35,7 @@ def exactChange41(test):
 def exactChange9999(test):
     """9999$ aan wisselgeld staat gelijk aan 39996 munten"""
     assert_output(run(9999).number(), "39996")
-    if has_string("39996"):
+    if string_in_module("39996"):
         raise AssertionError("de uitkomst 39996 moet berekend worden maar staat in de code\n"
             "mocht je deze in de doctests hebben staan, kies dan een ander voorbeeld")
 
@@ -44,7 +44,7 @@ def exactChange9999(test):
 def exactChange402(test):
     """4.02$ aan wisselgeld staat gelijk aan 18 munten"""
     assert_output(run(4.02).number(), "18")
-    if has_string("18"):
+    if string_in_module("18"):
         raise AssertionError("de uitkomst 18 moet berekend worden maar staat in de code\n"
             "mocht je deze in de doctests hebben staan, kies dan een ander voorbeeld")
 

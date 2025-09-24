@@ -7,7 +7,7 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `travel_costs` is aanwezig"""
-    assert defines_function("travel_costs")
+    assert function_defined_in_module("travel_costs")
 
 @passed(has_functions)
 @test(10)

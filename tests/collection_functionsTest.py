@@ -7,16 +7,16 @@ import ast
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("list_duplicates")
-    assert defines_function("mating_pairs")
-    assert defines_function("reverse_dict")
-    assert defines_function("count_values")
-    assert defines_function("minst_voorkomende")
-    assert defines_function("tel_dubbele")
-    assert defines_function("is_normal")
-    assert defines_function("dict_intersect")
-    assert defines_function("get_valuable_letters")
-    assert defines_function("emmeren")
+    assert function_defined_in_module("list_duplicates")
+    assert function_defined_in_module("mating_pairs")
+    assert function_defined_in_module("reverse_dict")
+    assert function_defined_in_module("count_values")
+    assert function_defined_in_module("minst_voorkomende")
+    assert function_defined_in_module("tel_dubbele")
+    assert function_defined_in_module("is_normal")
+    assert function_defined_in_module("dict_intersect")
+    assert function_defined_in_module("get_valuable_letters")
+    assert function_defined_in_module("emmeren")
 
 @t.passed(has_functions)
 def test_find_dups(test):

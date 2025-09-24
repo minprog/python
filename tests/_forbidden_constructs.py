@@ -20,43 +20,63 @@ Usage:
 """
 
 from typing import Callable, Iterable
+from checkpy import static
+import ast
 
 import checkpy.tests as t
 from _static_analysis import (
-    has_string, has_call, has_import, has_syntax_error,
-    has_generators, not_has_stringmethods, not_has_stringmult
+    string_in_module, call_in_module,
+    no_string_methods_used, no_string_mult_used
 )
+
+def import_in_module(*banned_imports) -> bool:
+    imports: list[ast.Import] = static.getAstNodes(ast.Import)
+    for imp in imports:
+        names = [alias.name for alias in imp.names]
+        for name in names:
+            if name in banned_imports:
+                return True
+
+    imports_from: list[ast.ImportFrom] = static.getAstNodes(ast.ImportFrom)
+    for imp in imports_from:
+        if imp.module in banned_imports:
+            return True
+
+    return False
+
+def has_generators() -> bool:
+    return static.getAstNodes(ast.ListComp, ast.DictComp, ast.SetComp, ast.GeneratorExp)
 
 # --- single source of truth: groups -> rules ---
 RULE_GROUPS: dict[str, dict[str, tuple[Callable[[], bool], str]]] = {
     "basic_formatting": {
-        "tabs": (lambda: has_string("\t"), "let op dat je geen tabs gebruikt"),
+        "tabs": (lambda: string_in_module("\t"), "let op dat je geen tabs gebruikt"),
     },
     "deprecations": {
-        "Optional": (lambda: has_string("Optional"), "gebruik ... | None i.p.v. Optional[...]"),
-        "List": (lambda: has_string("List["), "gebruik list[...] i.p.v. List[...]"),
-        "Tuple": (lambda: has_string("Tuple["), "gebruik tuple[...] i.p.v. Tuple[...]"),
-        "Dict": (lambda: has_string("Dict["), "gebruik dict[...] i.p.v. Dict[...]"),
-        "Set": (lambda: has_string("Set["), "gebruik set[...] i.p.v. Set[...]"),
+        "Optional": (lambda: string_in_module("Optional"), "gebruik ... | None i.p.v. Optional[...]"),
+        "List": (lambda: string_in_module("List["), "gebruik list[...] i.p.v. List[...]"),
+        "Tuple": (lambda: string_in_module("Tuple["), "gebruik tuple[...] i.p.v. Tuple[...]"),
+        "Dict": (lambda: string_in_module("Dict["), "gebruik dict[...] i.p.v. Dict[...]"),
+        "Set": (lambda: string_in_module("Set["), "gebruik set[...] i.p.v. Set[...]"),
     },
     # "string_builtins": {
-    #     "stringmult": (lambda: not not_has_stringmult(), "gebruik geen string * getal"),
-    #     "stringmethods": (lambda: not not_has_stringmethods(), "gebruik geen string-methods"),
+    #     "stringmult": (lambda: not no_string_mult_used(), "gebruik geen string * getal"),
+    #     "stringmethods": (lambda: not no_string_methods_used(), "gebruik geen string-methods"),
     # },
     "list_builtins": {
-        "min_max": (lambda: has_call("min", "max"), "gebruik geen min() of max()"),
-        "sorted": (lambda: has_call("sorted"), "gebruik geen sorted()"),
+        "min_max": (lambda: call_in_module("min", "max"), "gebruik geen min() of max()"),
+        "sorted": (lambda: call_in_module("sorted"), "gebruik geen sorted()"),
     },
     "functional_style": {
-        "map": (lambda: has_call("map"), "gebruik geen map()"),
-        "zip": (lambda: has_call("zip"), "gebruik geen zip()"),
+        "map": (lambda: call_in_module("map"), "gebruik geen map()"),
+        "zip": (lambda: call_in_module("zip"), "gebruik geen zip()"),
         "generators": (lambda: has_generators(), "let op dat je geen [... for ...] gebruikt"),
-        "all_any": (lambda: has_call("all", "any"), "gebruik geen all() of any()"),
-        "eval": (lambda: has_call("eval"), "gebruik geen eval()"),
+        "all_any": (lambda: call_in_module("all", "any"), "gebruik geen all() of any()"),
+        "eval": (lambda: call_in_module("eval"), "gebruik geen eval()"),
     },
     "stdlib_restrictions": {
-        "import_math": (lambda: has_import("math"), "gebruik geen import math"),
-        "import_decimal": (lambda: has_import("decimal"), "gebruik geen import decimal"),
+        "import_math": (lambda: import_in_module("math"), "gebruik geen import math"),
+        "import_decimal": (lambda: import_in_module("decimal"), "gebruik geen import decimal"),
     },
 }
 
@@ -112,6 +132,14 @@ def disallow_all() -> None:
     ACTIVE_RULES = dict(ALL_RULES)
 
 
+def module_has_syntax_error():
+    try:
+        compile(static.getSource(), "<your program>", "exec")
+    except SyntaxError as error:
+        return error.lineno
+    return False
+
+
 @t.test()
 def check_forbidden_constructs(test):
     """check op verboden constructies"""
@@ -121,7 +149,7 @@ def check_forbidden_constructs(test):
             "aangeroepen voordat check_forbidden_constructs kan draaien"
         )
 
-    if (lineno := has_syntax_error()):
+    if (lineno := module_has_syntax_error()):
         raise AssertionError(f"de code bevat een syntax error op regel {lineno}")
 
     for key, (check_fn, message) in ACTIVE_RULES.items():

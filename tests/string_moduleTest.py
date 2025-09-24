@@ -7,17 +7,17 @@ import ast
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("isalpha")
-    assert defines_function("islower")
-    assert defines_function("isupper")
-    assert defines_function("isdigit")
-    assert defines_function("isblank")
-    assert not has_string("defghijklmnopqrstuvw"), "gebruik de variabelen uit de string-module voor deze opdracht"
-    assert not has_string("DEFGHIJKLMNOPQRSTUVW"), "gebruik de variabelen uit de string-module voor deze opdracht"
-    assert not has_string("123456789"), "gebruik de variabelen uit de string-module voor deze opdracht"
-    assert has_string(".ascii_lowercase"), "gebruik de variabelen uit de string-module voor deze opdracht"
-    assert has_string(".ascii_uppercase"), "gebruik de variabelen uit de string-module voor deze opdracht"
-    assert has_string(".whitespace"), "gebruik de variabelen uit de string-module voor deze opdracht"
+    assert function_defined_in_module("isalpha")
+    assert function_defined_in_module("islower")
+    assert function_defined_in_module("isupper")
+    assert function_defined_in_module("isdigit")
+    assert function_defined_in_module("isblank")
+    assert not string_in_module("defghijklmnopqrstuvw"), "gebruik de variabelen uit de string-module voor deze opdracht"
+    assert not string_in_module("DEFGHIJKLMNOPQRSTUVW"), "gebruik de variabelen uit de string-module voor deze opdracht"
+    assert not string_in_module("123456789"), "gebruik de variabelen uit de string-module voor deze opdracht"
+    assert string_in_module(".ascii_lowercase"), "gebruik de variabelen uit de string-module voor deze opdracht"
+    assert string_in_module(".ascii_uppercase"), "gebruik de variabelen uit de string-module voor deze opdracht"
+    assert string_in_module(".whitespace"), "gebruik de variabelen uit de string-module voor deze opdracht"
 
 @t.passed(has_functions)
 def test_isalpha(test):

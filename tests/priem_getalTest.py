@@ -3,7 +3,7 @@ from _basics_no_listcomp import *
 @t.passed(doctest_ok)
 def has_function_1():
     """functie `is_priem` is aanwezig"""
-    assert defines_function("is_priem")
+    assert function_defined_in_module("is_priem")
 
 @t.passed(has_function_1)
 def test_function_1(test):
@@ -16,12 +16,12 @@ def test_function_1(test):
 @t.passed(doctest_ok)
 def has_function_2():
     """functie `print_priemen_tot` is aanwezig"""
-    assert defines_function("print_priemen_tot")
+    assert function_defined_in_module("print_priemen_tot")
 
 @t.passed(doctest_ok)
 def has_function_3():
     """functie `zoveelste_priem` is aanwezig"""
-    assert defines_function("zoveelste_priem")
+    assert function_defined_in_module("zoveelste_priem")
 
 @t.passed(has_function_3)
 def test_function_3(test):

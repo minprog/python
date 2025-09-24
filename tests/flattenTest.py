@@ -7,12 +7,12 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `flatten` is aanwezig"""
-    assert defines_function("flatten")
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.Tuple)
-    assert not_in_code(ast.Dict)
-    assert not_has_stringmult()
-    assert not_has_stringmethods()
+    assert function_defined_in_module("flatten")
+    assert construct_not_in_ast(ast.Set)
+    assert construct_not_in_ast(ast.Tuple)
+    assert construct_not_in_ast(ast.Dict)
+    assert no_string_mult_used()
+    assert no_string_methods_used()
 
 @passed(has_functions)
 def test_function(test):

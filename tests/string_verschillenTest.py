@@ -7,11 +7,11 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("is_different")
-    assert defines_function("count_difference")
+    assert function_defined_in_module("is_different")
+    assert function_defined_in_module("count_difference")
 
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.List)
-    assert not_in_code(ast.Tuple)
-    assert not_in_code(ast.Dict)
-    assert not_in_code(ast.In)
+    assert construct_not_in_ast(ast.Set)
+    assert construct_not_in_ast(ast.List)
+    assert construct_not_in_ast(ast.Tuple)
+    assert construct_not_in_ast(ast.Dict)
+    assert construct_not_in_ast(ast.In)

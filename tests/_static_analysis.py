@@ -4,24 +4,26 @@ import ast
 
 from checkpy import static
 
-def defines_function(name: str) -> bool:
+# ---- assertion helpers ----
+
+def function_defined_in_module(name: str) -> bool:
     check = name in static.getFunctionDefinitions()
     if not check:
         raise AssertionError(f"`{name}` is niet aanwezig")
     return check
 
-def not_defines_function(name: str) -> bool:
+def function_not_defined_in_module(name: str) -> bool:
     check = name not in static.getFunctionDefinitions()
     if not check:
         raise AssertionError(f"`{name}` is onverwacht aanwezig")
     return check
 
-def not_in_code(construct: type):
-    # check for literal of that type
+def construct_not_in_ast(construct: type):
+    # check for literals of that type
     check = construct in static.AbstractSyntaxTree()
     name = str(construct).split(".")[1].split("'")[0].lower()
     # check for construction call of that type (!)
-    call_check = has_call(name)
+    call_check = call_in_module(name)
     if check or call_check:
         if name in ['list', 'set', 'tuple', 'dict']:
             raise AssertionError(f"{name}s mogen niet gebruikt worden in deze opdracht")
@@ -29,14 +31,14 @@ def not_in_code(construct: type):
             raise AssertionError(f"`{name}` mag niet gebruikt worden in deze opdracht")
     return True
 
-def in_code(construct: type):
+def construct_in_ast(construct: type):
     check = construct in static.AbstractSyntaxTree()
     name = str(construct).split(".")[1].split("'")[0].lower()
     if not check:
         raise AssertionError(f"`{name}` moet gebruikt worden in deze opdracht")
     return check
 
-def not_has_stringmethods() -> bool:
+def no_string_methods_used() -> bool:
     tree = ast.parse(static.getSource())
     for n in ast.walk(tree):
         if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute):
@@ -44,7 +46,7 @@ def not_has_stringmethods() -> bool:
                 raise AssertionError(f"string-methods zoals {n.func.attr}() mogen niet gebruikt worden")
     return True
 
-def not_has_stringmult() -> bool:
+def no_string_mult_used() -> bool:
     tree = ast.parse(static.getSource())
     for n in ast.walk(tree):
         if isinstance(n, ast.BinOp) and isinstance(n.op, ast.Mult):
@@ -53,18 +55,20 @@ def not_has_stringmult() -> bool:
                 raise AssertionError(f"`*` mag alleen gebruikt worden om getallen te vermenigvuldigen met elkaar")
     return True
 
-def has_syntax_error():
-    try:
-        compile(static.getSource(), "<your program>", "exec")
-    except SyntaxError as error:
-        return error.lineno
-    return False
+def no_input_output_in_function(f):
+    if 'print' in f._function.__code__.co_names or 'input' in f._function.__code__.co_names:
+        raise AssertionError(
+            "deze functie zou geen print of input moeten hebben:\n"
+            "meestal moet dat in de if-name-is-main gebeuren")
+    return True
 
-def has_string(*forbidden_strings):
+# ---- analysis helpers (no AssertionError on failure) ----
+
+def string_in_module(*forbidden_strings):
     source = static.getSource()
     return any(f in source for f in forbidden_strings)
 
-def has_call(*banned_calls) -> bool:
+def call_in_module(*banned_calls) -> bool:
     found = False
 
     class Visitor(ast.NodeVisitor):
@@ -79,23 +83,9 @@ def has_call(*banned_calls) -> bool:
 
     return found
 
-def has_import(*banned_imports) -> bool:
-    imports: list[ast.Import] = static.getAstNodes(ast.Import)
-    for imp in imports:
-        names = [alias.name for alias in imp.names]
-        for name in names:
-            if name in banned_imports:
-                return True
-
-    imports_from: list[ast.ImportFrom] = static.getAstNodes(ast.ImportFrom)
-    for imp in imports_from:
-        if imp.module in banned_imports:
-            return True
-
-    return False
-
-def has_generators() -> bool:
-    return static.getAstNodes(ast.ListComp, ast.DictComp, ast.SetComp, ast.GeneratorExp)
+# ---- run() wraps output of running a module into a class ----
+# ---- it keeps track of the stdin that was used and also  ----
+# ---- exposes several string ops like strip()             ----
 
 import re
 from typing import Any, Iterable
@@ -198,6 +188,8 @@ def run(*stdin) -> str:
         stdin=stdin
     )
 
+# ---- output checking for run() results ----
+
 import re
 
 def assert_output(actual, expected, expected_display=None):
@@ -239,23 +231,7 @@ def assert_output(actual, expected, expected_display=None):
 
     return True
 
-def assert_any(actual, expected: list):
-    stdin_str = ' ⏎ '.join(actual.metadata['stdin'])
-    expected_options = ' of '.join(f"'{s}'" for s in expected)
-    if not any([potential in actual for potential in expected]):
-        raise AssertionError(
-          f"gegeven input: {stdin_str} ⏎\n"
-          f"verwachte output is {expected_options} maar kreeg {actual!r}"
-        )
-
-def assert_none(actual, expected: list):
-    stdin_str = ' ⏎ '.join(actual.metadata['stdin'])
-    expected_options = ' of '.join(f"'{s}'" for s in expected)
-    if any([potential in actual for potential in expected]):
-        raise AssertionError(
-          f"gegeven input: {stdin_str} ⏎\n"
-          f"verwachte output is alles behalve {expected_options} maar kreeg die toch"
-        )
+# ---- function call result expressions ----
 
 import functools
 
@@ -299,11 +275,7 @@ def get_function(name):
     f = getFunction(name)
     return PrettyCallable(f, expected_name=name)
 
-def assert_no_input_output(f):
-    if 'print' in f._function.__code__.co_names or 'input' in f._function.__code__.co_names:
-        raise AssertionError(
-            "deze functie zou geen print of input moeten hebben:\n"
-            "meestal moet dat in de if-name-is-main gebeuren")
+# region ---- list content tracking ----
 
 class HistoryList(list):
     """
@@ -339,3 +311,5 @@ def is_subsequence(pattern, target):
     """
     it = iter(target)
     return all(any(p == t for t in it) for p in pattern)
+
+# endregion

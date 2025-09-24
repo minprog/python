@@ -7,9 +7,9 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `print_bits` is aanwezig"""
-    assert defines_function("print_bits")
-    assert not_in_code(ast.For)
-    assert not_in_code(ast.While)
+    assert function_defined_in_module("print_bits")
+    assert construct_not_in_ast(ast.For)
+    assert construct_not_in_ast(ast.While)
 
 # @passed(has_functions)
 # def test_print_bits(test):

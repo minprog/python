@@ -7,13 +7,13 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """functie `is_schrikkel` is aanwezig"""
-    assert defines_function("is_schrikkel")
+    assert function_defined_in_module("is_schrikkel")
 
 @passed(has_functions)
 def test_weeks_elapsed(test):
     """functie `is_schrikkel` werkt correct"""
     is_schrikkel = get_function("is_schrikkel")
-    assert_no_input_output(is_schrikkel)
+    assert no_input_output_in_function(is_schrikkel)
     assert is_schrikkel(2001) == False
     assert is_schrikkel(2000) == True
     assert is_schrikkel(1463) == False

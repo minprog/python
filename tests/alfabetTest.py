@@ -7,7 +7,7 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `compare` is aanwezig"""
-    assert defines_function("compare")
+    assert function_defined_in_module("compare")
 
 @passed(has_functions)
 def test_comes_before(test):

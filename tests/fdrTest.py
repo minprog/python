@@ -5,16 +5,16 @@ from _static_analysis import *
 @t.passed(doctest_ok)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("pie_percent")
-    assert defines_function("triple")
-    assert defines_function("absdiff")
-    assert defines_function("kmmiles")
-    assert defines_function("avg3")
-    assert defines_function("avg3of4")
-    assert not_in_code(ast.If)
-    assert not_in_code(ast.While)
-    assert not_in_code(ast.For)
-    assert not_in_code(ast.List)
+    assert function_defined_in_module("pie_percent")
+    assert function_defined_in_module("triple")
+    assert function_defined_in_module("absdiff")
+    assert function_defined_in_module("kmmiles")
+    assert function_defined_in_module("avg3")
+    assert function_defined_in_module("avg3of4")
+    assert construct_not_in_ast(ast.If)
+    assert construct_not_in_ast(ast.While)
+    assert construct_not_in_ast(ast.For)
+    assert construct_not_in_ast(ast.List)
 
 @t.passed(has_functions)
 def test_pie_percent(test):

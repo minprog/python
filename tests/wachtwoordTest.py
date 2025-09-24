@@ -8,21 +8,21 @@ forbidden_constructs.disallow_all()
 @test(9)
 def check_code(test):
     """wel loops gebruikt in deze opdracht"""
-    assert in_code(ast.For)
-    assert not_in_code(ast.Set)
-    assert not_in_code(ast.List)
-    assert not_in_code(ast.Tuple)
-    assert not_in_code(ast.Dict)
-    assert not_has_stringmult()
-    assert not_has_stringmethods()
+    assert construct_in_ast(ast.For)
+    assert construct_not_in_ast(ast.Set)
+    assert construct_not_in_ast(ast.List)
+    assert construct_not_in_ast(ast.Tuple)
+    assert construct_not_in_ast(ast.Dict)
+    assert no_string_mult_used()
+    assert no_string_methods_used()
 
 @passed(check_code)
 def has_functions():
     """functies `check_length` enz. zijn aanwezig"""
-    assert defines_function("check_length")
-    assert defines_function("check_letter")
-    assert defines_function("check_number")
-    assert defines_function("check_password")
+    assert function_defined_in_module("check_length")
+    assert function_defined_in_module("check_letter")
+    assert function_defined_in_module("check_number")
+    assert function_defined_in_module("check_password")
 
 @passed(has_functions)
 @test(10)

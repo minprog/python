@@ -7,7 +7,7 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `calculate_cafeine` is aanwezig"""
-    assert defines_function("calculate_cafeine")
+    assert function_defined_in_module("calculate_cafeine")
 
 # TODO overweeg "\d+ mg"-patroon te kunnen zoeken ipv alleen number()
 

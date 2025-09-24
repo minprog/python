@@ -7,7 +7,7 @@ forbidden_constructs.disallow_all()
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
-    assert defines_function("special_sort")
+    assert function_defined_in_module("special_sort")
 
 @passed(has_functions)
 def test_special_sort_result(test):
