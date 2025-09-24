@@ -13,7 +13,7 @@ def has_functions():
 @test(10)
 def calculatesTravelCostsWithHint(test):
     """functie `travel_costs` berekent correct de vervoerkosten"""
-    result = get_function("travel_costs")(1000)
+    result = getFunction("travel_costs")(1000)
     if result == 130:
         raise AssertionError("vergeet niet om de kosten voor zowel heen als terug te berekenen")
     elif result == 260:

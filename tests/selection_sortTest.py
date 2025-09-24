@@ -12,29 +12,12 @@ def has_functions():
 @passed(has_functions)
 def test_selection_sort_result(test):
     """functie `selection_sort` geeft een gesorteerde lijst terug"""
-    assert getFunction("selection_sort")([1,2,3]) == [1,2,3]
-    assert getFunction("selection_sort")([3,2,1]) == [1,2,3]
-    assert getFunction("selection_sort")([1,3,2,4]) == [1,2,3,4]
-    assert getFunction("selection_sort")([]) == []
-
-class HistoryList(list):
-    def __init__(self, *args):
-        super().__init__(*args)
-        # Store a copy of the initial state
-        self.history = [self.copy()]
-
-    def __setitem__(self, index, value):
-        super().__setitem__(index, value)
-        # Save snapshot of the entire list
-        self.history.append(self.copy())
-
-def is_subsequence(pattern, target):
-    """
-    Check if `pattern` (list of lists) appears in `target` (list of lists),
-    in the same order, but not necessarily consecutively.
-    """
-    it = iter(target)
-    return all(any(p == t for t in it) for p in pattern)
+    selection_sort = get_function("selection_sort")
+    assert selection_sort([1,2,3]) == [1,2,3]
+    assert selection_sort([3,2,1]) == [1,2,3]
+    assert selection_sort([1,3,2,4]) == [1,2,3,4]
+    assert selection_sort([1]) == [1]
+    assert selection_sort([]) == []
 
 @passed(has_functions)
 def test_selection_sort(test):

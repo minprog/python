@@ -274,6 +274,31 @@ def assert_none(actual, expected: list):
 
 import functools
 
+class TestableResult:
+    def __init__(self, value, expected_name, args):
+        self.value = value
+        self.expected_name = expected_name
+        self.args = args
+
+    def __eq__(self, other):
+        if self.value != other:
+            func_string = (
+                f"bij een aanroep van {self.expected_name}"
+                f"({', '.join([x.__repr__() for x in self.args])})"
+            )
+            feedback_string = (
+                f"{func_string}: "
+                f"verwachtte {other!r} maar kreeg {self.value!r}"
+            )
+            if len(feedback_string) > 60:
+                feedback_string = (
+                    f"{func_string}:\n"
+                    f"  verwachtte {other!r}\n"
+                    f"  maar kreeg {self.value!r}"
+                )
+            raise AssertionError(feedback_string)
+        return True
+
 class PrettyCallable:
     def __init__(self, func, expected_name):
         self._func = func
@@ -281,18 +306,9 @@ class PrettyCallable:
         self._last_result = None
         functools.update_wrapper(self, func)
 
+    # Calls the function and stores the result in a wrapper
     def __call__(self, *args, **kwargs):
-        result = self._func(*args, **kwargs)
-        self._last_result = result
-        return result
-
-    def __repr__(self):
-        if self._last_result is not None:
-            return f": got {self._last_result!r} but expected {self._expected_name}"
-        else:
-            return f"<call {self._func.__name__}>"
-
-    __str__ = __repr__
+        return TestableResult(self._func(*args, **kwargs), self._expected_name, args)
 
 def get_function(name):
     f = getFunction(name)
@@ -303,3 +319,38 @@ def assert_no_input_output(f):
         raise AssertionError(
             "deze functie zou geen print of input moeten hebben:\n"
             "meestal moet dat in de if-name-is-main gebeuren")
+
+class HistoryList(list):
+    """
+    A subclassed list object that keeps track of any changes made to it,
+    or more precisely: the history of states of the list.
+
+    Not tracked yet: extend, insert, pop, remove, clear
+    """
+    def __init__(self, *args):
+        super().__init__(*args)
+        # Store a copy of the initial state
+        self.history = [self.copy()]
+
+    def __setitem__(self, index, value):
+        super().__setitem__(index, value)
+        # Save snapshot of the entire list
+        self.history.append(self.copy())
+
+    def append(self, value):
+        super().append(value)
+        # Save snapshot after append
+        self.history.append(self.copy())
+
+    def __delitem__(self, index):
+        super().__delitem__(index)
+        # Save snapshot of the entire list
+        self.history.append(self.copy())
+
+def is_subsequence(pattern, target):
+    """
+    Check if `pattern` (list of lists) appears in `target` (list of lists),
+    in the same order, but not necessarily consecutively.
+    """
+    it = iter(target)
+    return all(any(p == t for t in it) for p in pattern)
