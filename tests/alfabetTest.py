@@ -22,6 +22,6 @@ def test_comes_before(test):
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
-    assert_output(run('Taylor', 'Lana'), "Lana first\n")
-    assert_output(run('Lana', 'Taylor'), "Lana first\n")
-    assert_output(run('amanda', 'Amanda'), "No need to decide!\n")
+    assert run('Taylor', 'Lana') == "Lana first\n"
+    assert run('Lana', 'Taylor') == "Lana first\n"
+    assert run('amanda', 'Amanda') == "No need to decide!\n"

@@ -6,6 +6,9 @@ import re
 from _python_checks import forbidden_constructs, mypy_strict, doctest_all
 forbidden_constructs.disallow_all()
 
+# TODO die eindeloze ? in de regex duren potentieel eindeloos
+# spaties kunnen weg omdat opdracht aangepast is, dus ? kunnen ook weg
+
 @passed(forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
@@ -22,7 +25,7 @@ def has_functions():
 @test(10)
 def exactMario0(test):
     """print een welgevormde pyramide van 1 hoog"""
-    assert_output(run(1), "(# ?#)[ ]*(\n)", "##\n")
+    assert run(1).match("(# ?#)[ ]*(\n)", "##\n")
 
 @passed(has_functions)
 @test(20)
@@ -34,7 +37,7 @@ def exactMario3(test):
       "(  ?# ?# ?#)[ ]*(\n)"
       "(# ?# ?# ?#)[ ]*"
       ".*", re.MULTILINE)
-    assert_output(run(3), r, "  ##\n ###\n####\n")
+    assert run(3).match(r, "  ##\n ###\n####\n")
 
 @passed(has_functions)
 @test(30)
@@ -75,4 +78,4 @@ def exactMario23(test):
 @test(40)
 def handlesWrongInput(test):
     """handelt verkeerde input netjes af"""
-    assert_output(run(-100, 100, 24, 1), ".*(# ?#)[ ]*(\n)", "##\n")
+    assert run(-100, 100, 24, 1).match(".*(# ?#)[ ]*(\n)", "##\n")

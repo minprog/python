@@ -25,28 +25,28 @@ def calculatesTravelCostsWithHint(test):
 @test(20)
 def calculatesZeroCosts(test):
     """run: print correct 'Jouw vakantie kost: 0' bij [0, 0] als invoer"""
-    assert_output(run(0, 0).number(), '0')
+    assert run(0, 0).number() == '0'
 
 @passed(has_functions)
 @test(20)
 def calculatesTravelCosts(test):
     """run: print correct 'Jouw vakantie kost: 260' bij [1000, 0] als invoer"""
-    assert_output(run(1000, 0).number(), '260')
+    assert run(1000, 0).number() == '260'
 
 @passed(has_functions)
 @test(30)
 def calculatesSleepingCosts(test):
     """run: print correct 'Jouw vakantie kost: 600' bij [0, 10] als invoer"""
-    assert_output(run(0, 10).number(), '600')
+    assert run(0, 10).number() == '600'
 
 @passed(has_functions)
 @test(40)
 def calculatesCosts(test):
     """run: print correct 'Jouw vakantie kost: 589' bij [650, 7] als invoer"""
-    assert_output(run(650, 7).number(), '589')
+    assert run(650, 7).number() == '589'
 
 @passed(has_functions)
 @test(50)
 def calculatesCostsAndRoundsCorrectly(test):
     """run: print correct 'Jouw vakantie kost: 371' bij [1425, 0] als invoer"""
-    assert_output(run(1425, 0).number(), '371')
+    assert run(1425, 0).number() == '371'

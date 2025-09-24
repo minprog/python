@@ -22,4 +22,4 @@ def test_hoeveelheid_water(test):
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer (21 minuten)"""
-    assert_output(run(21).number(), "252")
+    assert run(21).number() == "252"

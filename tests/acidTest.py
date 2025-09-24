@@ -21,5 +21,5 @@ def test_function(test):
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
-    assert_output(run(3), "Het is een zuur\n")
-    assert_output(run(8), "Het is een base\n")
+    assert run(3) == "Het is een zuur\n"
+    assert run(8) == "Het is een base\n"

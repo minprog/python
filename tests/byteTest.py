@@ -22,14 +22,14 @@ def has_functions():
 @passed(has_functions)
 def test_program_50(test):
     """het programma werkt correct met invoer 50"""
-    assert_output(run(50), "0\n0\n1\n1\n0\n0\n1\n0\n")
+    assert run(50) == "0\n0\n1\n1\n0\n0\n1\n0\n"
 
 @passed(has_functions)
 def test_program_1(test):
     """het programma werkt correct met invoer 1"""
-    assert_output(run(1), "0\n0\n0\n0\n0\n0\n0\n1\n")
+    assert run(1) == "0\n0\n0\n0\n0\n0\n0\n1\n"
 
 @passed(has_functions)
 def test_program_128(test):
     """het programma werkt correct met invoer 128"""
-    assert_output(run(128), "1\n0\n0\n0\n0\n0\n0\n0\n")
+    assert run(128) == "1\n0\n0\n0\n0\n0\n0\n0\n"

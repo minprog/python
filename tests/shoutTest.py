@@ -20,13 +20,13 @@ def has_functions():
 def test_function(test):
     """functie `shout` werkt correct"""
     shout = get_function("shout")
-    assert shout("Who the hell put the muffins the freezer?") == "WHO THE HELL PUT THE MUFFINS THE FREEZER?"
+    assert shout("Who the hell put the muffins the freezer?") == \
+                 "WHO THE HELL PUT THE MUFFINS THE FREEZER?"
     assert shout("") == ""
     assert shout("let it all out...") == "LET IT ALL OUT..."
 
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
-    assert_output(
-        run("Who the hell put the muffins the freezer?"),
-        "WHO THE HELL PUT THE MUFFINS THE FREEZER?\n")
+    assert run("Who the hell put the muffins the freezer?") == \
+               "WHO THE HELL PUT THE MUFFINS THE FREEZER?\n"

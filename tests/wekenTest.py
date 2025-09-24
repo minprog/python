@@ -21,4 +21,4 @@ def test_weeks_elapsed(test):
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
-    assert_output(run(3, 20), "Er zijn 2 volle weken verstreken.\n")
+    assert run(3, 20) == "Er zijn 2 volle weken verstreken.\n"

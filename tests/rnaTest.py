@@ -35,6 +35,6 @@ def test_function2(test):
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
-    assert_output(run('ATGC'), "RNA: UACG\n")
-    assert_output(run('atGcAgtAttGCA'), "RNA: UACGUCAUAACGU\n")
-    assert_output(run('hello'), "That is not a valid DNA string\n")
+    assert run('ATGC') == "RNA: UACG\n"
+    assert run('atGcAgtAttGCA') == "RNA: UACGUCAUAACGU\n"
+    assert run('hello') == "That is not a valid DNA string\n"

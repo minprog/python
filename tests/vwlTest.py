@@ -26,4 +26,4 @@ def test_function(test):
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer"""
-    assert_output(run("social media"), "scl md\n")
+    assert run("social media") == "scl md\n"

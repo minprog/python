@@ -22,4 +22,4 @@ def test_convert(test):
 @passed(has_functions)
 def test_program(test):
     """het programma werkt correct met invoer en uitvoer (0111)"""
-    assert_output(run(0, 1, 1, 1).number(), "7")
+    assert run(0, 1, 1, 1).number() == "7"

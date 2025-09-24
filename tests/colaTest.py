@@ -48,5 +48,4 @@ def checks_due(test):
 @test(30)
 def checks_main(test):
     """run: invoeren van 25, 10, en dan 25 cent geeft wisselgeld van 10 cent"""
-    output = run(25, 10, 25)
-    assert_output(output.strip()[-2:].number(), "10")
+    assert run(25, 10, 25).strip()[-2:].number() == "10"

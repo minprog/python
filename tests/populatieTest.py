@@ -31,5 +31,4 @@ def checks_calculate_years(test):
 @test(20)
 def check_overall2(test):
     """kan overweg met foute invoer"""
-    output = run(6, 9, 5, -6, 18)
-    assert_output(output.number(), "8")
+    assert run(6, 9, 5, -6, 18).number() == "8"

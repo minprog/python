@@ -173,6 +173,62 @@ class RunResult(str):
             return method
         raise AttributeError(name)
 
+    def __eq__(self, other):
+        """
+        Compare actual and expected output.
+
+        - If expected_display is None: do direct equality check with expected.
+        - If expected_display is given: interpret expected as a regex pattern string,
+          and expected_display as the value to show in error messages.
+        """
+        actual = self
+        actual_str = str(actual)
+        stdin_str = ' ⏎ '.join(self.metadata['stdin'])
+        expected = other
+        expected_display = None
+
+        # Normalize expected into string form
+        if isinstance(expected, re.Pattern):
+            match = expected.match(actual_str)
+            expected = expected.pattern
+        elif expected_display is not None:
+            match = re.match(expected, actual_str)
+        else:
+            match = (self.__str__() == expected)
+
+        expected_str = expected_display or expected
+
+        if not match:
+            if len(expected_str) + len(self) > 40:
+                raise AssertionError(
+                    f"gegeven input: {stdin_str} ⏎\n"
+                    f"verwachte output is:\n"
+                    f"  {expected_str!r}\n"
+                    f"maar kreeg:\n"
+                    f"  {actual!r}"
+                )
+            else:
+                raise AssertionError(
+                    f"gegeven input: {stdin_str} ⏎\n"
+                    f"verwachte output is {expected_str!r} maar kreeg {actual!r}"
+                )
+
+        return True
+
+    def match(self, pattern, display=None):
+        stdin_str = ' ⏎ '.join(self.metadata['stdin'])
+        expected_str = display or pattern
+        if not isinstance(pattern, re.Pattern):
+            pattern = re.compile(pattern)
+        try:
+            self.__eq__(pattern)
+        except AssertionError:
+            raise AssertionError(
+                f"gegeven input: {stdin_str} ⏎\n"
+                f"verwachte output is {expected_str!r} maar kreeg {self!r}"
+            )
+        return True
+
 from checkpy.entities import exception
 
 def run(*stdin) -> str:
@@ -187,49 +243,6 @@ def run(*stdin) -> str:
         output,
         stdin=stdin
     )
-
-# ---- output checking for run() results ----
-
-import re
-
-def assert_output(actual, expected, expected_display=None):
-    """
-    Compare actual and expected output.
-
-    - If expected_display is None: do direct equality check with expected.
-    - If expected_display is given: interpret expected as a regex pattern string,
-      and expected_display as the value to show in error messages.
-    """
-    actual_str = str(actual)
-    stdin_str = ' ⏎ '.join(actual.metadata['stdin'])
-
-    # Normalize expected into string form
-    if isinstance(expected, re.Pattern):
-        match = expected.match(actual_str)
-        expected = expected.pattern
-    elif expected_display is not None:
-        match = re.match(expected, actual_str)
-    else:
-        match = (actual == expected)
-
-    expected_str = expected_display or expected
-
-    if not match:
-        if len(expected_str) + len (actual) > 40:
-            raise AssertionError(
-                f"gegeven input: {stdin_str} ⏎\n"
-                f"verwachte output is:\n"
-                f"  {expected_str!r}\n"
-                f"maar kreeg:\n"
-                f"  {actual!r}"
-            )
-        else:
-            raise AssertionError(
-                f"gegeven input: {stdin_str} ⏎\n"
-                f"verwachte output is {expected_str!r} maar kreeg {actual!r}"
-            )
-
-    return True
 
 # ---- function call result expressions ----
 
