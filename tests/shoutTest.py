@@ -8,6 +8,7 @@ forbidden_constructs.disallow_all()
 def has_functions():
     """functie `shout` is aanwezig"""
     assert defines_function("shout")
+    assert in_code(ast.For)
     assert not_in_code(ast.Set)
     assert not_in_code(ast.List)
     assert not_in_code(ast.Tuple)

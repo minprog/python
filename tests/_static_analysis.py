@@ -17,14 +17,17 @@ def not_defines_function(name: str) -> bool:
     return check
 
 def not_in_code(construct: type):
-    check = construct not in static.AbstractSyntaxTree()
+    # check for literal of that type
+    check = construct in static.AbstractSyntaxTree()
     name = str(construct).split(".")[1].split("'")[0].lower()
-    if not check:
+    # check for construction call of that type (!)
+    call_check = has_call(name)
+    if check or call_check:
         if name in ['list', 'set', 'tuple', 'dict']:
             raise AssertionError(f"{name}s mogen niet gebruikt worden in deze opdracht")
         else:
             raise AssertionError(f"`{name}` mag niet gebruikt worden in deze opdracht")
-    return check
+    return True
 
 def in_code(construct: type):
     check = construct in static.AbstractSyntaxTree()
