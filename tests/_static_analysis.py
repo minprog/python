@@ -97,12 +97,6 @@ def has_import(*banned_imports) -> bool:
 def has_generators() -> bool:
     return static.getAstNodes(ast.ListComp, ast.DictComp, ast.SetComp, ast.GeneratorExp)
 
-def assert_equal(actual, expected) -> bool:
-    if actual != expected:
-        raise AssertionError(f"verwachtte {expected.__repr__()} maar kreeg {actual.__repr__()}")
-    else:
-        return True
-
 import re
 from typing import Any, Iterable
 
