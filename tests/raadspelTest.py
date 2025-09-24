@@ -30,9 +30,9 @@ def has_functions():
 @test(10)
 def checks_check_guess(test):
     """functie `check_guess` werkt correct"""
-    check_guess = getFunction("check_guess", test.fileName)
-    assert_return(True, check_guess, 10, 10)
-    assert_return(False, check_guess, 5, 10)
+    check_guess = get_function("check_guess")
+    assert check_guess(10, 10) == True
+    assert check_guess(5, 10) == False
 
 @passed(has_functions)
 @test(20)

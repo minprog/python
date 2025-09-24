@@ -18,17 +18,12 @@ def has_functions():
 @passed(has_functions)
 def test_function(test):
     """functie `yell` werkt correct"""
-    yell = getFunction("yell")
-    assert_return("Can't shake it off of me!!",
-        yell, "Can't shake it off of me!")
-    assert_return("Who the hell put the muffins the freezer??",
-        yell, "Who the hell put the muffins the freezer?")
-    assert_return("Cringe?? CRINGE!!",
-        yell, "Cringe? CRINGE!")
-    assert_return("OK!!",
-        yell, "OK!")
-    assert_return("??!!",
-        yell, "?!")
+    yell = get_function("yell")
+    assert yell("Can't shake it off of me!") == "Can't shake it off of me!!"
+    assert yell("Who the hell put the muffins the freezer?") == "Who the hell put the muffins the freezer??"
+    assert yell("Cringe? CRINGE!") == "Cringe?? CRINGE!!"
+    assert yell("OK!") == "OK!!"
+    assert yell("?!") == "??!!"
 
 @passed(has_functions)
 def test_program(test):

@@ -18,13 +18,10 @@ def has_functions():
 @passed(has_functions)
 def test_function(test):
     """functie `remove_vowels` werkt correct"""
-    remove_vowels = getFunction("remove_vowels")
-    assert_return("jst sttng p my twttr",
-        remove_vowels, "just setting up my twitter")
-    assert_return("twp",
-        remove_vowels, "tweep")
-    assert_return("scl md",
-        remove_vowels, "social media")
+    remove_vowels = get_function("remove_vowels")
+    assert remove_vowels("just setting up my twitter") == "jst sttng p my twttr"
+    assert remove_vowels("tweep") == "twp"
+    assert remove_vowels("social media") == "scl md"
 
 @passed(has_functions)
 def test_program(test):

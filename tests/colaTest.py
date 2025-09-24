@@ -22,28 +22,26 @@ def has_functions():
 @test(10)
 def checks_coin(test):
     """functie `check_coin` werkt correct"""
-    coin = getFunction("check_coin", test.fileName)
+    coin = get_function("check_coin")
     assert_no_input_output(coin)
-    assert_return(True, coin, 25)
-    assert_return(True, coin, 10)
-    assert_return(True, coin, 5)
-    assert_return(False, coin, 1)
-    assert_return(False, coin, 2)
-    assert_return(False, coin, "10")
-
-import inspect
+    assert coin(25) == True
+    assert coin(10) == True
+    assert coin(5) == True
+    assert coin(1) == False
+    assert coin(2) == False
+    assert coin("10") == False
 
 @passed(has_functions)
 @test(20)
 def checks_due(test):
     """functie `determine_due` werkt correct"""
-    due = getFunction("determine_due", test.fileName)
+    due = get_function("determine_due")
     assert_no_input_output(due)
     if due(50, 20) == 30:
         raise AssertionError("functie accepteert een munt van 20 cent, maar deze bestaat niet")
-    assert_return(25, due, 50, 25)
-    assert_return(50, due, 50, 20)
-    assert_return(40, due, 50, 10)
+    assert due(50, 25) == 25
+    assert due(50, 20) == 50
+    assert due(50, 10) == 40
 
 @passed(has_functions)
 @test(30)

@@ -19,18 +19,18 @@ def has_functions():
 @passed(has_functions)
 def test_function(test):
     """functie `check_input` werkt correct"""
-    check_input = getFunction("check_input")
-    assert_return(True , check_input, "ATGC")
-    assert_return(True , check_input, "agtc")
-    assert_return(False, check_input, "AUGA")
-    assert_return(False, check_input, "123")
+    check_input = get_function("check_input")
+    assert check_input("ATGC") == True
+    assert check_input("agtc") == True
+    assert check_input("AUGA") == False
+    assert check_input("123") == False
 
 @passed(has_functions)
 def test_function2(test):
     """functie `transcribe_dna_to_rna` werkt correct met elke combinatie van uppercase/lowercase"""
-    transcribe_dna_to_rna = getFunction("transcribe_dna_to_rna")
-    assert_return("UACG", transcribe_dna_to_rna, "ATGC")
-    assert_return("UUACG", transcribe_dna_to_rna, "aatgc")
+    transcribe_dna_to_rna = get_function("transcribe_dna_to_rna")
+    assert transcribe_dna_to_rna("ATGC") == "UACG"
+    assert transcribe_dna_to_rna("aatgc") == "UUACG"
 
 @passed(has_functions)
 def test_program(test):

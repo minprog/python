@@ -12,12 +12,12 @@ def has_functions():
 @passed(has_functions)
 def test_convert(test):
     """functie `convert` werkt correct"""
-    convert = getFunction("convert")
+    convert = get_function("convert")
     assert_no_input_output(convert)
-    assert_return(4, convert, 0, 1, 0, 0)
-    assert_return(15, convert, 1, 1, 1, 1)
-    assert_return(5, convert, 0, 1, 0, 1)
-    assert_return(0, convert, 0, 0, 0, 0)
+    assert convert(0, 1, 0, 0) == 4
+    assert convert(1, 1, 1, 1) == 15
+    assert convert(0, 1, 0, 1) == 5
+    assert convert(0, 0, 0, 0) == 0
 
 @passed(has_functions)
 def test_program(test):

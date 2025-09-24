@@ -17,9 +17,9 @@ def has_functions():
 @test(10)
 def checks_convert_temperature(test):
     """functie 'convert_temperature' werkt correct"""
-    convert_temperature = getFunction("convert_temperature", test.fileName)
-    assert_return(50, convert_temperature, "C", 10)
-    assert_return(-12, convert_temperature, "F", 9)
+    convert_temperature = get_function("convert_temperature")
+    assert convert_temperature("C", 10) == 50
+    assert convert_temperature("F", 9) == -12
 
 @passed(has_functions)
 @test(20)

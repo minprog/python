@@ -18,8 +18,8 @@ def has_functions():
 @passed(has_functions)
 def test_function(test):
     """functie `convert` werkt correct"""
-    convert = getFunction("convert")
-    assert_return('convert_input', convert, 'convertInput')
-    assert_return('read_from_file', convert, 'readFromFile')
-    assert_return('check', convert, 'check')
-    assert_return('', convert, '')
+    convert = get_function("convert")
+    assert convert('convertInput') == 'convert_input'
+    assert convert('readFromFile') == 'read_from_file'
+    assert convert('check') == 'check'
+    assert convert('') == ''

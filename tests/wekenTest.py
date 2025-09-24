@@ -12,11 +12,11 @@ def has_functions():
 @passed(has_functions)
 def test_weeks_elapsed(test):
     """functie `weeks_elapsed` werkt correct"""
-    weeks_elapsed = getFunction('weeks_elapsed')
+    weeks_elapsed = get_function('weeks_elapsed')
     assert_no_input_output(weeks_elapsed)
-    assert_return(2, weeks_elapsed, 3, 20)
-    assert_return(2, weeks_elapsed, 20, 3)
-    assert_return(0, weeks_elapsed, 1, 1)
+    assert weeks_elapsed(3, 20) == 2
+    assert weeks_elapsed(20, 3) == 2
+    assert weeks_elapsed(1, 1) == 0
 
 @passed(has_functions)
 def test_program(test):

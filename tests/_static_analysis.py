@@ -103,15 +103,6 @@ def assert_equal(actual, expected) -> bool:
     else:
         return True
 
-def assert_return(expected, f, *args):
-    actual = f(*args)
-    if (
-        (expected is None and actual is not None) or
-        actual != expected
-    ):
-        raise AssertionError(f"{f}({', '.join([arg.__repr__() for arg in args])}): "
-            f"verwachtte {expected.__repr__()} maar kreeg {actual.__repr__()}")
-
 import re
 from typing import Any, Iterable
 
