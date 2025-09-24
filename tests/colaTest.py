@@ -35,10 +35,11 @@ def checks_coin(test):
 @test(20)
 def checks_due(test):
     """functie `determine_due` werkt correct"""
-    due = get_function("determine_due")
+    due = getFunction("determine_due")
     assert no_input_output_in_function(due)
     if due(50, 20) == 30:
         raise AssertionError("functie accepteert een munt van 20 cent, maar deze bestaat niet")
+    due = get_function("determine_due")
     assert due(50, 25) == 25
     assert due(50, 20) == 50
     assert due(50, 10) == 40
