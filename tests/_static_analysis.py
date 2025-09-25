@@ -1,5 +1,4 @@
 from checkpy import *
-from typing import Any
 import ast
 
 from checkpy import static
@@ -72,7 +71,7 @@ def call_in_module(*banned_calls) -> bool:
     found = False
 
     class Visitor(ast.NodeVisitor):
-        def visit_Name(self, node: ast.Name) -> Any:
+        def visit_Name(self, node: ast.Name):
             if node.id in banned_calls:
                 nonlocal found
                 found = True
@@ -88,10 +87,9 @@ def call_in_module(*banned_calls) -> bool:
 # ---- exposes several string ops like strip()             ----
 
 import re
-from typing import Any, Iterable
 
 class RunResult(str):
-    def __new__(cls, value: str, **metadata: Any):
+    def __new__(cls, value: str, **metadata):
         obj = super().__new__(cls, value)
         obj._metadata = dict(metadata)
         return obj
@@ -287,42 +285,3 @@ class PrettyCallable:
 def get_function(name):
     f = getFunction(name)
     return PrettyCallable(f, expected_name=name)
-
-# region ---- list content tracking ----
-
-class HistoryList(list):
-    """
-    A subclassed list object that keeps track of any changes made to it,
-    or more precisely: the history of states of the list.
-
-    Not tracked yet: extend, insert, pop, remove, clear
-    """
-    def __init__(self, *args):
-        super().__init__(*args)
-        # Store a copy of the initial state
-        self.history = [self.copy()]
-
-    def __setitem__(self, index, value):
-        super().__setitem__(index, value)
-        # Save snapshot of the entire list
-        self.history.append(self.copy())
-
-    def append(self, value):
-        super().append(value)
-        # Save snapshot after append
-        self.history.append(self.copy())
-
-    def __delitem__(self, index):
-        super().__delitem__(index)
-        # Save snapshot of the entire list
-        self.history.append(self.copy())
-
-def is_subsequence(pattern, target):
-    """
-    Check if `pattern` (list of lists) appears in `target` (list of lists),
-    in the same order, but not necessarily consecutively.
-    """
-    it = iter(target)
-    return all(any(p == t for t in it) for p in pattern)
-
-# endregion
