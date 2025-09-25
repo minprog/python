@@ -251,24 +251,26 @@ class TestableValue:
     Wraps a value so it can be tested against an expected
     value and then neatly reports failure.
     """
-    def __init__(self, value, function_name, args):
+    def __init__(self, value, function_name, function_args):
+        # the value originating from a function call
         self.value = value
-        self.function_name = function_name
-        self.args = args
+
+        # how the function was called in a check
+        self._function_call_repr = (
+            f"bij een aanroep van {function_name}"
+            f"({', '.join([x.__repr__() for x in function_args])})"
+        )
 
     def __eq__(self, other):
+        # check the original value and report if not equal
         if self.value != other:
-            func_string = (
-                f"bij een aanroep van {self.function_name}"
-                f"({', '.join([x.__repr__() for x in self.args])})"
-            )
             feedback_string = (
-                f"{func_string}: "
+                f"{self._function_call_repr}: "
                 f"verwachtte {other!r} maar kreeg {self.value!r}"
             )
             if len(feedback_string) > 60:
                 feedback_string = (
-                    f"{func_string}:\n"
+                    f"{self._function_call_repr}:\n"
                     f"  verwachtte {other!r}\n"
                     f"  maar kreeg {self.value!r}"
                 )
