@@ -10,7 +10,7 @@ Usage:
 from _basic_checkstyle import basic_style as checkstyle
 from _forbidden_constructs import check_forbidden_constructs as forbidden_constructs
 from _mypy_strict import mypy_ok as mypy_strict
-from _check_doctests import doctest_ok as doctest
+from _check_doctests import require_doctests_for_returning_functions as doctest
 from _check_doctests import require_doctests_for_all_functions as doctest_all
 
 __all__ = [
