@@ -242,20 +242,24 @@ def run(*stdin) -> str:
         stdin=stdin
     )
 
-# ---- function call result expressions ----
+# ---- Wrapper classes for testing function return values and neatly reporting ----
 
 import functools
 
-class TestableResult:
-    def __init__(self, value, expected_name, args):
+class TestableValue:
+    """
+    Wraps a value so it can be tested against an expected
+    value and then neatly reports failure.
+    """
+    def __init__(self, value, function_name, args):
         self.value = value
-        self.expected_name = expected_name
+        self.function_name = function_name
         self.args = args
 
     def __eq__(self, other):
         if self.value != other:
             func_string = (
-                f"bij een aanroep van {self.expected_name}"
+                f"bij een aanroep van {self.function_name}"
                 f"({', '.join([x.__repr__() for x in self.args])})"
             )
             feedback_string = (
@@ -271,17 +275,24 @@ class TestableResult:
             raise AssertionError(feedback_string)
         return True
 
-class PrettyCallable:
-    def __init__(self, func, expected_name):
+class TestableCallable:
+    """
+    Wraps a function to store name and wrap the result of a call
+    into TestableValue for further test reporting.
+    """
+    def __init__(self, func):
         self._func = func
-        self._expected_name = expected_name
-        self._last_result = None
         functools.update_wrapper(self, func)
 
-    # Calls the function and stores the result in a wrapper
     def __call__(self, *args, **kwargs):
-        return TestableResult(self._func(*args, **kwargs), self._expected_name, args)
+        return TestableValue(self._func(*args, **kwargs), self._func.name, args)
 
 def get_function(name):
+    """
+    Retrieve function and wrap into TestableCallable, so that a call
+    result will be wrapped in TestableValue.
+    """
+    # Actually, the function is already wrapped in a checkpy Function object
+    # but we can wrap that once more.
     f = getFunction(name)
-    return PrettyCallable(f, expected_name=name)
+    return TestableCallable(f)
