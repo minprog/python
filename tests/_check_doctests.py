@@ -21,7 +21,7 @@ def pl(n: int, desc: str):
         return meervouden[desc]
 
 def function_stats(source):
-    functions = re.findall(r'def\s+(\w+)\s*\(([^\)]*)\)[^-]+(->\s*([\w\|\s\[,\] _]+))?:', source)
+    functions = re.findall(r'def\s+(\w+)\s*\(([^\)]*)\) *(->\s*([\w\|\s\[,\] _]+))?:', source)
     n_functions_not_returning = len([function for function in functions if (
         'file' in function[1] or  # function name contains 'file'
         function[3] == 'None' or  # function type is None
