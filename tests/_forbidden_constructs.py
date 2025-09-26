@@ -24,7 +24,7 @@ from checkpy import static
 import ast
 
 import checkpy.tests as t
-from _static_analysis import (
+from _pyprog_tools import (
     string_in_module, call_in_module,
     no_string_methods_used, no_string_mult_used
 )

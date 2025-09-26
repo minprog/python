@@ -2,7 +2,7 @@ import checkpy.tests as t
 import checkpy.lib as lib
 import checkpy.assertlib as assertlib
 
-from _static_analysis import *
+from _pyprog_tools import *
 
 import sys
 import subprocess

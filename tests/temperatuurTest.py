@@ -1,5 +1,5 @@
 from checkpy import *
-from _static_analysis import *
+from _pyprog_tools import *
 
 from _python_checks import forbidden_constructs, mypy_strict, doctest_all
 forbidden_constructs.disallow_all()

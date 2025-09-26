@@ -1,7 +1,7 @@
 import typing
 
 from checkpy import *
-from _static_analysis import *
+from _pyprog_tools import *
 
 from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()

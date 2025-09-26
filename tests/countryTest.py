@@ -22,7 +22,7 @@ def rewrite(test):
                     f.write(line)
 
 from _basics import *
-from _static_analysis import *
+from _pyprog_tools import *
 
 @t.passed(doctest_ok)
 def test_country(test):

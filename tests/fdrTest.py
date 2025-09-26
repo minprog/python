@@ -1,6 +1,6 @@
 from checkpy import *
 from _basics_no_listcomp import *
-from _static_analysis import *
+from _pyprog_tools import *
 
 @t.passed(doctest_ok)
 def has_functions():

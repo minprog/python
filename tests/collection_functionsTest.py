@@ -1,6 +1,6 @@
 from checkpy import *
 from _basics import *
-from _static_analysis import *
+from _pyprog_tools import *
 
 import ast
 

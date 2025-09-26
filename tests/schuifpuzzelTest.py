@@ -4,7 +4,7 @@ import checkpy.assertlib as asserts
 from checkpy.entities import exception
 
 from _basics import *
-from _static_analysis import *
+from _pyprog_tools import *
 
 @t.passed(doctest_ok)
 @t.test(9)

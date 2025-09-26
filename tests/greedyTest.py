@@ -1,5 +1,5 @@
 from checkpy import *
-from _static_analysis import *
+from _pyprog_tools import *
 
 # TODO modernize
 import checkpy.lib as lib
