@@ -6,8 +6,9 @@ forbidden_constructs.disallow_all()
 
 @passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
-    """functies `list_contains_element`, `list_count_element`, `list_count_elements` zijn aanwezig"""
+    """alle vier de functies zijn aanwezig"""
     assert function_defined_in_module("list_contains_element")
+    assert function_defined_in_module("list_contains_no_element")
     assert function_defined_in_module("list_count_element")
     assert function_defined_in_module("list_count_elements")
     assert construct_in_ast(ast.For)
