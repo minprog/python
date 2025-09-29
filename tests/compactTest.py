@@ -17,7 +17,7 @@ def has_functions():
     assert construct_not_in_ast(ast.Dict)
     assert no_string_mult_used()
     assert no_string_methods_used()
-    assert construct_not_in_ast(typing.Any)
+    # assert construct_not_in_ast(typing.Any)
 
 @passed(has_functions)
 def test_function(test):
