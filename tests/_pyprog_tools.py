@@ -57,8 +57,7 @@ def no_string_mult_used() -> bool:
 def no_input_output_in_function(f):
     if 'print' in f._function.__code__.co_names or 'input' in f._function.__code__.co_names:
         raise AssertionError(
-            "deze functie zou geen print of input moeten hebben:\n"
-            "meestal moet dat in de if-name-is-main gebeuren")
+            "deze functie zou geen print of input moeten hebben")
     return True
 
 # ---- analysis helpers (no AssertionError on failure) ----
