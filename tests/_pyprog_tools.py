@@ -38,11 +38,17 @@ def construct_in_ast(construct: type):
     return check
 
 def no_string_methods_used() -> bool:
+    """
+    Filters string methods that do a search
+    (we would like students to loop instead)
+    """
     tree = ast.parse(static.getSource())
     for n in ast.walk(tree):
         if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute):
             if n.func.attr in ['replace', 'find', 'index']:
-                raise AssertionError(f"string-methods zoals {n.func.attr}() mogen niet gebruikt worden")
+                raise AssertionError(
+                    f"string-methods zoals {n.func.attr}() "
+                    f"mogen niet gebruikt worden")
     return True
 
 def no_string_mult_used() -> bool:
