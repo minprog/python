@@ -16,9 +16,9 @@ def pl(n: int, desc: str):
         'slaagt': 'slagen'
     }
     if n == 1:
-        return desc
+        return f"1 {desc}"
     else:
-        return meervouden[desc]
+        return f"{n} {meervouden[desc]}"
 
 def function_stats(source):
     functions = re.findall(r'def\s+(\w+)\s*\(([^\)]*)\) *(->\s*([\w\|\s\[,\] _]+))?:', source)
@@ -75,15 +75,15 @@ def check_doctests(test, test_not_returning=True):
 
     # test ratio
     if n_items_doctested > 0 and n_doctests // n_items_doctested < 2:
-        return False, f"{n_doctests} {pl(n_doctests, 'voorbeeld')} bij {n_items_doctested} {pl(n_items_doctested, 'functie')} is niet genoeg"
+        return False, f"{pl(n_doctests, 'voorbeeld')} bij {pl(n_items_doctested, 'functie')} is niet genoeg"
 
     if n_doctests_passed < n_doctests:
-        return False, f"{n_doctests_passed} van {n_doctests} {pl(n_doctests, 'voorbeeld')} {pl(n_doctests_passed, 'slaagt')}"
+        return False, f"{n_doctests_passed} van {pl(n_doctests, 'voorbeeld')} geslaagd"
 
     if test_not_returning:
-        test.description = f"doctests: {n_doctests} goedgekeurd voor {n_items_doctested} functies"
+        test.description = f"doctests: {n_doctests} goedgekeurd voor {pl(n_items_doctested, 'functie')}"
     else:
-        test.description = f"doctests: {n_doctests} goedgekeurd voor {n_items_doctested} testbare functies"
+        test.description = f"doctests: {n_doctests} goedgekeurd voor {pl(n_items_doctested, 'testbare functie')}"
 
     return True
 
