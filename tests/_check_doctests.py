@@ -13,6 +13,7 @@ def pl(n: int, desc: str):
     meervouden = {
         'voorbeeld': 'voorbeelden',
         'functie': 'functies',
+        'testbare functie': 'testbare functies'
         'slaagt': 'slagen'
     }
     if n == 1:
