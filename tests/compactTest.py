@@ -23,7 +23,7 @@ def has_functions():
 def test_function(test):
     """functie `compact` werkt correct"""
     compact = get_function("compact")
-    assert no_print_return_in_function(rotate)
+    assert no_print_return_in_function(compact)
 
     l = [0]; compact(l); assert l == []
     l = [False]; compact(l); assert l == []
