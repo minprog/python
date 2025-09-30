@@ -19,16 +19,31 @@ def has_functions():
     assert no_string_methods_used()
     # assert construct_not_in_ast(typing.Any)
 
+def check_mutated(f, inp, out):
+    f_name = f._func.name
+
+    org = inp.copy()
+    f(inp)
+    if inp != out:
+        raise AssertionError(
+            f"gebruik deze doctest:\n"
+            f"    >>> t_lst = {org}\n"
+            f"    >>> {f_name}(t_lst)\n"
+            f"    >>> t_lst\n"
+            f"    {out}\n"
+            f"dus dit zou de aangepaste waarde van t_lst moeten zijn,\n"
+            f"maar bij check bleek de waarde van t_lst: {inp}")
+
 @passed(has_functions)
 def test_function(test):
     """functie `compact` werkt correct"""
     compact = get_function("compact")
-    assert no_print_return_in_function(compact)
 
-    l = [0]; compact(l); assert l == []
-    l = [False]; compact(l); assert l == []
-    l = ['']; compact(l); assert l == []
-    l = [[]]; compact(l); assert l == []
-    l = [2, 0, False, '']; compact(l); assert l == [2]
-    l = [0, False, '']; compact(l); assert l == []
-    l = [1, 2, 3, 4]; compact(l); assert l == [1, 2, 3, 4]
+    assert compact([0]) == []
+    assert compact([False]) == []
+    assert compact(['']) == []
+    assert compact([[]]) == []
+    assert compact([0, False, '']) == []
+    assert compact([2, 0, False, '']) == [2]
+    assert compact([1, 2, 3, 4]) == [1, 2, 3, 4]
+    assert compact([False, 1, 2, 3, 4]) == [1, 2, 3, 4]
