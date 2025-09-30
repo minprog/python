@@ -60,6 +60,17 @@ def no_input_output_in_function(f):
             "deze functie zou geen print of input moeten hebben")
     return True
 
+def no_print_return_in_function(f):
+    try:
+        construct_not_in_ast(ast.Return)
+    except AssertionError:
+        raise AssertionError(
+            "deze functie zou geen print of return moeten hebben")
+    if 'print' in f._function.__code__.co_names:
+        raise AssertionError(
+            "deze functie zou geen print of return moeten hebben")
+    return True
+
 # ---- analysis helpers (no AssertionError on failure) ----
 
 def string_in_module(*forbidden_strings):
