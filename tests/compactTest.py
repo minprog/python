@@ -12,6 +12,7 @@ def has_functions():
     assert function_defined_in_module("compact")
     if string_in_module("import Any", "[Any]"):
         raise AssertionError("gebruik geen Any als type in deze opdracht")
+    assert construct_not_in_ast(ast.Slice)
     assert construct_not_in_ast(ast.Set)
     assert construct_not_in_ast(ast.Tuple)
     assert construct_not_in_ast(ast.Dict)

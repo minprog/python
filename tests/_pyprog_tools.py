@@ -26,6 +26,8 @@ def construct_not_in_ast(construct: type):
     if check or call_check:
         if name in ['list', 'set', 'tuple', 'dict']:
             raise AssertionError(f"{name}s mogen niet gebruikt worden in deze opdracht")
+        elif name == 'slice':
+            raise AssertionError(f"slicing mag niet gebruikt worden in deze opdracht")
         else:
             raise AssertionError(f"`{name}` mag niet gebruikt worden in deze opdracht")
     return True

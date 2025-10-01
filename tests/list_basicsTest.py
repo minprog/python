@@ -12,6 +12,7 @@ def has_functions():
     assert function_defined_in_module("list_count_element")
     assert function_defined_in_module("list_count_elements")
     assert construct_in_ast(ast.For)
+    assert construct_not_in_ast(ast.Slice)
     assert construct_not_in_ast(ast.Set)
     assert construct_not_in_ast(ast.Tuple)
     assert construct_not_in_ast(ast.Dict)

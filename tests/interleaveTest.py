@@ -9,6 +9,7 @@ forbidden_constructs.disallow_all()
 def has_functions():
     """functie `interleave` is aanwezig"""
     assert function_defined_in_module("interleave")
+    assert construct_not_in_ast(ast.Slice)
     assert construct_not_in_ast(ast.Set)
     assert construct_not_in_ast(ast.Tuple)
     assert construct_not_in_ast(ast.Dict)
