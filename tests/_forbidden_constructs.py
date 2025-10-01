@@ -68,7 +68,7 @@ RULE_GROUPS: dict[str, dict[str, tuple[Callable[[], bool], str]]] = {
         "sorted": (lambda: call_in_module("sorted"), "gebruik geen sorted()"),
     },
     "functional_style": {
-        "try": (lambda: construct_not_in_ast(ast.Try), "mag niet"),
+        "try": (lambda: not construct_not_in_ast(ast.Try), "mag niet"),
         "map": (lambda: call_in_module("map"), "gebruik geen map()"),
         "zip": (lambda: call_in_module("zip"), "gebruik geen zip()"),
         "generators": (lambda: has_generators(), "let op dat je geen [... for ...] gebruikt"),
