@@ -26,7 +26,7 @@ import ast
 import checkpy.tests as t
 from _pyprog_tools import (
     string_in_module, call_in_module,
-    no_string_methods_used, no_string_mult_used
+    no_string_methods_used, no_string_mult_used, construct_not_in_ast
 )
 
 def import_in_module(*banned_imports) -> bool:
@@ -68,6 +68,7 @@ RULE_GROUPS: dict[str, dict[str, tuple[Callable[[], bool], str]]] = {
         "sorted": (lambda: call_in_module("sorted"), "gebruik geen sorted()"),
     },
     "functional_style": {
+        "try": (lambda: construct_not_in_ast(ast.Try), "mag niet"),
         "map": (lambda: call_in_module("map"), "gebruik geen map()"),
         "zip": (lambda: call_in_module("zip"), "gebruik geen zip()"),
         "generators": (lambda: has_generators(), "let op dat je geen [... for ...] gebruikt"),
