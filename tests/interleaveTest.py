@@ -15,6 +15,8 @@ def has_functions():
     assert construct_not_in_ast(ast.Dict)
     assert no_string_mult_used()
     assert no_string_methods_used()
+    if string_in_module(".pop("):
+        raise AssertionError("je mag geen .pop() gebruiken voor deze opdracht")
 
 @passed(has_functions)
 def test_function_1(test):
