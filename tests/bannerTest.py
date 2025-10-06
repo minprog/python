@@ -37,7 +37,7 @@ def test_string_to_list():
 
 @passed(has_functions)
 def test_pizza(test):
-    """print de juiste banner voor de pizza-zaak"""
+    """functie `print_banner` werkt correct voor de pizza-zaak"""
     from checkpy.lib import  io
     # import contextlib
 
