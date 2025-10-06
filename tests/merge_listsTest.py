@@ -23,7 +23,7 @@ def test_merge_lists_result(test):
 
 @passed(has_functions)
 def test_merge_lists1(test):
-    """functie `merge_lists` gebruikt daadwerkelijk selection sort"""
+    """functie `merge_lists` gebruikt het algoritme uit de opgave"""
     # lees file via checkpy API, voeg weer \n toe na splitten
     import re
     file_contents = [f"{x}\n" for x in static.getSource().split("\n")]
