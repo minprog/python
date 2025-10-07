@@ -21,7 +21,10 @@ def check_mutated(f, inp, out):
     f_name = f._func.name
 
     org = inp.copy()
-    f(inp)
+    try:
+        f(inp)
+    except Exception as e:
+        inp = str(e).split('(')[0].strip('"')
     if inp != out:
         raise AssertionError(
             f"gebruik deze doctest:\n"
@@ -29,8 +32,8 @@ def check_mutated(f, inp, out):
             f"    >>> {f_name}(t_lst)\n"
             f"    >>> t_lst\n"
             f"    {out}\n"
-            f"dus dit zou de aangepaste waarde van t_lst moeten zijn,\n"
-            f"maar bij check bleek de waarde van t_lst: {inp}")
+            f"je checkt zo of de waarde van t_lst goed wordt aangepast,\n"
+            f"maar nu komt dit er uit: {inp}")
 
 @passed(has_functions)
 def test_function(test):
