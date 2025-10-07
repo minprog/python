@@ -10,5 +10,11 @@ def mypy_ok(test):
         return p.returncode == 0, p.stdout
     test.test = testMethod
     def report(output):
-        return '- line ' + '\n- line '.join([':'.join(i.split(':')[1:])[:60] for i in output.splitlines()[:-1]])
+        lines = []
+        for i in output.splitlines()[:-1]:
+            text = ':'.join(i.split(':')[1:])[:60]
+            lines.append(f"- line {text}")
+            if "Missing return statement" in text:
+                lines.append("  Watch out with this error! Did you specify the correct return type?")
+        return "\n".join(lines)
     test.fail = report
