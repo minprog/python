@@ -16,5 +16,7 @@ def mypy_ok(test):
             lines.append(f"- line {text}")
             if "Missing return statement" in text:
                 lines.append("  Watch out with this error! Did you specify the correct return type?")
+            if "No return value expected" in text:
+                lines.append("  You specified None as the return type but the function returns something.")
         return "\n".join(lines)
     test.fail = report
