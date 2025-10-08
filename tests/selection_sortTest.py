@@ -9,7 +9,7 @@ forbidden_constructs.disallow_all()
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert function_defined_in_module("selection_sort")
-    if string_in_module(".pop(", ".insert(", ".append("):
+    if string_in_module(".pop(", ".insert(", ".append(", ".copy("):
         raise AssertionError("wijzig de lijst alleen door twee posities te swappen")
 
 @passed(has_functions)
