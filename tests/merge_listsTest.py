@@ -22,6 +22,16 @@ def test_merge_lists_result(test):
     assert merge_lists([], [1, 1, 1, 1]) == [1, 1, 1, 1]
 
 @passed(has_functions)
+def test_merge_lists_no_mutate(test):
+    """functie `merge_lists` past de gegeven lijsten niet aan tijdens de merge"""
+    merge_lists = get_function("merge_lists")
+    arg1 = HistoryList([1, 3])
+    arg2 = HistoryList([2, 4])
+    result = getFunction("merge_lists")(arg1, arg2)
+    if len(arg1.history) > 1 or len(arg2.history) > 1:
+        raise AssertionError("een gegeven lijst is toch aangepast")
+
+@passed(has_functions)
 def test_merge_lists1(test):
     """functie `merge_lists` gebruikt het algoritme uit de opgave"""
     # lees file via checkpy API, voeg weer \n toe na splitten

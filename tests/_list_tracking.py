@@ -29,6 +29,11 @@ class HistoryList(list):
         # Save snapshot after append
         self.history.append(self.copy())
 
+    def remove(self, value):
+        super().remove(value)
+        # Save snapshot after remove
+        self.history.append(self.copy())
+
     def __delitem__(self, index):
         super().__delitem__(index)
         # Save snapshot of the entire list
