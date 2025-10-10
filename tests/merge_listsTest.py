@@ -54,6 +54,12 @@ class HistoryList(list):
         # Save snapshot after append
         self.history.append(self.copy())
 
+    def __iadd__(self, value):
+        result = super().__iadd__(value)
+        # Save snapshot after iadd
+        self.history.append(self.copy())
+        return result
+
     def __delitem__(self, index):
         super().__delitem__(index)
         # Save snapshot of the entire list
