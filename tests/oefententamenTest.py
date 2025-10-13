@@ -2,7 +2,7 @@ from checkpy import *
 from _pyprog_tools import *
 from _list_tracking import *
 
-from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+from _python_checks import forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
 
 @passed(forbidden_constructs)
@@ -63,12 +63,12 @@ def test_longest_word_length(test):
 @passed(forbidden_constructs)
 def has_function_encrypt():
     """functie `encrypt` is aanwezig"""
-    assert function_defined_in_module("encrypt")
+    assert function_defined_in_module("encrypt", "encrypted")
 
 @passed(has_function_encrypt)
 def test_encrypt(test):
     """functie `encrypt` werkt correct"""
-    encrypt = get_function("encrypt")
+    encrypt = get_function("encrypt", "encrypted")
     assert no_input_output_in_function(encrypt)
     assert encrypt("abc") == 'zyx'
     assert encrypt("zyx") == 'abc'
