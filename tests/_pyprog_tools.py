@@ -5,10 +5,13 @@ from checkpy import static
 
 # ---- assertion helpers ----
 
-def function_defined_in_module(name: str) -> bool:
-    check = name in static.getFunctionDefinitions()
+def function_defined_in_module(expected_name: str, *alternatives: list[str]) -> bool:
+    defs = static.getFunctionDefinitions()
+    check = any(
+        name in defs for name in [expected_name, *alternatives]
+    )
     if not check:
-        raise AssertionError(f"`{name}` is niet aanwezig")
+        raise AssertionError(f"`{expected_name}` is niet aanwezig")
     return check
 
 def function_not_defined_in_module(name: str) -> bool:
@@ -307,11 +310,20 @@ class TestableCallable:
     def __call__(self, *args, **kwargs):
         return TestableValue(self._func(*args, **kwargs), self._func.name, args)
 
-def get_function(name):
+def fname(*cands):
+    defs = static.getFunctionDefinitions()
+    for cand in cands:
+        if cand in defs:
+            return cand
+    raise AssertionError(f"function {cands[0]} not found in code")
+
+def get_function(default_name, *alternatives):
     """
     Retrieve function and wrap into TestableCallable, so that a call
     result will be wrapped in TestableValue.
     """
+    name = fname(default_name, *alternatives)
+
     # Actually, the function is already wrapped in a checkpy Function object
     # but we can wrap that once more.
     f = getFunction(name)
