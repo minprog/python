@@ -12,6 +12,7 @@ forbidden_constructs.disallow_all()
 def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert construct_not_in_ast(ast.List)
+    assert construct_in_ast(ast.While)
     assert construct_not_in_ast(ast.For) # for-loop makes no sense here
     assert construct_not_in_ast(ast.Set)
     assert construct_not_in_ast(ast.Tuple)
