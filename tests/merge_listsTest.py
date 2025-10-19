@@ -81,7 +81,7 @@ class HistoryList(list):
         [1, 2, 3, 4, 5, 6],
     ]
     result = getFunction("merge_lists", src=srcCode)(*test)
-    if type(result) != HistoryList:
+    if type(result).__name__ != 'HistoryList':
         raise AssertionError(
             f"het lijkt erop dat je op een niet-standaardmanier een lijst aanmaakt\n"
             f"gebruik voor deze opgave:\n"
