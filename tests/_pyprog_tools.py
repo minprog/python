@@ -202,7 +202,6 @@ class RunResult(str):
         """
         actual = self
         actual_str = str(actual)
-        stdin_str = ' ⏎ '.join(self.metadata['stdin'])
         expected = other
         expected_display = None
 
@@ -218,9 +217,14 @@ class RunResult(str):
         expected_str = expected_display or expected
 
         if not match:
-            if len(expected_str) + len(self) > 40:
+            if 'stdin' in self.metadata:
+                stdin_str = ' ⏎ '.join(self.metadata['stdin'])
+                input_msg = f"gegeven input: {stdin_str} ⏎\n"
+            else:
+                input_msg = ""
+            if len(expected_str.__repr__()) + len(self.__repr__()) > 40:
                 raise AssertionError(
-                    f"gegeven input: {stdin_str} ⏎\n"
+                    f"{input_msg}"
                     f"verwachte output is:\n"
                     f"  {expected_str!r}\n"
                     f"maar kreeg:\n"
@@ -228,7 +232,7 @@ class RunResult(str):
                 )
             else:
                 raise AssertionError(
-                    f"gegeven input: {stdin_str} ⏎\n"
+                    f"{input_msg}"
                     f"verwachte output is {expected_str!r} maar kreeg {actual!r}"
                 )
 
