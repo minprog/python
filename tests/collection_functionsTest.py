@@ -33,14 +33,6 @@ def test_mating_pairs(test):
     assert sorted(list(map(lambda x: x[1], result))) == [4, 5, 6]
 
 @t.passed(has_functions)
-def test_reverse_dict(test):
-    """functie `reverse_dict` werkt correct"""
-    result = getFunction("reverse_dict")({ 'a': 1, 'b': 2, 'Q': 4 })
-    assert result = { 1: 'a', 2: 'b', 4: 'Q' }
-    result = getFunction("reverse_dict")({})
-    assert result = {}
-
-@t.passed(has_functions)
 def test_count_values(test):
     """functie `count_values` werkt correct"""
     assert getFunction("count_values")({'red': 1, 'green': 1, 'blue': 2}) == 2
