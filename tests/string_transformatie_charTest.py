@@ -20,10 +20,10 @@ def has_functions():
 def test_function_l337sp34k(test):
     """functie `l337sp34k` werkt correct"""
     l337sp34k = get_function("l337sp34k")
-    assert l337sp34k("leetspeak") == "l337sp34k"
-    assert l337sp34k("leeTspeaK") == "l337sp34K"
-    assert l337sp34k("l337sp34k") == "l337sp34k"
-    assert l337sp34k("leet leet") == "l337 l337"
+    assert l337sp34k("leetspeak") == "1337sp34k"
+    assert l337sp34k("leeTspeaK") == "1337sp34K"
+    assert l337sp34k("l337sp34k") == "1337sp34k"
+    assert l337sp34k("leet leet") == "1337 1337"
     assert l337sp34k("") == ""
 
 @passed(has_functions)
