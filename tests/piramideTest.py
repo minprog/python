@@ -22,51 +22,46 @@ def has_functions():
 @test(10)
 def exactMario0(test):
     """print een welgevormde pyramide van 1 hoog"""
-    assert run(1).match("(##)[ ]*(\n)", "##\n")
+    assert run(1) == "##\n"
 
 @passed(has_functions)
 @test(20)
 def exactMario3(test):
     """print een welgevormde pyramide van 3 hoog"""
-    r = re.compile(
-      r".*"
-      "(  ##)[ ]*(\n)"
-      "( ###)[ ]*(\n)"
-      "(####)[ ]*"
-      ".*", re.MULTILINE)
-    assert run(3).match(r, "  ##\n ###\n####\n")
+    assert run(3) == "  ##\n ###\n####\n"
 
 @passed(has_functions)
 @test(30)
 def exactMario23(test):
     """print een welgevormde pyramide van 23 hoog"""
-    r = re.compile(r".*"
-      "(                      ##)[ ]*(\n)"
-      "(                     ###)[ ]*(\n)"
-      "(                    ####)[ ]*(\n)"
-      "(                   #####)[ ]*(\n)"
-      "(                  ######)[ ]*(\n)"
-      "(                 #######)[ ]*(\n)"
-      "(                ########)[ ]*(\n)"
-      "(               #########)[ ]*(\n)"
-      "(              ##########)[ ]*(\n)"
-      "(             ###########)[ ]*(\n)"
-      "(            ############)[ ]*(\n)"
-      "(           #############)[ ]*(\n)"
-      "(          ##############)[ ]*(\n)"
-      "(         ###############)[ ]*(\n)"
-      "(        ################)[ ]*(\n)"
-      "(       #################)[ ]*(\n)"
-      "(      ##################)[ ]*(\n)"
-      "(     ###################)[ ]*(\n)"
-      "(    ####################)[ ]*(\n)"
-      "(   #####################)[ ]*(\n)"
-      "(  ######################)[ ]*(\n)"
-      "( #######################)[ ]*(\n)"
-      "(########################)[ ]*"
-      ".*", re.MULTILINE)
+    e = (""
+      "                      ##\n"
+      "                     ###\n"
+      "                    ####\n"
+      "                   #####\n"
+      "                  ######\n"
+      "                 #######\n"
+      "                ########\n"
+      "               #########\n"
+      "              ##########\n"
+      "             ###########\n"
+      "            ############\n"
+      "           #############\n"
+      "          ##############\n"
+      "         ###############\n"
+      "        ################\n"
+      "       #################\n"
+      "      ##################\n"
+      "     ###################\n"
+      "    ####################\n"
+      "   #####################\n"
+      "  ######################\n"
+      " #######################\n"
+      "############## ##########\n")
     o = run(23)
-    if not r.match(o):
+    # trucje met f-string om er een normale string van te maken
+    # in plaats van een string met een overloaded ==
+    if not e == f"{o}":
         raise AssertionError(
             "gegeven input: 23 ⏎\n"
             "de piramide is niet wat we verwacht hadden (fix eerst de kleinere)")
@@ -75,4 +70,4 @@ def exactMario23(test):
 @test(40)
 def handlesWrongInput(test):
     """handelt verkeerde input netjes af"""
-    assert run(-100, 100, 24, 1).match(".*(# ?#)[ ]*(\n)", "##\n")
+    assert run(-100, 100, 24, 1).match(".*(##)[ ]*(\n)", "##\n")
