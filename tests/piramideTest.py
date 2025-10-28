@@ -57,7 +57,7 @@ def exactMario23(test):
       "   #####################\n"
       "  ######################\n"
       " #######################\n"
-      "############## ##########\n")
+      "########################\n")
     o = run(23)
     # trucje met f-string om er een normale string van te maken
     # in plaats van een string met een overloaded ==
