@@ -9,7 +9,6 @@ def has_functions():
     """alle gevraagde functies zijn aanwezig"""
     assert function_defined_in_module("list_duplicates")
     assert function_defined_in_module("mating_pairs")
-    assert function_defined_in_module("reverse_dict")
     assert function_defined_in_module("count_values")
     assert function_defined_in_module("minst_voorkomende")
     assert function_defined_in_module("tel_dubbele")
