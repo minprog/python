@@ -41,7 +41,7 @@ def test_function_count_difference(test):
     assert count_difference("a", "a") == 0
     assert count_difference("A", "a") == 1
     assert count_difference("jumpstyle", "hakken") == 9
-    assert count_difference("piano", "pianissimo") == 10
+    assert count_difference("piano", "pianissimo") == 6
     assert count_difference("", "mamba") == 5
     assert count_difference("mamba", "") == 5
     assert count_difference("", "") == 0
