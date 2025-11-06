@@ -1,93 +1,45 @@
-import checkpy.tests as t
-import checkpy.lib as lib
-import checkpy.assertlib as asserts
+from checkpy import *
+from _pyprog_tools import *
+import re
 
-from _basics_no_listcomp import *
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest_all
+forbidden_constructs.disallow_all()
 
-@t.passed(doctest_ok)
-@t.test(9)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def checks_no_index(test):
     """oplossing gebruikt geen `.index()` of `.find()`"""
-    def testMethod():
-        if string_in_module(".index") or string_in_module(".find") or call_in_module("ord"):
-            return False, "gebruik geen .index() of .find() of ord() voor deze opdracht"
-        return True
-    test.test = testMethod
+    if string_in_module(".index") or string_in_module(".find") or call_in_module("ord"):
+        raise AssertionError("gebruik geen .index() of .find() of ord() voor deze opdracht")
 
-@t.passed(doctest_ok)
-@t.test(10)
+@passed(checks_no_index)
 def checks_compute_score(test):
     """functie 'compute_score' werkt correct"""
-    def testMethod():
-        compute_score = lib.getFunction("compute_score", test.fileName)
-        if (
-            compute_score("WORD") == compute_score("word")
-            and compute_score("Test") == 4
-            and compute_score("abcdefghijklmnopqrstuvwxyz") == 87
-        ):
-            return True
-        else:
-            return False
-    test.test = testMethod
+    compute_score = get_function("compute_score")
+    assert compute_score("word") == 8
+    assert compute_score("WORD") == 8
+    assert compute_score("Test") == 4
+    assert compute_score("abcdefghijklmnopqrstuvwxyz") == 87
 
-@t.passed(doctest_ok)
-@t.test(20)
+@passed(checks_no_index)
 def check_S1(test):
     """speler 1 met 'Pizza' wint van speler 2 met 'Kaas'"""
-    targets = ["Speler 1 wint!", "Player 1 wins!"]
+    output = run("Pizza", "Kaas")
+    assert output.strip().is_one_of(["Speler 1 wint!", "Player 1 wins!"])
 
-    def testMethod():
-        output = lib.outputOf(
-            test.fileName,
-            stdinArgs=["Pizza", "Kaas"],
-            overwriteAttributes=[("__name__", "__main__")],
-        )
-        return any([asserts.exact(output.strip(), target) for target in targets])
-    test.test = testMethod
-
-@t.passed(doctest_ok)
-@t.test(30)
+@passed(checks_no_index)
 def check_S2(test):
     """speler 1 met 'Hotel' verliest van speler 2 met 'Kamperen'"""
-    targets = ["Speler 2 wint!", "Player 2 wins!"]
+    output = run("Hotel", "Kamperen")
+    assert output.strip().is_one_of(["Speler 2 wint!", "Player 2 wins!"])
 
-    def testMethod():
-        output = lib.outputOf(
-            test.fileName,
-            stdinArgs=["Hotel", "Kamperen"],
-            overwriteAttributes=[("__name__", "__main__")],
-        )
-        return any([asserts.exact(output.strip(), target) for target in targets])
-    test.test = testMethod
-
-@t.passed(doctest_ok)
-@t.test(40)
+@passed(checks_no_index)
 def check_gelijkspel(test):
     """speler 1 met 'Vrijdag' speelt gelijk met speler 2 met 'Zaterdag'"""
-    targets = ["Gelijkspel!", "It's a tie!"]
+    output = run("Vrijdag", "Zaterdag")
+    assert output.strip().is_one_of(["Gelijkspel!", "It's a tie!"])
 
-    def testMethod():
-        output = lib.outputOf(
-            test.fileName,
-            stdinArgs=["Vrijdag", "Zaterdag"],
-            overwriteAttributes=[("__name__", "__main__")],
-        )
-        return any([asserts.exact(output.strip(), target) for target in targets])
-
-    test.test = testMethod
-
-@t.passed(doctest_ok)
-@t.test(50)
+@passed(checks_no_index)
 def check_gelijkspel2(test):
     """speler 1 met 'Hardly?' speelt gelijk met speler 2 met 'Hardly!'"""
-    targets = ["Gelijkspel!", "It's a tie!"]
-
-    def testMethod():
-        output = lib.outputOf(
-            test.fileName,
-            stdinArgs=["Hardly?", "Hardly!"],
-            overwriteAttributes=[("__name__", "__main__")],
-        )
-        return any([asserts.exact(output.strip(), target) for target in targets])
-
-    test.test = testMethod
+    output = run("Hardly?", "Hardly!")
+    assert output.strip().is_one_of(["Gelijkspel!", "It's a tie!"])

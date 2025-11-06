@@ -238,6 +238,31 @@ class RunResult(str):
 
         return True
 
+    def is_one_of(self, other):
+        match = any(option == str(self) for option in other)
+        if not match:
+            expected_str = ' of '.join(f"'{x}'" for x in other)
+            if 'stdin' in self.metadata:
+                stdin_str = ' ⏎ '.join(self.metadata['stdin'])
+                input_msg = f"gegeven input: {stdin_str} ⏎\n"
+            else:
+                input_msg = ""
+            if len(expected_str) + len(self.__repr__()) > 40:
+                raise AssertionError(
+                    f"{input_msg}"
+                    f"verwachte output is:\n"
+                    f"  {expected_str}\n"
+                    f"maar kreeg:\n"
+                    f"  {self!r}"
+                )
+            else:
+                raise AssertionError(
+                    f"{input_msg}"
+                    f"verwachte output is {expected_str} maar kreeg {self!r}"
+                )
+        return True
+
+
     def match(self, pattern, display=None):
         stdin_str = ' ⏎ '.join(self.metadata['stdin'])
         expected_str = display or pattern
