@@ -27,6 +27,7 @@ def check_mutated(f, inp, out):
         inp = str(e).split('(')[0].strip('"')
     if inp != out:
         raise AssertionError(
+            f"we hebben een fout gevonden met input {org}"
             f"gebruik deze doctest:\n"
             f"    >>> t_lst = {org}\n"
             f"    >>> {f_name}(t_lst)\n"
