@@ -16,6 +16,8 @@ def has_functions():
     assert construct_not_in_ast(ast.Dict)
     assert no_string_mult_used()
     assert no_string_methods_used()
+    if string_in_module(".pop(", ".insert(", ".append(", ".copy("):
+        raise AssertionError("wijzig de lijst alleen door elementen te kopiëren")
 
 def check_mutated(f, inp, out):
     f_name = f._func.name
