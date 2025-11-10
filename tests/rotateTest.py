@@ -42,7 +42,7 @@ def check_mutated(f, inp, out):
 def test_function(test):
     """functie `rotate` werkt correct"""
     rotate = get_function("rotate")
-    assert no_print_return_in_function(rotate)
+    assert no_input_output_in_function(rotate)
     check_mutated(rotate, [2,3,1], [3,1,2])
     check_mutated(rotate, [2,1,3], [1,3,2])
     check_mutated(rotate, [2,1], [1,2])
