@@ -4,7 +4,7 @@ from _pyprog_tools import *
 from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
 
-@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def has_functions():
     """functie `rotate` is aanwezig"""
     assert function_defined_in_module("rotate")
