@@ -5,10 +5,10 @@ from typing import Callable
 from checkpy import *
 from _pyprog_tools import *
 
-from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest_all
 forbidden_constructs.disallow_all()
 
-@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """functie `rotate` is aanwezig"""
     assert function_defined_in_module("rotate")
