@@ -2,10 +2,10 @@ from checkpy import *
 from _pyprog_tools import *
 from _list_tracking import *
 
-from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest_all
 forbidden_constructs.disallow_all()
 
-@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """functie `uniq` is aanwezig"""
     assert function_defined_in_module("uniq")
@@ -17,7 +17,7 @@ def has_functions():
     assert no_string_methods_used()
 
 @passed(has_functions)
-def test_function(test):
+def test_function():
     """functie `uniq` werkt correct"""
     uniq = get_function("uniq")
     assert uniq([0, 1, 2, 3]) == [0, 1, 2, 3]
@@ -27,7 +27,7 @@ def test_function(test):
     assert uniq([]) == []
 
 @passed(has_functions)
-def test_no_changes_to_list(test):
+def test_no_changes_to_list():
     """functie `uniq` doet geen aanpassing aan originele lijst"""
     arg = HistoryList([1, 1, 1, 1])
     result = getFunction("uniq")(arg)

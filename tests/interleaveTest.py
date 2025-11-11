@@ -2,10 +2,10 @@ from checkpy import *
 from _pyprog_tools import *
 from _list_tracking import *
 
-from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest_all
 forbidden_constructs.disallow_all()
 
-@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
 def has_functions():
     """functie `interleave` is aanwezig"""
     assert function_defined_in_module("interleave")
@@ -43,7 +43,7 @@ def test_function_2(test):
 
 @passed(has_functions)
 def test_no_changes_to_list(test):
-    """functie `interleave` doet geen aanpassing aan originele lijst"""
+    """functie `interleave` doet geen aanpassing aan originele lijsten"""
     arg1 = HistoryList([1, 1, 1, 1])
     arg2 = HistoryList([2, 2, 2])
     result = getFunction("interleave")(arg1, arg2, True)
