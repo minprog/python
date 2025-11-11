@@ -17,36 +17,36 @@ def has_functions():
 
 @passed(has_functions)
 @test(10)
-def checks_answer0(test):
+def checks_answer0():
     """3 + 5 = 8.0"""
     assert run("3 + 5").strip() == "8.0"
 
 @passed(has_functions)
 @test(20)
-def checks_answer1(test):
+def checks_answer1():
     """19 - 6 = 13.0"""
     assert run("19 - 6").strip() == "13.0"
 
 @passed(has_functions)
 @test(30)
-def checks_answer2(test):
+def checks_answer2():
     """6 - 19 = -13.0"""
     assert run("6 - 19").strip() == "-13.0"
 
 @passed(has_functions)
 @test(40)
-def checks_answer3(test):
+def checks_answer3():
     """12 * 23 = 276.0"""
     assert run("12 * 23").strip() == "276.0"
 
 @passed(has_functions)
 @test(50)
-def checks_answer4(test):
+def checks_answer4():
     """6 / 4 = 1.5"""
     assert run("6 / 4").strip() == "1.5"
 
 @passed(has_functions)
 @test(60)
-def checks_answer5(test):
+def checks_answer5():
     """-8 * 12 = -96.0"""
     assert run("-8 * 12").strip() == "-96.0"

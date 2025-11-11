@@ -16,7 +16,7 @@ def has_functions():
     assert no_string_methods_used()
 
 @passed(has_functions)
-def test_function(test):
+def test_function():
     """functie `contig` werkt correct"""
     contig = get_function("contig")
     assert contig([0,1,2,4,5]) == [[0,1,2], [4,5]]
@@ -26,7 +26,7 @@ def test_function(test):
     assert contig([])          == []
 
 @passed(has_functions)
-def test_no_changes_to_list(test):
+def test_no_changes_to_list():
     """functie `contig` doet geen aanpassing aan originele lijst"""
     arg = HistoryList([1, 3])
     result = getFunction("contig")(arg)

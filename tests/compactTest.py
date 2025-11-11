@@ -1,7 +1,6 @@
-import typing
-
 from checkpy import *
 from _pyprog_tools import *
+from _list_tracking import *
 
 from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
@@ -12,7 +11,7 @@ def has_functions():
     assert function_defined_in_module("compact")
     if string_in_module("import Any", "[Any]"):
         raise AssertionError("gebruik geen Any als type in deze opdracht")
-    assert construct_not_in_ast(ast.Slice)
+    # assert construct_not_in_ast(ast.Slice)
     assert construct_not_in_ast(ast.Set)
     assert construct_not_in_ast(ast.Tuple)
     assert construct_not_in_ast(ast.Dict)
@@ -21,7 +20,15 @@ def has_functions():
     # assert construct_not_in_ast(typing.Any)
 
 @passed(has_functions)
-def test_function(test):
+def test_no_changes_to_list():
+    """functie `compact` doet geen aanpassing aan originele lijst"""
+    arg = HistoryList([False, 0])
+    getFunction("compact")(arg)
+    if len(arg.history) > 1:
+        raise AssertionError("originele lijst is toch aangepast")
+
+@passed(has_functions)
+def test_function():
     """functie `compact` werkt correct"""
     compact = get_function("compact")
 

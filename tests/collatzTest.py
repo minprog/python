@@ -1,7 +1,7 @@
 from checkpy import *
 from _pyprog_tools import *
 
-from checkpy.lib import  io
+from checkpy.lib import io
 
 from _python_checks import checkstyle, forbidden_constructs, mypy_strict#, doctest_all
 forbidden_constructs.disallow_all()
@@ -19,7 +19,7 @@ def has_functions():
     assert construct_not_in_ast(ast.In)
 
 @passed(has_functions)
-def test_print_collatz(test):
+def test_print_collatz():
     """functie `print_collatz` werkt correct voor 3 en 9"""
     func = get_function("print_collatz")
     res = "3 10 5 16 8 4 2 1"
@@ -34,7 +34,7 @@ def test_print_collatz(test):
         assert RunResult(stdout.content) == res
 
 @passed(has_functions)
-def test_collatz_length(test):
+def test_collatz_length():
     """functie `collatz_length` werkt correct"""
     collatz_length = get_function("collatz_length")
     assert no_input_output_in_function(collatz_length)

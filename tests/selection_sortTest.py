@@ -13,7 +13,7 @@ def has_functions():
         raise AssertionError("wijzig de lijst alleen door twee posities te swappen")
 
 @passed(has_functions)
-def test_selection_sort_result(test):
+def test_selection_sort_result():
     """functie `selection_sort` geeft een gesorteerde lijst terug"""
     selection_sort = get_function("selection_sort")
     assert selection_sort([1,2,3]) == [1,2,3]
@@ -23,7 +23,7 @@ def test_selection_sort_result(test):
     assert selection_sort([]) == []
 
 @passed(has_functions)
-def test_selection_sort(test):
+def test_selection_sort():
     """functie `selection_sort` gebruikt daadwerkelijk selection sort"""
     test = [5, 2, 1, 3, 6, 4]
     expected_steps = [

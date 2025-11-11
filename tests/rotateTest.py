@@ -1,3 +1,7 @@
+from ast import FunctionDef
+from symtable import Function
+from types import FunctionType, NoneType
+from typing import Callable
 from checkpy import *
 from _pyprog_tools import *
 
@@ -19,14 +23,15 @@ def has_functions():
     if string_in_module(".pop(", ".insert(", ".append(", ".copy("):
         raise AssertionError("wijzig de lijst alleen door elementen te kopiëren")
 
-def check_mutated(f, inp, out):
+def check_mutated(f: TestableCallable, inp: list[object], out: object):
     f_name = f._func.name
 
     org = inp.copy()
     try:
-        f(inp)
+        _ = f(inp)
+        actual = inp
     except Exception as e:
-        inp = str(e).split('(')[0].strip('"')
+        actual = str(e).split('(')[0].strip('"')
     if inp != out:
         raise AssertionError(
             f"we hebben een fout gevonden met input {org}\n"
@@ -36,10 +41,10 @@ def check_mutated(f, inp, out):
             f"    >>> t_lst\n"
             f"    {out}\n"
             f"je checkt zo of de waarde van t_lst goed wordt aangepast,\n"
-            f"maar nu komt dit er uit: {inp}")
+            f"maar nu komt dit er uit: {actual}")
 
 @passed(has_functions)
-def test_function(test):
+def test_function():
     """functie `rotate` werkt correct"""
     rotate = get_function("rotate")
     assert no_input_output_in_function(rotate)

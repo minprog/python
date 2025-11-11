@@ -17,7 +17,7 @@ def has_functions():
     assert no_string_methods_used()
 
 @passed(has_functions)
-def test_function(test):
+def test_function():
     """functie `chunk` werkt correct"""
     chunk = get_function("chunk")
     assert chunk([0, 1, 2, 3], 1) == [[0], [1], [2], [3]]
@@ -28,9 +28,9 @@ def test_function(test):
     assert chunk([], 4)           == []
 
 @passed(has_functions)
-def test_no_changes_to_list(test):
+def test_no_changes_to_list():
     """functie `chunk` doet geen aanpassing aan originele lijst"""
     arg = HistoryList([1, 1, 1, 1])
-    result = getFunction("chunk")(arg, 1)
+    getFunction("chunk")(arg, 1)
     if len(arg.history) > 1:
         raise AssertionError("originele lijst is toch aangepast")

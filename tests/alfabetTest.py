@@ -10,7 +10,7 @@ def has_functions():
     assert function_defined_in_module("compare")
 
 @passed(has_functions)
-def test_comes_before(test):
+def test_comes_before():
     """functie `compare` werkt correct"""
     compare = get_function("compare")
     assert compare('Taylor', 'Lana') == 1
@@ -20,7 +20,7 @@ def test_comes_before(test):
         raise AssertionError("de functie moet 0 geven als de woorden gelijk zijn")
 
 @passed(has_functions)
-def test_program(test):
+def test_program():
     """het programma werkt correct met invoer en uitvoer"""
     assert run('Taylor', 'Lana') == "Lana first\n"
     assert run('Lana', 'Taylor') == "Lana first\n"

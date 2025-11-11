@@ -12,7 +12,7 @@ def has_functions():
     assert construct_not_in_ast(ast.While)
 
 # @passed(has_functions)
-# def test_print_bits(test):
+# def test_print_bits():
 #     """functie `print_bits` werkt correct"""
 #     assert getFunction("print_bits")(3) == 4
 #     assert getFunction("print_bits")(50) == 15
@@ -20,16 +20,16 @@ def has_functions():
 #     assert getFunction("print_bits")(10) == 0
 
 @passed(has_functions)
-def test_program_50(test):
+def test_program_50():
     """het programma werkt correct met invoer 50"""
     assert run(50) == "0\n0\n1\n1\n0\n0\n1\n0\n"
 
 @passed(has_functions)
-def test_program_1(test):
+def test_program_1():
     """het programma werkt correct met invoer 1"""
     assert run(1) == "0\n0\n0\n0\n0\n0\n0\n1\n"
 
 @passed(has_functions)
-def test_program_128(test):
+def test_program_128():
     """het programma werkt correct met invoer 128"""
     assert run(128) == "1\n0\n0\n0\n0\n0\n0\n0\n"

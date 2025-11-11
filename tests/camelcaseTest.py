@@ -16,7 +16,7 @@ def has_functions():
     assert no_string_methods_used()
 
 @passed(has_functions)
-def test_function(test):
+def test_function():
     """functie `convert` werkt correct"""
     convert = get_function("convert")
     assert convert('convertInput') == 'convert_input'

@@ -10,7 +10,7 @@ def has_functions():
     assert function_defined_in_module("convert")
 
 @passed(has_functions)
-def test_convert(test):
+def test_convert():
     """functie `convert` werkt correct"""
     convert = get_function("convert")
     assert no_input_output_in_function(convert)
@@ -20,6 +20,6 @@ def test_convert(test):
     assert convert(0, 0, 0, 0) == 0
 
 @passed(has_functions)
-def test_program(test):
+def test_program():
     """het programma werkt correct met invoer en uitvoer (0111)"""
     assert run(0, 1, 1, 1).number() == "7"

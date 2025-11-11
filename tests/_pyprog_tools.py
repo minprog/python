@@ -153,7 +153,7 @@ class RunResult(str):
         return self._wrap(matches[index])
 
     # --- operations that should obviously preserve subclass ----------------
-    def __getitem__(self, key):
+    def __getitem__(self, key) -> 'RunResult':
         # slicing or single-char access
         return self._wrap(super().__getitem__(key))
 
@@ -279,7 +279,7 @@ class RunResult(str):
 
 from checkpy.entities import exception
 
-def run(*stdin) -> str:
+def run(*stdin) -> RunResult:
     stdin = [str(a) for a in stdin]
     try:
         output = outputOf(stdinArgs=stdin, overwriteAttributes = [("__name__", "__main__")])

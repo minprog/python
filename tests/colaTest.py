@@ -20,7 +20,7 @@ def has_functions():
 
 @passed(has_functions)
 @test(10)
-def checks_coin(test):
+def checks_coin():
     """functie `check_coin` werkt correct"""
     coin = get_function("check_coin")
     assert no_input_output_in_function(coin)
@@ -33,7 +33,7 @@ def checks_coin(test):
 
 @passed(has_functions)
 @test(20)
-def checks_due(test):
+def checks_due():
     """functie `determine_due` werkt correct"""
     due = getFunction("determine_due")
     assert no_input_output_in_function(due)
@@ -46,6 +46,6 @@ def checks_due(test):
 
 @passed(has_functions)
 @test(30)
-def checks_main(test):
+def checks_main():
     """run: invoeren van 25, 10, en dan 25 cent geeft wisselgeld van 10 cent"""
     assert run(25, 10, 25).strip()[-2:].number() == "10"

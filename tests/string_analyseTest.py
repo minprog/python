@@ -19,7 +19,7 @@ def has_functions():
     # assert construct_not_in_ast(ast.In)
 
 @passed(has_functions)
-def test_function_isspace(test):
+def test_function_isspace():
     """functie `isspace` werkt correct"""
     isspace = get_function("isspace")
     assert isspace(" ") == True
@@ -32,7 +32,7 @@ def test_function_isspace(test):
     assert isspace("") == False
 
 @passed(has_functions)
-def test_function_isvowel(test):
+def test_function_isvowel():
     """functie `isvowel` werkt correct"""
     isvowel = get_function("isvowel")
     assert isvowel("a") == True
@@ -50,7 +50,7 @@ def test_function_isvowel(test):
     assert isvowel("") == True
 
 @passed(has_functions)
-def test_function_has_single_vowel(test):
+def test_function_has_single_vowel():
     """functie `has_single_vowel` werkt correct"""
     has_single_vowel = get_function("has_single_vowel")
     assert has_single_vowel("a") == True
@@ -66,7 +66,7 @@ def test_function_has_single_vowel(test):
     assert has_single_vowel("") == False
 
 @passed(has_functions)
-def test_function_count_vowels(test):
+def test_function_count_vowels():
     """functie `count_vowels` werkt correct"""
     count_vowels = get_function("count_vowels")
     assert count_vowels("a") == 1

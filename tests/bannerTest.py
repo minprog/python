@@ -1,8 +1,6 @@
 from checkpy import *
 from _pyprog_tools import *
 
-import re
-
 from _python_checks import forbidden_constructs, mypy_strict, doctest_all
 forbidden_constructs.disallow_all()
 
@@ -36,9 +34,9 @@ def test_string_to_list():
     assert string_to_list('') == []
 
 @passed(has_functions)
-def test_pizza(test):
+def test_pizza():
     """functie `print_banner` werkt correct voor de pizza-zaak"""
-    from checkpy.lib import  io
+    from checkpy.lib import io
     # import contextlib
 
     inp = ["Margherita",
