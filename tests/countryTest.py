@@ -1,31 +1,11 @@
 from checkpy import *
-
-import sys
-
-only("country.py")
-
-@test(0)
-def rewrite(test):
-    """bestand is aanwezig"""
-
-    # vervangt typing module door typing_extensions voor Self
-    if sys.version_info.minor < 11:
-
-        with open(test.fileName, 'r') as f:
-            original_file_contents = f.readlines()
-
-        with open(test.fileName, 'w') as f:
-            for line in original_file_contents:
-                if line.strip() == 'from typing import Self':
-                    f.write('from typing_extensions import Self\n')
-                else:
-                    f.write(line)
-
-from _basics import *
 from _pyprog_tools import *
 
-@t.passed(doctest_ok)
-def test_country(test):
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest_all
+forbidden_constructs.disallow_all()
+
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
+def test_country():
     """class `Country` werkt correct"""
     canada = getModule().Country('Canada', 34482779, 9984670)
     if canada.name != 'Canada':
