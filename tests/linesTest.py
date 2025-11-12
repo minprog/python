@@ -1,10 +1,10 @@
 from checkpy import *
 from _pyprog_tools import *
 
-from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest_all
+from _python_checks import checkstyle, forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
 
-@passed(checkstyle, forbidden_constructs, mypy_strict, doctest_all)
+@passed(checkstyle, forbidden_constructs, mypy_strict, doctest)
 def test_point():
     """classes `Point` en `LineSegment` werken correct"""
     point1 = getModule().Point(1, 1)
