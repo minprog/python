@@ -135,8 +135,8 @@ def disallow_all() -> None:
 
 def module_has_syntax_error():
     try:
-        compile(static.getSource(), "<your program>", "exec")
-    except SyntaxError as error:
+        _ = compile(static.getSource(), "<your program>", "exec")
+    except (SyntaxError, IndentationError) as error:
         return error.lineno
     return False
 

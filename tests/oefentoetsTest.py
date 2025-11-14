@@ -2,6 +2,7 @@ from checkpy import *
 from _pyprog_tools import *
 from _list_tracking import *
 
+from _catch_syntax_error import *
 from _python_checks import forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
 
