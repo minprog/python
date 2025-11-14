@@ -5,7 +5,7 @@ from _list_tracking import *
 from _python_checks import forbidden_constructs, mypy_strict, doctest
 forbidden_constructs.disallow_all()
 
-@passed(forbidden_constructs)
+@test
 def has_function_split_by_parity():
     """functie `split_by_parity` is aanwezig"""
     assert function_defined_in_module("split_by_parity")
@@ -30,7 +30,7 @@ def test_split_by_parity(test):
     assert split_by_parity([1]) == [[], [1]]
     assert split_by_parity([]) == [[], []]
 
-@passed(forbidden_constructs)
+@test
 def has_function_reading_level():
     """functie `reading_level` is aanwezig"""
     assert function_defined_in_module("reading_level")
@@ -44,7 +44,7 @@ def test_reading_level(test):
     assert reading_level("mma") == 3.0
     assert reading_level("Mma") == 3.0
 
-@passed(forbidden_constructs)
+@test
 def has_function_longest_word_length():
     """functie `longest_word_length` is aanwezig"""
     assert function_defined_in_module("longest_word_length", "longest_word_lenght")
@@ -60,7 +60,7 @@ def test_longest_word_length(test):
     assert longest_word_length("mma") == 3
     assert longest_word_length("lahetetty joensuun hotellista") == 10
 
-@passed(forbidden_constructs)
+@test
 def has_function_encrypt():
     """functie `encrypt` is aanwezig"""
     assert function_defined_in_module("encrypt", "encrypted")
@@ -75,7 +75,7 @@ def test_encrypt(test):
     assert encrypt('') == ''
     assert encrypt('helloworld') == 'svooldliow'
 
-@passed(forbidden_constructs)
+@test
 def has_function_vowely_words():
     """functie `vowely_words` is aanwezig"""
     assert function_defined_in_module("vowely_words")
