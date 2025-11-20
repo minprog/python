@@ -1,0 +1,14 @@
+{
+    "reportUndefinedVariable": "none",
+    "reportFunctionMemberAccess": "none",
+    "reportUntypedFunctionDecorator": "none",
+    "reportMissingParameterType": "none",
+    "reportImplicitStringConcatenation": "none",
+    "reportAny": "none",
+    "reportImplicitRelativeImport": "none",
+    "reportUnknownVariableType": "none",
+    "reportUnknownArgumentType": "none",
+    "reportUnknownMemberType": "none",
+    "reportPrivateUsage": "none",
+    "reportWildcardImportFromLibrary": "none"
+}
