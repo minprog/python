@@ -25,6 +25,8 @@ def test_point():
     assert inv.green == 105, "green van de invert van RGB(100, 150, 200) moet 105 zijn"
     assert inv.blue == 55, "blue van de invert van RGB(100, 150, 200) moet 55 zijn"
 
+    assert c.red == 100 and c.green == 150 and c.blue == 200, "invert: je mag red, green blue van het object niet \naanpassen, je moet alleen een nieuwe returnen!"
+
     # lighter(0.2)
     lighter = c.lighter(0.2)
     assert lighter.red == round(100 + 0.2 * (255 - 100)), f"red van de lighter(0.2) van RGB(100, 150, 200) moet {round(100 + 0.2 * (255 - 100))} zijn"
