@@ -8,7 +8,8 @@ from _python_checks import checkstyle, mypy_strict, doctest
 def test_class():
     """class `Inventory` is aanwezig"""
     Inventory = getModule().Inventory
-    assert Inventory()
+    # TODO _function
+    assert isinstance(Inventory(), Inventory._function)
 
 @passed(test_class)
 def test_add_and_get():
@@ -60,7 +61,7 @@ def test_list_sorted():
     inv.add_item("banana")
     inv.add_item("apple")
     inv.add_item("cherry")
-    self.assertEqual(inv.list_items(sorted=True), ["apple", "banana", "cherry"])
+    assert inv.list_items(sorted=True) == ["apple", "banana", "cherry"]
 
 @passed(test_class)
 def test_limit():
@@ -83,4 +84,4 @@ def test_find_min():
     inv.add_item("apple", 5)
     inv.add_item("pear", 1)
     inv.add_item("banana", 3)
-    self.assertEqual(set(inv.find_by_min_quantity(3)), {"apple", "banana"})
+    assert set(inv.find_by_min_quantity(3)) == {"apple", "banana"}
