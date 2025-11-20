@@ -72,5 +72,5 @@ def test_get_valuable_letters():
 def test_get_emmeren():
     """functie `emmeren` werkt correct"""
     assert get_function("emmeren")([[1,2,3], [3,4], [4,5]]) == {3: [[1, 2, 3]], 2: [[3, 4], [4, 5]]}
-    assert get_function("emmeren")([[]]) == {}
+    assert get_function("emmeren")([[]]) == {0: [[]]}
     assert get_function("emmeren")([[1,2,3]]) == {3: [[1,2,3]]}
