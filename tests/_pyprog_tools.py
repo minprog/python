@@ -311,7 +311,17 @@ class TestableValue:
             f"({', '.join([x.__repr__() for x in function_args])})"
         )
 
+    def __call__(self, *args):
+        return TestableValue(self.value.__call__(*args),  f"{type(self.value).__name__}", [])
+
+    def __repr__(self):
+        return f"{type(self.value).__name__}"
+
+    def __getattr__(self, name):
+        return TestableValue(self.value.__getattribute__(name), f"{type(self.value).__name__}.{name}", [])
+
     def __eq__(self, other):
+        # raise AssertionError('trap')
         # check the original value and report if not equal
         if self.value != other:
             feedback_string = (
