@@ -1,7 +1,7 @@
 from checkpy import *
 from _pyprog_tools import *
 
-# from _python_checks import doctest_all
+from _python_checks import doctest_all
 
 def close(a, b):
     return abs(a - b) < 1e-9
