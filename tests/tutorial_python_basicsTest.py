@@ -4,6 +4,7 @@ from _pyprog_tools import *
 from _check_doctests import check_doctests
 
 def close(a, b):
+    a = getattr(a, "value", a)
     return abs(a - b) < 1e-9
 
 @test()
@@ -48,22 +49,22 @@ def test_fahrenheit_to_celsius():
 def test_is_divisible():
     """functie `is_divisible` werkt correct"""
     assert function_defined_in_module("is_divisible")
-    assert get_function("is_divisible")(12, 4) is True
-    assert get_function("is_divisible")(12, 5) is False
-    assert get_function("is_divisible")(0, 7) is True
-    assert get_function("is_divisible")(3, 6) is False
+    assert get_function("is_divisible")(12, 4).is_(True)
+    assert get_function("is_divisible")(12, 5).is_(False)
+    assert get_function("is_divisible")(0, 7).is_(True)
+    assert get_function("is_divisible")(3, 6).is_(False)
 
 @test()
 def test_is_leap_year():
     """functie `is_leap_year` werkt correct"""
     assert function_defined_in_module("is_leap_year")
     f = get_function("is_leap_year")
-    assert f(2024) is True
-    assert f(2023) is False
-    assert f(1900) is False
-    assert f(2000) is True
-    assert f(2100) is False
-    assert f(1996) is True
+    assert f(2024).is_(True)
+    assert f(2023).is_(False)
+    assert f(1900).is_(False)
+    assert f(2000).is_(True)
+    assert f(2100).is_(False)
+    assert f(1996).is_(True)
 
 @test()
 def test_pythagoras():
@@ -78,13 +79,13 @@ def test_is_valid_triangle():
     """functie `is_valid_triangle` werkt correct"""
     assert function_defined_in_module("is_valid_triangle")
     f = get_function("is_valid_triangle")
-    assert f(3, 4, 5) is True
-    assert f(5, 4, 3) is True
-    assert f(4, 5, 3) is True
-    assert f(1, 2, 10) is False
-    assert f(10, 1, 2) is False
-    assert f(2, 10, 1) is False
-    assert f(1, 1, 2) is False
+    assert f(3, 4, 5).is_(True)
+    assert f(5, 4, 3).is_(True)
+    assert f(4, 5, 3).is_(True)
+    assert f(1, 2, 10).is_(False)
+    assert f(10, 1, 2).is_(False)
+    assert f(2, 10, 1).is_(False)
+    assert f(1, 1, 2).is_(False)
 
 @test()
 def test_solve_quadratic():

@@ -317,6 +317,18 @@ class TestableValue:
     def __repr__(self):
         return f"{type(self.value).__name__}"
 
+    def __iter__(self):
+        return iter(self.value)
+
+    def is_(self, expected):
+        """Checks identity (for True, False and None) and reports a failure."""
+        if self.value is not expected:
+            raise AssertionError(
+                f"{self._function_call_repr}: "
+                f"verwachtte {expected!r} maar kreeg {self.value!r}"
+            )
+        return True
+
     def __getattr__(self, name):
         return TestableValue(self.value.__getattribute__(name), f"{type(self.value).__name__}.{name}", [])
 
