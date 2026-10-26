@@ -4,8 +4,20 @@ from _pyprog_tools import *
 from _check_doctests import check_doctests
 
 def close(a, b):
+    """Checks that a is close to b and reports the call if it is not."""
+    call = getattr(a, "_function_call_repr", None)
     a = getattr(a, "value", a)
-    return abs(a - b) < 1e-9
+    if abs(a - b) >= 1e-9:
+        raise AssertionError(f"{call}: verwachtte {b!r} maar kreeg {a!r}")
+    return True
+
+def close_pair(result, expected):
+    """Checks that a returned pair is close to the expected pair."""
+    call = result._function_call_repr
+    got = tuple(result)
+    if len(got) != len(expected) or any(abs(g - e) >= 1e-9 for g, e in zip(got, expected)):
+        raise AssertionError(f"{call}: verwachtte {expected!r} maar kreeg {got!r}")
+    return True
 
 @test()
 def test_square():
@@ -92,12 +104,9 @@ def test_solve_quadratic():
     """functie `solve_quadratic` werkt correct"""
     assert function_defined_in_module("solve_quadratic")
     f = get_function("solve_quadratic")
-    x1, x2 = f(1, -5, 6)
-    assert close(x1, 3.0) and close(x2, 2.0)
-    x1, x2 = f(2, 0, -8)
-    assert close(x1, 2.0) and close(x2, -2.0)
-    x1, x2 = f(1, 2, -3)
-    assert close(x1, 1.0) and close(x2, -3.0)
+    assert close_pair(f(1, -5, 6), (3.0, 2.0))
+    assert close_pair(f(2, 0, -8), (2.0, -2.0))
+    assert close_pair(f(1, 2, -3), (1.0, -3.0))
 
 @test(100)
 def doctests(test):
