@@ -2,6 +2,9 @@ from checkpy import *
 
 from _forbidden_constructs import module_has_syntax_error
 
+# Sets how many functions may be commented out because of syntax errors.
+MAX_SYNTAX_ERRORS = 4
+
 @test()
 def no_syntax_error(test):
     """het bestand is in orde"""
@@ -107,7 +110,7 @@ def no_syntax_error(test):
                     return
 
                 # stop if we already have 4 funcs with syntax errors commented out
-                if len(self.syntax_errors) == 4:
+                if len(self.syntax_errors) >= MAX_SYNTAX_ERRORS:
                     return
 
                 self.syntax_errors.append(lineno)

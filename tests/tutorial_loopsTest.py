@@ -3,6 +3,10 @@ from _pyprog_tools import *
 
 from _check_doctests import check_doctests
 
+import _catch_syntax_error
+from _catch_syntax_error import no_syntax_error
+_catch_syntax_error.MAX_SYNTAX_ERRORS = 2
+
 def prints(name, expected):
     """Checks that calling `name` prints the expected lines and returns None."""
     assert function_defined_in_module(name)
