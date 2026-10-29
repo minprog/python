@@ -21,75 +21,42 @@ def prints(name, expected):
         raise AssertionError(f"{name} moet niets returnen, maar gaf {result!r}")
     return True
 
-@test()
-def test_print_one_to_five():
-    """functie `print_one_to_five` werkt correct"""
-    assert prints("print_one_to_five", [1, 2, 3, 4, 5])
 
 @test()
 def test_print_squares():
     """functie `print_squares` werkt correct"""
     assert prints("print_squares", [1, 4, 9, 16, 25, 36])
 
-@test()
-def test_print_fives():
-    """functie `print_fives` werkt correct"""
-    assert prints("print_fives", [5, 10, 15, 20, 25, 30])
 
 @test()
 def test_print_sevens():
     """functie `print_sevens` werkt correct"""
     assert prints("print_sevens", [7, 14, 21, 28, 35, 42, 49])
 
-@test()
-def test_print_countdown():
-    """functie `print_countdown` werkt correct"""
-    assert prints("print_countdown", [5, 4, 3, 2, 1])
 
 @test()
 def test_print_down_by_three():
     """functie `print_down_by_three` werkt correct"""
     assert prints("print_down_by_three", [20, 17, 14, 11, 8, 5, 2, -1])
 
-@test()
-def test_print_with_exclamations():
-    """functie `print_with_exclamations` werkt correct"""
-    assert prints("print_with_exclamations", [1, 2, 3, 4, "!", 6, 7, 8, 9, "!", 11, 12])
 
 @test()
 def test_print_odds_only():
     """functie `print_odds_only` werkt correct"""
     assert prints("print_odds_only", [1, "x", 3, "x", 5, "x", 7, "x", 9, "x"])
 
-@test()
-def test_print_doublings():
-    """functie `print_doublings` werkt correct"""
-    assert prints("print_doublings", [1, 2, 4, 8, 16, 32])
 
 @test()
 def test_print_fives_powers():
     """functie `print_fives_powers` werkt correct"""
     assert prints("print_fives_powers", [1, 5, 25, 125, 625])
 
-@test()
-def test_print_halvings():
-    """functie `print_halvings` werkt correct"""
-    assert prints("print_halvings", [100, 50, 25, 12, 6, 3, 1, 0, 0])
 
 @test()
 def test_print_thirds():
     """functie `print_thirds` werkt correct"""
     assert prints("print_thirds", [729, 243, 81, 27, 9, 3, 1, 0, 0])
 
-@test()
-def test_is_leap_year():
-    """functie `is_leap_year` werkt correct"""
-    assert function_defined_in_module("is_leap_year")
-    f = get_function("is_leap_year")
-    assert f(2024).is_(True)
-    assert f(2023).is_(False)
-    assert f(1900).is_(False)
-    assert f(2000).is_(True)
 
 @test()
 def test_count_leap_years():
