@@ -139,7 +139,10 @@ def test_print_prime_list():
     if result is not None:
         raise AssertionError(f"print_prime_list moet niets returnen, maar gaf {result!r}")
     f(2)
-    assert f.printOutput.split() == []
+    got = f.printOutput.split()
+    if got != []:
+        raise AssertionError(
+            f"bij een aanroep van print_prime_list(2): verwachtte geen regels maar kreeg {got!r}")
 
 @test(100)
 def doctests(test):
