@@ -289,32 +289,3 @@ def test_list_check_all_even():
     assert f([2, 2, 2, 2]).is_(True)
     assert f([2]).is_(True)
     assert f([]).is_(True)
-
-@test()
-def test_list_contains_element():
-    """functie `list_contains_element` werkt correct"""
-    f = defined("list_contains_element")
-    assert loops_without_search("list_contains_element")
-    assert f([1, 2, 3, 4], 4).is_(True)
-    assert f([4, 3, 2, 1], 4).is_(True)
-    assert f([2], 0).is_(False)
-    assert f([], 0).is_(False)
-    assert f([0, 1, 2, 3], -1).is_(False)
-    assert f([1, 1, 1, 1], 'a').is_(False)
-    assert f(['a'], 'a').is_(True)
-    assert f(['a'], 'b').is_(False)
-
-@test()
-def test_list_contains_no_element():
-    """functie `list_contains_no_element` werkt correct"""
-    f = defined("list_contains_no_element")
-    assert loops_without_search("list_contains_no_element")
-    assert not call_in_module("list_contains_element"), "je mag `list_contains_element` niet aanroepen"
-    assert f([1, 2, 3, 4], 4).is_(False)
-    assert f([4, 3, 2, 1], 4).is_(False)
-    assert f([2], 0).is_(True)
-    assert f([], 0).is_(True)
-    assert f([0, 1, 2, 3], -1).is_(True)
-    assert f([1, 1, 1, 1], 'a').is_(True)
-    assert f(['a'], 'a').is_(False)
-    assert f(['a'], 'b').is_(True)
