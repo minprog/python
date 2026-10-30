@@ -111,11 +111,19 @@ def test_print_prime_list():
         raise AssertionError(
             f"bij een aanroep van print_prime_list(2): verwachtte geen regels maar kreeg {got!r}")
 
+REQUIRED_FUNCTIONS = {
+    "print_one_to_five", "print_squares", "print_fives", "print_sevens",
+    "print_countdown", "print_down_by_three", "print_with_exclamations",
+    "print_odds_only", "print_doublings", "print_fives_powers",
+    "print_halvings", "print_thirds", "is_leap_year", "count_leap_years",
+    "nth_leap_year", "is_prime", "print_prime_list",
+}
+
 @test(100)
 def doctests(test):
     """elke functie heeft voldoende doctests en ze geven allemaal akkoord"""
     def testMethod():
-        return check_doctests(test, True)
+        return check_doctests(test, True, only=REQUIRED_FUNCTIONS)
     test.test = testMethod
     test.fail = lambda info: info
     test.timeout = lambda: 120

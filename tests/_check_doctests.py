@@ -53,9 +53,17 @@ def doctest_stats(filename):
     # number of tests passed
     n_doctests_passed = int(test_pass.group(1))
 
-    return n_items_doctested, n_doctests, n_doctests_passed
+    # number of doctests per item, keyed by the function name without module
+    per_item = {}
+    item_rex = re.compile(r'^\s+(\d+) tests? in (\S+)$', re.MULTILINE)
+    for count, name in item_rex.findall(p.stdout):
+        per_item[name.split('.')[-1]] = int(count)
 
-def check_doctests(test, test_not_returning=True):
+    return n_items_doctested, n_doctests, n_doctests_passed, per_item
+
+def check_doctests(test, test_not_returning=True, only=None):
+    """Checks doctests. If `only` is a collection of function names, only
+    those functions count towards the number of functions and doctests."""
     # retrieve functions from source
     with open(test.fileName, 'r') as source_file:
         source = source_file.read()
@@ -65,7 +73,13 @@ def check_doctests(test, test_not_returning=True):
     if n_functions == 0:
         return False, "je programma moet functies gebruiken (of type hints ontbreken!)"
 
-    n_items_doctested, n_doctests, n_doctests_passed = doctest_stats(test.fileName)
+    n_items_doctested, n_doctests, n_doctests_passed, per_item = doctest_stats(test.fileName)
+
+    if only is not None:
+        counted = {name: n for name, n in per_item.items() if name in only}
+        n_items_doctested = len(counted)
+        n_doctests = sum(counted.values())
+        n_functions_not_returning = 0
 
     if not test_not_returning:
         n_items_doctested -= n_functions_not_returning
